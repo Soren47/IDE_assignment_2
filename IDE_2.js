@@ -54,11 +54,12 @@ function init() {
         d3.select("#plotarea")
             .append('g')
             .attr('transform', 'translate(0,' + (height - padding) + ')')
-            .call(d3.axisBottom(xScale).ticks(10));
+            .call(d3.axisBottom(xScale).ticks(10).tickFormat(d3.format("d")));
+
         d3.select("#plotarea")
             .append('g')
             .attr('transform', 'translate('+padding+', 0)')
-            .call(d3.axisLeft(yScale));
+            .call(d3.axisLeft(yScale).ticks(7).tickFormat(d3.format("d")));
 
         // text label for the y axis
         d3.select("#plotarea").append("text")

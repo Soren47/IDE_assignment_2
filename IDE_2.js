@@ -62,6 +62,14 @@ function init() {
             .text("Meteorological Annual Mean");
 
 
+        // text label for the x axis
+        d3.select("#plotarea").append("text")
+
+            .attr("y", height - (padding/4))
+            .attr("x", width/2)
+            .style("text-anchor", "middle")
+            .text("Year");
+
 
     });
 

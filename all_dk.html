@@ -1,5 +1,12 @@
 <!DOCTYPE html>
+<html>
+<head>
+    <h1 id="id1">The weather changes between 1880-1969 in Denmark</h1>
 <style>
+
+    #id1 {
+        color:black;
+    }
 
     .bar {
         fill: MediumSeaGreen;
@@ -11,6 +18,7 @@
 
 
 </style>
+
 <svg width="1300" height="650"></svg>
 <script src="https://d3js.org/d3.v4.min.js"></script>
 <script>
@@ -35,13 +43,15 @@
         x.domain(data.map(function(d) { return d.YEAR; }));
         y.domain([0, d3.max(data, function(d) { return d.metANN; })]);
 
+
         g.append("g")
             .attr("class", "axis axis--x")
             .attr("transform", "translate(-12," + (height+20) + ")")
-            .call(d3.axisBottom(x))
+            .call(d3.axisBottom(x))//.ticks(10).tickFormat(d3.format("d"))
             .selectAll("text")
                 .attr("transform", "rotate(-90)")
-                .style("font-size","125%");
+                .style("font-size","105%");
+                //.call(d3.axisBottom(xScale).ticks(10).tickFormat(d3.format("d")));
 
         g.append("g")
             .attr("class", "axis axis--y")
@@ -63,3 +73,16 @@
     });
 
 </script>
+</head>
+<body>
+<p> The plot above is a bar plot showing the weather changes (taking into account the meteorological mean temperatures) over 1880-1969 in Denmark. <br/>
+    Our motivation in choosing a bar plot is that, with it we show the differences between the temperature values corresponding to each year and <br/>
+    we can easier make comparisons between them. Using the bar plot, we can also see the distribution of the data. <br/>
+    Here we have considered the period of time (years) as categorical data and the mean annual temperatures as quantitative data.  <br/>
+    We can easily highlight the trend of temperatures in Denmark in the mentioned period. The minimum mean annual temperature was registered in 1888 while the maximum <br/>
+    1949. The temperatures are actually well-balanced with low differences from one year to another. The temperatures vary from 8 to 10 degrees . <br/>
+    The data set consists in a csv file containing a column with the mean annual temperature in Denmark and another one with the year for which we analyze the weather. <br/>
+    Since we want to see the evolution over a long period of time, a better approach could have been to group the categorical data and add a line to highlight <br/>
+    how the weather have changed during the analyzed period. <br/>
+</p>
+</body>

@@ -9,7 +9,7 @@ function init() {
         var width = parseFloat(svg.node().style.width);
         var height = parseFloat(svg.node().style.height);
 
-        var padding = 30;
+        var padding = 50;
 
         var xScale = d3.scaleLinear()
             .domain([1900,
@@ -20,6 +20,10 @@ function init() {
             .range([padding,width-padding]);
 
         var yScale = d3.scaleLinear()
+            .domain([7,13])
+            .range([height-padding, padding]);
+
+        /*var yScale = d3.scaleLinear()
             .domain([d3.min(mydata,
                 function(d){
                     return d.metANN;
@@ -28,25 +32,29 @@ function init() {
                     function(d){
                         return d.metANN;
                     })])
-            .range([height-padding, padding]);
+            .range([height-padding, padding]);*/
 
         d3.select("#plotarea")
             .selectAll("circle")
             .data(mydata)
             .enter()
             .append("circle")
-            .attr("r", "5px")
+            .attr("r", "3px")
             .attr("cx", function(d){
                 return ""+xScale(d.YEAR)+"px";
             })
             .attr("cy", function(d){
+                if (""+yScale(d.metANN) === "NaN")
+                {
+                    console.log(d.metANN + " fjoller. og: " + d.YEAR);
+                }
                 return ""+yScale(d.metANN)+"px";
             });
 
         d3.select("#plotarea")
             .append('g')
             .attr('transform', 'translate(0,' + (height - padding) + ')')
-            .call(d3.axisBottom(xScale).ticks(2));
+            .call(d3.axisBottom(xScale).ticks(10));
         d3.select("#plotarea")
             .append('g')
             .attr('transform', 'translate('+padding+', 0)')

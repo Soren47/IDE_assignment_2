@@ -51,6 +51,18 @@ function init() {
             .append('g')
             .attr('transform', 'translate('+padding+', 0)')
             .call(d3.axisLeft(yScale));
+
+        // text label for the y axis
+        d3.select("#plotarea").append("text")
+            .attr("transform", "rotate(-90)")
+            .attr("y", 0)
+            .attr("x",0 - (height / 2))
+            .attr("dy", "1em")
+            .style("text-anchor", "middle")
+            .text("Value");
+
+
+
     });
 
 

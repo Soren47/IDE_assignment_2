@@ -26,7 +26,7 @@
     var g = svg.append("g")
         .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    d3.csv("dk_temps.csv", function(d) {
+    d3.csv("dk_temp.csv", function(d) {
         d.metANN = +d.metANN;
         return d;
     }, function(error, data) {

@@ -1,65 +1,33 @@
 <!DOCTYPE html>
+<html>
+<head>
 <style>
-
-    .bar {
-        fill: MediumSeaGreen;
+    #id1 {
+        color:black;
     }
 
-    .axis--x path {
+    #barplot .bar{
+        fill: MediumSeaGreen;
+
+    }
+    #barplot .axis--x path {
         display: none;
     }
-
-
 </style>
-<svg width="1300" height="650"></svg>
-<script src="https://d3js.org/d3.v4.min.js"></script>
-<script>
-
-    var svg = d3.select("svg"),
-        margin = {top: 20, right: 20, bottom: 30, left: 40},
-        width = +svg.attr("width") - margin.left - margin.right,
-        height = +svg.attr("height") - margin.top - margin.bottom;
-
-    var x = d3.scaleBand().rangeRound([0, width]).padding(0.1),
-        y = d3.scaleLinear().rangeRound([height, 0]);
-
-    var g = svg.append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-
-    d3.csv("dk_temp.csv", function(d) {
-        d.metANN = +d.metANN;
-        return d;
-    }, function(error, data) {
-        if (error) throw error;
-
-        x.domain(data.map(function(d) { return d.YEAR; }));
-        y.domain([0, d3.max(data, function(d) { return d.metANN; })]);
-
-        g.append("g")
-            .attr("class", "axis axis--x")
-            .attr("transform", "translate(-12," + (height+20) + ")")
-            .call(d3.axisBottom(x))
-            .selectAll("text")
-                .attr("transform", "rotate(-90)")
-                .style("font-size","125%");
-
-        g.append("g")
-            .attr("class", "axis axis--y")
-            .call(d3.axisLeft(y))
-            .append("text")
-            .attr("transform", "rotate(-90)")
-            .attr("y", 6)
-            .attr("dy", "0.71em")
-            .attr("text-anchor", "end");
-
-        g.selectAll(".bar")
-            .data(data)
-            .enter().append("rect")
-            .attr("class", "bar")
-            .attr("x", function(d) { return x(d.YEAR); })
-            .attr("y", function(d) { return y(d.metANN); })
-            .attr("width", x.bandwidth())
-            .attr("height", function(d) { return height - y(d.metANN); });
-    });
-
-</script>
+</head>
+<body>
+<h1 id="id1">The weather changes between 1880-1969 in Denmark</h1>
+<svg id="barplot" width="1300" height="650"></svg>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script type="text/javascript" src="all_dk.js"></script>
+<p> The plot above is a bar plot showing the weather changes (taking into account the meteorological mean temperatures) over 1880-1969 in Denmark. <br/>
+    Our motivation in choosing a bar plot is that, with it we show the differences between the temperature values corresponding to each year and <br/>
+    we can easier make comparisons between them. Using the bar plot, we can also see the distribution of the data. <br/>
+    Here we have considered the period of time (years) as categorical data and the mean annual temperatures as quantitative data.  <br/>
+    We can easily highlight the trend of temperatures in Denmark in the mentioned period. The minimum mean annual temperature was registered in 1888 while the maximum <br/>
+    1949. The temperatures are actually well-balanced with low differences from one year to another. The temperatures vary from 8 to 10 degrees . <br/>
+    The data set consists in a csv file containing a column with the mean annual temperature in Denmark and another one with the year for which we analyze the weather. <br/>
+    Since we want to see the evolution over a long period of time, a better approach could have been to group the categorical data and add a line to highlight <br/>
+    how the weather have changed during the analyzed period. <br/>
+</p>
+</body>

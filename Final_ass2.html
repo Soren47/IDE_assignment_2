@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+    <script type="text/javascript" src="IDE_2.js"></script>
+    <script type="text/javascript" src="all_dk.js"></script>
+    <style>
+        #scatterplot {
+            border:1px solid grey;
+
+        }
+        #scatterplot circle {
+            fill:red;
+        }
+        #scatterplot text {
+            font-size: 10px;
+        }
+
+        #barplot .bar{
+            fill: MediumSeaGreen;
+
+        }
+        #barplot .axis--x path {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<h1>The weather changes over the past 100 years in Bucharest</h1>
+<svg id="scatterplot" style="width:600px; height:400px"></svg>
+<p> The plot above is a scatter plot showing the weather changes (taking into account the meteorological mean temperatures) over the past 100 years in Bucharest. <br/>
+    Note that we don't have values for 1976 and 1980 due to external factors (these points can be seen up in the chart, representing outliers - the values in the data <br/>
+    were 999). <br/>
+    Our motivation in choosing a scatter plot is that we work with continuous data (the mean temperatures over a period of time). Scatter plots are mostly used to indicate <br/>
+    trends or correlations between dimensions. We want to see the trend of the temperatures during a period of time and there is an increase happenning from '90s on.  <br/>
+    The graph might be improved by adding a line between the points to represent better the evolution of the data (the x axis data is order so it would not be an inconvenient). <br/>
+    The data set consists in a csv file containing a column with the mean annual temperature and another one with the year for which we analyze the weather. <br/>
+    From the resulting visualization we can conclude that the temperatures in Bucharest differs from one year to another, in the early '30s and '40s <br/>
+    evolving from 8 to 11,5 degrees, but remaining between these values until '90s. We can notice an increasing temperature from '90s until present <br/>
+    (values between 9 and 12 comparing with lower values in the past). <br/>
+</p>
+<h2>The weather changes between 1880-1969 in Denmark</h2>
+<svg id="barplot" width="1300" height="650"></svg>
+
+<p> The plot above is a bar plot showing the weather changes (taking into account the meteorological mean temperatures) over 1880-1969 in Denmark. <br/>
+    Our motivation in choosing a bar plot is that, with it we show the differences between the temperature values corresponding to each year and <br/>
+    we can easier make comparisons between them. Using the bar plot, we can also see the distribution of the data. <br/>
+    Here we have considered the period of time (years) as categorical data and the mean annual temperatures as quantitative data.  <br/>
+    We can easily highlight the trend of temperatures in Denmark in the mentioned period. The minimum mean annual temperature was registered in 1888 while the maximum <br/>
+    1949. The temperatures are actually well-balanced with low differences from one year to another. The temperatures vary from 8 to 10 degrees . <br/>
+    The data set consists in a csv file containing a column with the mean annual temperature in Denmark and another one with the year for which we analyze the weather. <br/>
+    Since we want to see the evolution over a long period of time, a better approach could have been to group the categorical data and add a line to highlight <br/>
+    how the weather have changed during the analyzed period. <br/>
+</p>
+</body>
+</html>

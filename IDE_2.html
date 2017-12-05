@@ -4,25 +4,21 @@
     <script src="https://d3js.org/d3.v4.min.js"></script>
     <script type="text/javascript" src="IDE_2.js"></script>
     <style>
-        #id1 {
-            color:blue;
-        }
-        #plotarea {
+        #scatterplot {
             border:1px solid grey;
 
         }
-        #plotarea circle {
+        #scatterplot circle {
             fill:red;
         }
-        #plotarea text {
+        #scatterplot text {
             font-size: 10px;
         }
-
     </style>
 </head>
 <body>
     <h1 id="id1">How has the weather changed over the past 100 years in Bucharest</h1>
-    <svg style="width:600px; height:400px" id="plotarea"></svg>
+    <svg style="width:600px; height:400px" id="scatterplot"></svg>
     <p> The plot above is a scatter plot showing the weather changes (taking into account the meteorological mean temperatures) over the past 100 years in Bucharest. <br/>
     Note that we don't have values for 1976 and 1980 due to external factors (these points can be seen up in the chart, representing outliers - the values in the data <br/>
     were 999). <br/>

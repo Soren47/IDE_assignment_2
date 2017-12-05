@@ -33,7 +33,7 @@
             g.append("g")
                 .attr("class", "axis axis--x")
                 .attr("transform", "translate(-12," + (height + 20) + ")")
-                .call(d3.axisBottom(x))//.ticks(10).tickFormat(d3.format("d"))
+                .call(d3.axisBottom(x))
                 .selectAll("text")
                 .attr("transform", "rotate(-90)")
                 .style("font-size", "105%");
@@ -62,6 +62,24 @@
                 .attr("height", function (d) {
                     return height - y(d.metANN);
                 });
+
+            // text label for the y axis
+            d3.select("#barplot").append("text")
+                .attr("transform", "rotate(-90)")
+                .attr("y", 0)
+                .attr("x", 0 - (height / 2))
+                .attr("dy", "1em")
+                .style("text-anchor", "middle")
+                .text("Meteorological Annual Mean");
+
+
+            // text label for the x axis
+            d3.select("#barplot").append("text")
+
+                .attr("y", height - (padding / 4))
+                .attr("x", width / 2)
+                .style("text-anchor", "middle")
+                .text("Year");
         });
     }
 })()

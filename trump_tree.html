@@ -31,9 +31,14 @@
             font-style: italic;
         }
 
-        p {
+        p. {
             padding: 0;
             margin: 0;
+
+        }
+        .photoText {
+
+            font: 20px sans-serif;
         }
 
         div {
@@ -50,9 +55,14 @@
     <script src = "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
     <script src = "https://cdn.rawgit.com/ErikGartner/dTree/2.0.2/dist/dTree.js"></script>
     <script type="text/javascript" src="trump_tree.js"></script>
-    <h1>Trump tree</h1>
+    <h1>The Trump pedigree tree</h1>
     <div id="graph"></div>
-    <img id ="photo" src="ass3_images/Portrait_placeholder.jpg" height="200" width="200">
+    <p id = "nice">
+        Press a name on the pedigree tree and an image of the person will be shown.<br/>
+        For grand children of Donald Trump a family portrait will be shown. <br/>
+        You can move the family tree around by clicking and holding on the tree or the white space around it.
+    </p>
+    <img id ="photo" src="ass3_images/Portrait_placeholder.jpg" height="300" width="300">
     <p id ="photoText">Here an attribution to the author of a a portrait will be shown.</p>
 </body>
 

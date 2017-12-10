@@ -1,11 +1,11 @@
 <!DOCTYPE html>
+<meta charset="utf-8" />
 <head>
     <title>Trump Pedigree Tree</title>
     <style>
         body {
             font: 10px sans-serif;
         }
-
         .linage {
             fill: none;
             stroke: #000;
@@ -20,12 +20,14 @@
             background-color: lightblue;
             border-style: solid;
             border-width: 1px;
+            cursor: pointer;
         }
 
         .woman {
             background-color: pink;
             border-style: solid;
             border-width: 1px;
+            cursor: pointer;
         }
 
         .emphasis {
@@ -46,25 +48,26 @@
             border-style: solid;
             border-color: black;
             max-width: 800px;
+            cursor: Move;
         }
 
     </style>
 </head>
 
 <body>
-    <script src="https://d3js.org/d3.v4.js"></script>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
-    <script src = "https://cdn.rawgit.com/ErikGartner/dTree/2.0.2/dist/dTree.js"></script>
-    <script type="text/javascript" src="trump_tree.js"></script>
-    <h1>The Trump pedigree tree</h1>
-    <div id="graph"></div>
-    <p id = "nice">
-        Press a name on the pedigree tree and an image of the person will be shown.<br/>
-        For grand children of Donald Trump a family portrait will be shown. <br/>
-        You can move the family tree around by clicking and holding on the tree or the white space around it.
-    </p>
-    <img id ="photo" src="ass3_images/Portrait_placeholder.jpg" height="300" width="300">
-    <p id ="photoText">Here an attribution to the author of a a portrait will be shown.</p>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+<script src = "https://cdn.rawgit.com/ErikGartner/dTree/2.0.2/dist/dTree.js"></script>
+<script type="text/javascript" src="trump_tree.js"></script>
+<h1>The Trump pedigree tree</h1>
+<div id="graph"></div>
+<p id = "nice">
+    Press a name on the pedigree tree and an image of the person will be shown.<br/>
+    For grand children of Donald Trump a family portrait will be shown. <br/>
+    You can move the family tree around by clicking and holding on the tree or the white space around it.
+</p>
+<img id ="photo" src="ass3_images/Portrait_placeholder.jpg" height="300" width="300">
+<p id ="photoText">Here an attribution to the author of a a portrait will be shown.</p>
 </body>
 
 </html>

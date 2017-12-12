@@ -156,6 +156,7 @@ function init() {
         .select("img");
 
     d3.select("body").select("#nice").style("font", "20px sans-serif");
+    d3.select("body").select("normalText").style("font", "10px sans-serif");
 
     dTree.init(treeData, {
         target: "#graph",

@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<head>
+    <title>Trump Pedigree Tree</title>
+    <style>
+        body {
+            font: 10px sans-serif;
+            margin: 1cm 0 0 1cm;
+        }
+        .linage {
+            fill: none;
+            stroke: #000;
+        }
+
+        .marriage {
+            fill: none;
+            stroke: black;
+        }
+
+        .man {
+            background-color: lightblue;
+            border-style: solid;
+            border-width: 1px;
+            cursor: pointer;
+        }
+
+        .woman {
+            background-color: pink;
+            border-style: solid;
+            border-width: 1px;
+            cursor: pointer;
+        }
+
+        .emphasis {
+            font-style: italic;
+        }
+
+        p {
+            padding: 0;
+            font-size: 17px;
+        }
+        h2 {
+            font-size: 18px;
+        }
+
+        .normalText {
+            margin: 0.5cm 0cm 1cm 0.5cm;
+            max-width: 800px
+        }
+
+        #graph {
+            border-style: solid;
+            border-color: black;
+            max-width: 800px;
+            cursor: Move;
+        }
+
+        #photo {
+            padding-left: 250px;
+        }
+        #photoText {
+            font: 12px sans-serif;
+            padding-left: 250px;
+            max-width: 500px;
+        }
+
+    </style>
+</head>
+
+<body>
+<script src="https://d3js.org/d3.v4.js"></script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.4/lodash.js"></script>
+<script src = "https://cdn.rawgit.com/ErikGartner/dTree/2.0.2/dist/dTree.js"></script>
+<script type="text/javascript" src="trump_tree.js"></script>
+<h1>The Trump pedigree tree</h1>
+<div id="graph"></div>
+<p class = "normalText">
+    Press a name on the pedigree tree and an image of the person will be shown.<br/>
+    For grandchildren of Donald Trump, a family portrait will be shown. <br/>
+    You can move the family tree around by clicking and holding on the tree or the white space around it.
+</p>
+<img id ="photo" src="ass3_images/Portrait_placeholder.jpg" height="300" width="300">
+<p id ="photoText">Here an attribution to the author of a a portrait will be shown.</p>
+
+<h2>Motivation for choices in visualization</h2>
+<p class="normalText">
+    As a pedigree tree is all about children, the couplings with the most descendants are situated front left in the tree.
+    Naturally, Donald Trump is at the very top. He is central to the matter at hand after all.
+    The Trump family is a very traditional and conservative family, therefore each person's gender is conservatively defined:
+    Pink for women and blue for men. <br/>
+    &emsp;The family tree is quite wide, Donald Trump having many marriages, so the whole tree is not visible and readable all at once.
+    Therefore we have made it possible to drag and zoom in the tree.
+    When you click on a node of a person in the tree, a picture of that person is shown below.
+    Alternatively, the picture could have replaced the node itself, but that would have required too much zooming to make sense.
+    Below the picture, a reference to its origin is displayed.
+</p>
+<h2>Possible improvements to the visualization</h2>
+<p class="normalText">
+    The visualization could be improved by more interactivity and more information about the people and their relations.
+    Furthermore it could have a less awkward initial position/zoom. The connections between nodes could also display what
+    year the connection was established, i.e. birth year of descendants and year of marriage/divorce for partners.<br/>
+    &emsp;An animation could show this changing relations between people even better. This would provide a great chronological
+    overview of the family tree progression. This could show a counter of what the current year was, and then new links of relations
+    between people could pop up, along with new people nodes popping up in the diagram as babies were born.
+    More information about relatives could be shown when they are selected. This could be a summary of a Wikipedia-article,
+    their latest tweets or maybe a link to a photo series. <br/>
+    &emsp;The story itself could easily be guided with what information is shown. A negative story could highlight some of
+    the more unfortunate tweets by Donald Trump, criticize his policies or focus on sexual harassment allegations made against him.
+    A more positive story supporting Donald Trump could show his patriotic tweets, show his big assemblies of people or
+    highlight good policies matching the story.
+</p>
+</body>
+
+</html>

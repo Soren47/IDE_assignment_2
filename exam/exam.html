@@ -27,6 +27,40 @@
             padding-left: 0.5cm;
             max-width: 30cm;
         }
+        #tooltipRel{
+            display: inline-block;
+            position: relative;
+        }
+        /* Tooltip text */
+        .tooltip {
+            visibility: hidden;
+            width: 120px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+            pointer-events: none;
+            /* Position the tooltip text */
+            position: absolute;
+            z-index: 1;
+            margin-left: -59px;
+            margin-top: -39px;
+        }
+        /* Tooltip arrow */
+        .tooltip::after {
+            content: "▼";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            line-height: 5px;
+            margin-left: -8px;
+            display: block;
+            height: 5px;
+            width: 5px;
+            color: #555;
+        }
+
     </style>
 </head>
 
@@ -34,8 +68,12 @@
 
 <h1>Language Typology  of the World</h1>
 <h2>Language Families</h2>
-<div id="viz1">
+<div class="viz1" id='tooltipRel' >
+
     <svg id ="worldMap1"></svg>
+    <div class="tooltip"></div>
+</div>
+<div class="viz1" id='select' >
     <div id = "SelectFamily">
 
         Family
@@ -58,3 +96,4 @@
 
 </body>
 </html>
+

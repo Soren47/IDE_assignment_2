@@ -197,7 +197,11 @@ function init() {
                             if (d["83A Order of Object and Verb"].startsWith("3")) {
                                 // Only take OV and VO:
 
-                                if (d["85A Order of Adposition and Noun Phrase"])
+                                if (d["85A Order of Adposition and Noun Phrase"]) {
+
+                                    return d;
+
+                                }
 
                             }
 

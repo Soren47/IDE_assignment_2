@@ -185,7 +185,13 @@ function init() {
 
                         if (d["83A Order of Object and Verb"] !== "" && d["85A Order of Adposition and Noun Phrase"] !== "") {
 
-                            return d;
+                            if (d["83A Order of Object and Verb"].startsWith("3")) {
+                                // Only take OV and VO:
+
+                                if (d["85A Order of Adposition and Noun Phrase"])
+
+                            }
+
 
                         }
 
@@ -284,7 +290,7 @@ function init() {
 
     });
 
-    d3.select("#p3").on("click", function (d) {
+    d3.select("#p4").on("click", function (d) {
 
         draw_typo_circles(filter_type = "nothing");
 

@@ -59,8 +59,7 @@ function init() {
             //each row remembers the data and the id
                 .data(filterdata,function(d){
                     return d.iso_code;
-                });
-            circle
+                })
                 .enter()
                 .append("circle")
                 .attr("cx", function (d) {
@@ -70,19 +69,20 @@ function init() {
                     return projection([d.longitude, d.latitude])[1];
                 })
                 .attr("r",2)
+                .style('fill','none')
+                .attr('stroke','black')
                 .on("mouseover", function(d){
                     d3.select(".tooltip")
                         .style('visibility', 'visible')
                         .text(d.Name)
                         .style('left', projection([d.longitude, d.latitude])[0] - 30 + 'px')
                         .style('top', projection([d.longitude, d.latitude])[1] + 'px')
-
-
                 })
                 .on("mouseout", function(){
                     d3.select(".tooltip")
                         .style('visibility', 'hidden');
                 });
+
             circle
                 .exit()
                 .remove()

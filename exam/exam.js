@@ -10,7 +10,7 @@ function init() {
         .scale(150) //starting zoom position
         .rotate([10,0]); //where world split occurs
 
-    var svg = d3.select("#worldMap")
+    var svg1 = d3.select("#worldMap1")
         .attr("width", width)
         .attr("height", height);
 
@@ -18,7 +18,7 @@ function init() {
         .projection(projection);
 
     //path
-    var g = svg.append("g");
+    var g = svg1.append("g");
 
     // load and display the world and locations
     d3.json("https://gist.githubusercontent.com/d3noob/5193723/raw/world-110m2.json", function(error, topology) {
@@ -38,9 +38,9 @@ function init() {
             g.selectAll("path")
                 .attr("d", path.projection(projection));
         });
-    svg.call(zoom);
+    svg1.call(zoom);
 
-    d3.csv("language.csv", function(d){
+    d3.csv("data/world-atlas-of-language-structures/language.csv", function(d){
         d.latitude = parseFloat(d.latitude);
         d.longitude = parseFloat(d.longitude);
         return d;
@@ -56,7 +56,7 @@ function init() {
         console.log(group);
 
     function draw_circles(filterdata){
-        var circle = svg.selectAll("circle")
+        var circle = svg1.selectAll("circle")
             //each row remembers the data and the id
             .data(filterdata,function(d){
                 return d.iso_code;

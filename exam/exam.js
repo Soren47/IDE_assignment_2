@@ -72,11 +72,27 @@ function init() {
                 .style('fill','none')
                 .attr('stroke','black')
                 .on("mouseover", function(d){
-                    d3.select(".tooltip")
+                    d3.select(".viz1")
+                        .select(".tooltip")
                         .style('visibility', 'visible')
-                        .text(d.Name)
-                        .style('left', projection([d.longitude, d.latitude])[0] - 30 + 'px')
-                        .style('top', projection([d.longitude, d.latitude])[1] + 'px')
+                        .text("Language: "+d.Name)
+                    var y = d3.select(".viz1")
+                        .select(".tooltip")
+                        .node()
+                        .getBoundingClientRect()
+                        .height;
+                    var x = d3.select(".viz1")
+                        .select(".tooltip")
+                        //get a DOM object from the d3 element
+                        .node()
+                        .getBoundingClientRect()
+                        .width;
+                    d3.select(".viz1")
+                        .select(".tooltip")
+                        .style('left', projection([d.longitude, d.latitude])[0] -x/2+ 'px')
+                        .style('top', projection([d.longitude, d.latitude])[1]-y -8 + 'px')
+
+
                 })
                 .on("mouseout", function(){
                     d3.select(".tooltip")
@@ -259,6 +275,34 @@ function init() {
                     }
 
 
+                })
+                .on("mouseover", function(d) {
+                    d3.select(".viz2")
+                        .select(".tooltip")
+                        .style('visibility', 'visible')
+                        .text("Language: " + d.Name)
+                    var y = d3.select(".viz2")
+                        .select(".tooltip")
+                        .node()
+                        .getBoundingClientRect()
+                        .height;
+                    var x = d3.select(".viz2")
+                        .select(".tooltip")
+                        //get a DOM object from the d3 element
+                        .node()
+                        .getBoundingClientRect()
+                        .width;
+                    d3.select(".viz2")
+                        .select(".tooltip")
+                        .style('left', projection([d.longitude, d.latitude])[0] - x / 2 + 'px')
+                        .style('top', projection([d.longitude, d.latitude])[1] - y - 8 + 'px')
+
+
+                })
+                .on("mouseout", function(){
+                    d3.select(".viz2")
+                        .select(".tooltip")
+                        .style('visibility', 'hidden');
                 });
 
             circles.exit().remove();

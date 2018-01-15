@@ -1,5 +1,3 @@
-<!DOCTYPE html>
-<meta charset="utf-8">
 <head>
     <meta charset="UTF-8">
     <script src="https://d3js.org/d3.v4.min.js"></script>
@@ -26,11 +24,7 @@
             padding-left: 0.5cm;
             max-width: 30cm;
         }
-        #tooltipRel{
-            display: inline-block;
-            position: relative;
-        }
-        #tooltipRel2{
+        .tooltipContainer{
             display: inline-block;
             position: relative;
         }
@@ -41,14 +35,13 @@
             background-color: #555;
             color: #fff;
             text-align: center;
-            padding: 5px 0;
+            padding: 5px;
             border-radius: 6px;
             pointer-events: none;
             /* Position the tooltip text */
             position: absolute;
             z-index: 1;
-            margin-left: -59px;
-            margin-top: -39px;
+
         }
         /* Tooltip arrow */
         .tooltip::after {
@@ -57,69 +50,37 @@
             top: 100%;
             left: 50%;
             line-height: 5px;
-            margin-left: -8px;
+            margin-left: -7px;
             display: block;
             height: 5px;
             width: 5px;
             color: #555;
         }
-        .tooltip2 {
-            visibility: hidden;
-            width: 180px;
-            background-color: #555;
-            color: #fff;
-            text-align: center;
-            padding: 5px 0;
-            border-radius: 6px;
-            pointer-events: none;
-            /* Position the tooltip text */
-            position: absolute;
-            z-index: 1;
-            margin-left: -59px;
-            margin-top: -39px;
-        }
-        /* Tooltip arrow */
-        .tooltip2::after {
-            content: "▼";
-            position: absolute;
-            top: 100%;
-            left: 50%;
-            line-height: 5px;
-            margin-left: -8px;
-            display: block;
-            height: 5px;
-            width: 5px;
-            color: #555;
-        }
+
     </style>
 </head>
 
 <body>
 
 <h1>Language Typology  of the World</h1>
-<h2>Language Families</h2>
-<div class="viz1" id='tooltipRel' >
 
+<h2>Language Families</h2>
+<div class="viz1 tooltipContainer" >
     <svg id ="worldMap1"></svg>
     <div class="tooltip"></div>
 </div>
 <div class="viz1" id='select' >
     <div id = "SelectFamily">
-
         Family
-
         <select id = "family">
-
         </select>
-
     </div>
 </div>
 
 <h2>Linguistic Universals</h2>
-
-<div class="viz2" id='tooltipRel2' >
-        <svg id ="worldMap2"></svg>
-        <div class="tooltip2"></div>
+<div class="viz2 tooltipContainer" >
+    <svg id ="worldMap2"></svg>
+    <div class="tooltip"></div>
 </div>
 <div class="viz2">
     <div id="p1">Nasal consonants</div>

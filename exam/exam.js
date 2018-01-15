@@ -10,20 +10,20 @@ function init() {
         .scale(150) //starting zoom position
         .rotate([10,0]); //where world split occurs
 
+    var path = d3.geoPath()
+        .projection(projection);
+
     var svg1 = d3.select("#worldMap1")
         .attr("width", width)
         .attr("height", height);
 
-    var path = d3.geoPath()
-        .projection(projection);
-
     //path
-    var g = svg1.append("g");
+    var g1 = svg1.append("g");
 
     // load and display the world and locations
     //d3.json("https://gist.githubusercontent.com/d3noob/5193723/raw/world-110m2.json", function(error, topology) {
     d3.json("data/world-110m2.json", function(error, topology) {
-        var world = g.selectAll("path")
+        var world = g1.selectAll("path")
             .data(topojson.object(topology, topology.objects.countries).geometries)
             .enter()
             .append("path")
@@ -34,9 +34,9 @@ function init() {
     //zoom and pan functionality
     var zoom = d3.zoom()
         .on("zoom",function() {
-            g.attr("transform","translate("+
+            g1.attr("transform","translate("+
                 d3.event.translate.join(",")+")scale("+d3.event.scale+")");
-            g.selectAll("path")
+            g1.selectAll("path")
                 .attr("d", path.projection(projection));
         });
     svg1.call(zoom);
@@ -103,5 +103,40 @@ function init() {
         })
 
     });
+
+
+
+    // Making the second map of typology:
+
+
+
+    var svg2 = d3.select("#worldMap2")
+        .attr("width", width)
+        .attr("height", height);
+
+
+    var g2 = svg2.append("g");
+
+    d3.json("data/world-110m2.json", function(error, topology) {
+        var world = g2.selectAll("path")
+            .data(topojson.object(topology, topology.objects.countries).geometries)
+            .enter()
+            .append("path")
+            .attr("d", path)
+
+    });
+
+
+    var zoom2 = d3.zoom()
+        .on("zoom",function() {
+            g2.attr("transform","translate("+
+                d3.event.translate.join(",")+")scale("+d3.event.scale+")");
+            g2.selectAll("path")
+                .attr("d", path.projection(projection));
+        });
+    svg2.call(zoom2)
+
+
+
 
 }

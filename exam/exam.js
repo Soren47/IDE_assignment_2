@@ -21,7 +21,8 @@ function init() {
     var g = svg1.append("g");
 
     // load and display the world and locations
-    d3.json("https://gist.githubusercontent.com/d3noob/5193723/raw/world-110m2.json", function(error, topology) {
+    //d3.json("https://gist.githubusercontent.com/d3noob/5193723/raw/world-110m2.json", function(error, topology) {
+    d3.json("data/world-110m2.json", function(error, topology) {
         var world = g.selectAll("path")
             .data(topojson.object(topology, topology.objects.countries).geometries)
             .enter()

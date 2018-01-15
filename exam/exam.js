@@ -134,8 +134,90 @@ function init() {
             g2.selectAll("path")
                 .attr("d", path.projection(projection));
         });
-    svg2.call(zoom2)
+    svg2.call(zoom2);
 
+
+    function draw_typo_circles(filter_type) {
+
+        d3.csv("data/world-atlas-of-language-structures/language.csv", function (atlas_data) {
+
+            var circles = svg2.selectAll("circle")
+                .data(atlas_data.filter(function (d) {
+
+                    if (filter_type === "n_consonants") {
+
+                        // Linguistic tendency: Almost all languages have nasal consonants.
+                        // Show those without in another color.
+
+                        if (d["18A Absence of Common Consonants"] !== "") {
+                            // Only return the data point if it is a part of the study
+                            // into the absense of consonants.
+                            return d;
+
+                        }
+
+                    }
+
+                    else {
+                        return d;
+                    }
+
+                }));
+
+
+            circles.enter()
+                .append("circle")
+                .attr("r",2)
+                .attr("cx", function (d) {
+                    //return projection([d.longitude, d.latitude])[0];
+
+                    /*console.log("'" + d.Name + ":'" + d["10A Vowel Nasalization"] + "'" + "''");
+
+                    if (d["10A Vowel Nasalization"] === "") {
+                        console.log("F");
+                    }*/
+
+                    return projection([d["longitude"], d["latitude"]])[0];
+                })
+                .attr("cy", function(d) {
+                    //return projection([d.longitude, d.latitude])[1];
+                    return projection([d["longitude"], d["latitude"]])[1];
+                })
+                .style('fill', 'none')
+                .attr("stroke", function(d){
+                    // Color according to filter type:
+
+                    if (filter_type === "n_consonants") {
+
+                        if (d["18A Absence of Common Consonants"].includes("nasal")) {
+
+                            return "red";
+
+                        }
+                        else {
+                            return "black";
+                        }
+                    }
+
+                    else {
+                        // If no filter type:
+                        return "black";
+
+                    }
+
+
+                });
+
+
+
+
+
+        });
+
+
+    }
+
+    draw_typo_circles(filter_type = "n_consonants");
 
 
 

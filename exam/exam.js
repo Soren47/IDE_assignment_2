@@ -158,6 +158,33 @@ function init() {
 
                     }
 
+                    else if (filter_type === "n_vowels") {
+
+                        // Linguistic UNI-directional tendency:
+                        // If a language has nasal vowels, it also has oral vowels.
+
+                        if (d["10A Vowel Nasalization"] !== "") {
+
+                            return d;
+
+                        }
+
+                    }
+
+                    else if (filter_type === "word_order_post_pre_pos") {
+
+                        // Linguistic BI-directional tendency:
+                        // If a language is OV it has POST positionals. If Vo it has PRE-positionals.
+                        // Only a tendency - only MOST languages.
+
+                        if (d["83A Order of Object and Verb"] !== "" && d["85A Order of Adposition and Noun Phrase"] !== "") {
+
+                            return d;
+
+                        }
+
+                    }
+
                     else {
                         return d;
                     }
@@ -168,6 +195,7 @@ function init() {
             circles.enter()
                 .append("circle")
                 .attr("r",2)
+                .merge(circles)
                 .attr("cx", function (d) {
                     //return projection([d.longitude, d.latitude])[0];
 
@@ -188,6 +216,7 @@ function init() {
                     // Color according to filter type:
 
                     if (filter_type === "n_consonants") {
+                        // Color according to presence or absence of nasal consonants.
 
                         if (d["18A Absence of Common Consonants"].includes("nasal")) {
 
@@ -199,6 +228,19 @@ function init() {
                         }
                     }
 
+                    else if (filter_type === "n_vowels") {
+
+                        if (d["10A Vowel Nasalization"].includes("present")) {
+                            // The language has nasal vowels.
+
+                            return "red";
+                        }
+                        else {
+                            return "black";
+                        }
+
+                    }
+
                     else {
                         // If no filter type:
                         return "black";
@@ -208,7 +250,7 @@ function init() {
 
                 });
 
-
+            circles.exit().remove();
 
 
 
@@ -219,6 +261,27 @@ function init() {
 
     draw_typo_circles(filter_type = "n_consonants");
 
+    d3.select("#p1").on("click", function (d) {
 
+        draw_typo_circles(filter_type = "n_consonants");
 
+    });
+
+    d3.select("#p2").on("click", function (d) {
+
+        draw_typo_circles(filter_type = "n_vowels");
+
+    });
+
+    d3.select("#p3").on("click", function (d) {
+
+        draw_typo_circles(filter_type = "word_order_post_pre_pos");
+
+    });
+
+    d3.select("#p3").on("click", function (d) {
+
+        draw_typo_circles(filter_type = "nothing");
+
+    });
 }

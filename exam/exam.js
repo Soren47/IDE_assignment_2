@@ -56,51 +56,67 @@ function init() {
             .map(data);
         console.log(group);
 
-    function draw_circles(filterdata){
-        var circle = svg1.selectAll("circle")
+        function draw_circles(filterdata){
+            var circle = svg1.selectAll("circle")
             //each row remembers the data and the id
-            .data(filterdata,function(d){
-                return d.iso_code;
-            });
-        circle
+                .data(filterdata,function(d){
+                    return d.iso_code;
+                });
+            circle
+                .enter()
+                .append("circle")
+                .attr("cx", function (d) {
+                    return projection([d.longitude, d.latitude])[0];
+                })
+                .attr("cy", function(d) {
+                    return projection([d.longitude, d.latitude])[1];
+                })
+                .attr("r",2)
+                .on("mouseover", function(d){
+                    d3.select(".tooltip")
+                        .style('visibility', 'visible')
+                        .text("Language: " + d.Name)
+                        .style('left', (d3.event.pageX-9) + 'px')
+                        .style('top', (d3.event.pageY - 135) + 'px')
+                        //.style('left', '' + d.Name + 'px')
+                        //.style('top', '' + (pca_yScale(d[index_y])-3) + 'px');
+
+
+                })
+                .on("mouseout", function(){
+                    d3.select(".tooltip")
+                        .style('visibility', 'hidden');
+                });
+            circle
+                .exit()
+                .remove()
+
+        }
+
+
+        var circles = draw_circles(data);
+        //console.log(projection([data[0].longitude, data[0].latitude]))
+        //console.log(data[0])
+
+        var language_selection = d3.select("#family")
+            .selectAll("option")
+            //turn the map into an array
+            .data(group.entries())
             .enter()
-            .append("circle")
-            .attr("cx", function (d) {
-                return projection([d.longitude, d.latitude])[0];
+            .append("option")
+            .text(function (i) {
+                return i.key;
+            });
+
+        var selected_element = d3.select("#family")
+            .on("change", function(){
+
+                //console.log(selected_element.property("value"));
+                //console.log(group.get(selected_element.property("value")))
+                draw_circles(group.get(selected_element.property("value")));
+
+
             })
-            .attr("cy", function(d) {
-                return projection([d.longitude, d.latitude])[1];
-            })
-            .attr("r",2);
-        circle
-            .exit()
-            .remove()
-    }
-
-
-    draw_circles(data);
-    //console.log(projection([data[0].longitude, data[0].latitude]))
-    //console.log(data[0])
-
-    var language_selection = d3.select("#family")
-        .selectAll("option")
-        //turn the map into an array
-        .data(group.entries())
-        .enter()
-        .append("option")
-        .text(function (i) {
-            return i.key;
-        });
-
-    var selected_element = d3.select("#family")
-        .on("change", function(){
-
-            //console.log(selected_element.property("value"));
-            //console.log(group.get(selected_element.property("value")))
-            draw_circles(group.get(selected_element.property("value")));
-
-
-        })
 
     });
 
@@ -172,7 +188,6 @@ function init() {
                     //return projection([d.longitude, d.latitude])[0];
 
                     /*console.log("'" + d.Name + ":'" + d["10A Vowel Nasalization"] + "'" + "''");
-
                     if (d["10A Vowel Nasalization"] === "") {
                         console.log("F");
                     }*/

@@ -15,7 +15,15 @@ function init() {
 
     var svg1 = d3.select("#worldMap1")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .call(d3.zoom()
+            .scaleExtent([0.55, 30])
+            .translateExtent([[-125, -160], [width + 22, height + 252]]) //limits of panning to fit edges of map
+            .on("zoom", function () {
+                svg1.attr("transform", d3.event.transform)
+            })
+        )
+        .append("g");
 
     //path
     var g1 = svg1.append("g");
@@ -30,16 +38,6 @@ function init() {
             .attr("d", path)
 
     });
-
-    //zoom and pan functionality
-    var zoom = d3.zoom()
-        .on("zoom",function() {
-            g1.attr("transform","translate("+
-                d3.event.translate.join(",")+")scale("+d3.event.scale+")");
-            g1.selectAll("path")
-                .attr("d", path.projection(projection));
-        });
-    svg1.call(zoom);
 
     d3.csv("data/world-atlas-of-language-structures/language.csv", function(d){
         d.latitude = parseFloat(d.latitude);
@@ -119,14 +117,19 @@ function init() {
     });
 
 
-
     // Making the second map of typology:
-
-
 
     var svg2 = d3.select("#worldMap2")
         .attr("width", width)
-        .attr("height", height);
+        .attr("height", height)
+        .call(d3.zoom()
+            .scaleExtent([0.55, 30])
+            .translateExtent([[-125, -160], [width + 22, height + 252]]) //limits of panning to fit edges of map
+            .on("zoom", function () {
+                svg2.attr("transform", d3.event.transform)
+            })
+        )
+        .append("g");
 
 
     var g2 = svg2.append("g");
@@ -139,17 +142,6 @@ function init() {
             .attr("d", path)
 
     });
-
-
-    var zoom2 = d3.zoom()
-        .on("zoom",function() {
-            g2.attr("transform","translate("+
-                d3.event.translate.join(",")+")scale("+d3.event.scale+")");
-            g2.selectAll("path")
-                .attr("d", path.projection(projection));
-        });
-    svg2.call(zoom2);
-
 
     function draw_typo_circles(filter_type) {
 

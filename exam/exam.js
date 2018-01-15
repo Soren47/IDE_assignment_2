@@ -15,15 +15,7 @@ function init() {
 
     var svg1 = d3.select("#worldMap1")
         .attr("width", width)
-        .attr("height", height)
-        .call(d3.zoom()
-            .scaleExtent([0.55, 30])
-            .translateExtent([[-125, -160], [width + 22, height + 252]]) //limits of panning to fit edges of map
-            .on("zoom", function () {
-                svg1.attr("transform", d3.event.transform)
-            })
-        )
-        .append("g");
+        .attr("height", height);
 
     //path
     var g1 = svg1.append("g");
@@ -38,6 +30,16 @@ function init() {
             .attr("d", path)
 
     });
+
+    //zoom and pan functionality
+    var zoom = d3.zoom()
+        .on("zoom",function() {
+            g1.attr("transform","translate("+
+                d3.event.translate.join(",")+")scale("+d3.event.scale+")");
+            g1.selectAll("path")
+                .attr("d", path.projection(projection));
+        });
+    svg1.call(zoom);
 
     d3.csv("data/world-atlas-of-language-structures/language.csv", function(d){
         d.latitude = parseFloat(d.latitude);
@@ -69,6 +71,7 @@ function init() {
                 .attr("cy", function(d) {
                     return projection([d.longitude, d.latitude])[1];
                 })
+                //.style('fill', 'none')
                 .attr("r",2)
                 .on("mouseover", function(d){
                     d3.select(".tooltip")
@@ -117,19 +120,14 @@ function init() {
     });
 
 
+
     // Making the second map of typology:
+
+
 
     var svg2 = d3.select("#worldMap2")
         .attr("width", width)
-        .attr("height", height)
-        .call(d3.zoom()
-            .scaleExtent([0.55, 30])
-            .translateExtent([[-125, -160], [width + 22, height + 252]]) //limits of panning to fit edges of map
-            .on("zoom", function () {
-                svg2.attr("transform", d3.event.transform)
-            })
-        )
-        .append("g");
+        .attr("height", height);
 
 
     var g2 = svg2.append("g");
@@ -142,6 +140,17 @@ function init() {
             .attr("d", path)
 
     });
+
+
+    var zoom2 = d3.zoom()
+        .on("zoom",function() {
+            g2.attr("transform","translate("+
+                d3.event.translate.join(",")+")scale("+d3.event.scale+")");
+            g2.selectAll("path")
+                .attr("d", path.projection(projection));
+        });
+    svg2.call(zoom2);
+
 
     function draw_typo_circles(filter_type) {
 
@@ -259,6 +268,19 @@ function init() {
                     }
 
 
+                })
+                .on("mouseover", function(d){
+                    d3.select(".tooltip2")
+                        .style('visibility', 'visible')
+                        .text(d.Name)
+                        .style('left', projection([d.longitude, d.latitude])[0] - 30 + 'px')
+                        .style('top', projection([d.longitude, d.latitude])[1] + 'px')
+
+
+                })
+                .on("mouseout", function(){
+                    d3.select(".tooltip2")
+                        .style('visibility', 'hidden');
                 });
 
             circles.exit().remove();

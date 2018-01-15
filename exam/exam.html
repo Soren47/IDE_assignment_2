@@ -30,6 +30,10 @@
             display: inline-block;
             position: relative;
         }
+        #tooltipRel2{
+            display: inline-block;
+            position: relative;
+        }
         /* Tooltip text */
         .tooltip {
             visibility: hidden;
@@ -48,6 +52,34 @@
         }
         /* Tooltip arrow */
         .tooltip::after {
+            content: "▼";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            line-height: 5px;
+            margin-left: -8px;
+            display: block;
+            height: 5px;
+            width: 5px;
+            color: #555;
+        }
+        .tooltip2 {
+            visibility: hidden;
+            width: 180px;
+            background-color: #555;
+            color: #fff;
+            text-align: center;
+            padding: 5px 0;
+            border-radius: 6px;
+            pointer-events: none;
+            /* Position the tooltip text */
+            position: absolute;
+            z-index: 1;
+            margin-left: -59px;
+            margin-top: -39px;
+        }
+        /* Tooltip arrow */
+        .tooltip2::after {
             content: "▼";
             position: absolute;
             top: 100%;
@@ -84,12 +116,16 @@
 </div>
 
 <h2>Linguistic Universals</h2>
-<div id="viz2">
-    <svg id ="worldMap2"></svg>
-    <p id="p1">Nasal consonants</p>
-    <p id="p2">Nasal vowels</p>
-    <p id="p3">OV or VO and Post- or Prepositions</p>
-    <p id="p4">No filter</p>
+
+<div class="viz2" id='tooltipRel2' >
+        <svg id ="worldMap2"></svg>
+        <div class="tooltip2"></div>
+</div>
+<div class="viz2">
+    <div id="p1">Nasal consonants</div>
+    <div id="p2">Nasal vowels</div>
+    <div id="p3">OV or VO and Post- or Prepositions</div>
+    <div id="p4">No filter</div>
 </div>
 
 </body>

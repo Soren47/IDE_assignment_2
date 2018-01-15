@@ -75,11 +75,9 @@ function init() {
                 .on("mouseover", function(d){
                     d3.select(".tooltip")
                         .style('visibility', 'visible')
-                        .text("Language: " + d.Name)
-                        .style('left', (d3.event.pageX-9) + 'px')
-                        .style('top', (d3.event.pageY - 135) + 'px')
-                        //.style('left', '' + d.Name + 'px')
-                        //.style('top', '' + (pca_yScale(d[index_y])-3) + 'px');
+                        .text(d.Name)
+                        .style('left', projection([d.longitude, d.latitude])[0] - 30 + 'px')
+                        .style('top', projection([d.longitude, d.latitude])[1] + 'px')
 
 
                 })

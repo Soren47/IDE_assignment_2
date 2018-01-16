@@ -164,28 +164,43 @@ function init() {
 
             var symbol = d3.symbol();
 
-            var points = svg2.selectAll('circle')
-                .data(atlas_data)
+            var featured = atlas_data.filter(function(d) {
+                if (d['1A Consonant Inventories'] !== '') {return d}
+            });
+
+            var points = svg2.selectAll('rect')
+                .data(featured)
                 .enter()
-                .append("circle")
-                .attr("cx", function (d) {
+                .append('rect')
+                .attr("width", 1.5)
+                .attr("height", 1.5)
+                //.attr("transform", "rotate(90)")
+                .attr("x", function (d) {
                     return projection([d.longitude, d.latitude])[0];
                 })
-                .attr("cy", function(d) {
+                .attr("y", function(d) {
                     return projection([d.longitude, d.latitude])[1];
                 })
-                .attr("r",1.5)
+                //.attr("r",1.5)
                 .attr('fill','none')
                 .style('stroke', function(d) {
-                    if (d['1A Consonant Inventories'] === '1 Small') {return 'DarkOrange';}
+                    if (d['1A Consonant Inventories'] === '1 Small') {return 'Indigo';}
                     else if (d['1A Consonant Inventories'] === '2 Moderately small') {return 'Chartreuse';}
                     else if (d['1A Consonant Inventories'] === '3 Average') {return 'Red';}
-                    else if (d['1A Consonant Inventories'] === '4 Moderately large') {return 'yellow';}
+                    else if (d['1A Consonant Inventories'] === '4 Moderately large') {return 'Yellow';}
                     else return 'black';})
-                //.attr("d", symbol.type(d3.symbolTriangle)) wont work like this, requires path instead of circle and some other shit
-                // vowels to check (and shape) for:   2A Vowel Quality Inventories
-                // categories:  1 Small (2-4)  ,  2 Average (5-6)  ,  3 Large (7-14)
-
+                .attr("rx", function(d) {
+                    // Make circle or square:
+                    // 1.5 == circle. 0 == Square.
+                    if (d['2A Vowel Quality Inventories'] === '1 Small (2-4)') {
+                        return 1.5;
+                    }
+                    else if (d['2A Vowel Quality Inventories'] === '2 Average (5-6)') {
+                        return 1.5;
+                    }
+                    else return 0; //trying to rotate this instead
+                })
+                
                 .on("mouseover", function(d) {
                     d3.select(".viz2")
                         .select(".tooltip")

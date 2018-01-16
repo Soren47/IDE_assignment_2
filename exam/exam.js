@@ -114,21 +114,22 @@ function init() {
         var language_selection = d3.select("#family")
             .selectAll("option")
             //turn the map into an array
-            .data(group.entries())
+            .data(['All'].concat(group.keys().sort()))
             .enter()
             .append("option")
-            .text(function (i) {
-                return i.key;
+            .text(function (d) {
+                return d;
             });
 
         var selected_element = d3.select("#family")
             .on("change", function(){
 
-                //console.log(selected_element.property("value"));
-                //console.log(group.get(selected_element.property("value")))
-                draw_circles(group.get(selected_element.property("value")));
+                var family = selected_element.property("value");
 
-
+                if (family === 'All') {
+                    draw_circles(data);
+                }
+                else draw_circles(group.get(family));
             })
 
     });

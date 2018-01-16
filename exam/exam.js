@@ -59,8 +59,9 @@ function init() {
             //each row remembers the data and the id
                 .data(filterdata,function(d){
                     return d.iso_code;
-                })
-                .enter()
+                });
+
+            circle.enter()
                 .append("circle")
                 .attr("cx", function (d) {
                     return projection([d.longitude, d.latitude])[0];

@@ -69,7 +69,7 @@ function init() {
                 .attr("cy", function(d) {
                     return projection([d.longitude, d.latitude])[1];
                 })
-                .attr("r",2)
+                .attr("r",1.5)
                 .style('fill','none')
                 .attr('stroke','black')
                 .on("mouseover", function(d){
@@ -164,7 +164,7 @@ function init() {
 
         d3.csv("data/world-atlas-of-language-structures/language.csv", function (atlas_data) {
 
-            var circles = svg2.selectAll("circle")
+            var circles = svg2.selectAll("rect")
                 .data(atlas_data.filter(function (d) {
 
                     if (filter_type === "n_consonants") {
@@ -202,16 +202,17 @@ function init() {
 
                         if (d["83A Order of Object and Verb"] !== "" && d["85A Order of Adposition and Noun Phrase"] !== "") {
 
-                            if (d["83A Order of Object and Verb"].startsWith("3")) {
+                            if (!( d["83A Order of Object and Verb"].startsWith("3") ) ) {
                                 // Only take OV and VO:
 
-                                return d;
+                                if ( d["85A Order of Adposition and Noun Phrase"].startsWith("1")
+                                    || d["85A Order of Adposition and Noun Phrase"].startsWith("2") ) {
+                                    // Onle take Postpositions and prepositions.
 
+                                    return d;
+                                }
                             }
-
-
                         }
-
                     }
 
                     else {
@@ -222,10 +223,45 @@ function init() {
 
 
             circles.enter()
-                .append("circle")
-                .attr("r",2)
+                .append("rect")
+                .attr("width", 1.5)
+                .attr("height", 1.5)
                 .merge(circles)
-                .attr("cx", function (d) {
+                .attr("rx", function(d) {
+                    // Make circle or square:
+                    // 1.5 == circle. 0 == Square.
+                    if (filter_type === "word_order_post_pre_pos") {
+                        if ( d["85A Order of Adposition and Noun Phrase"].startsWith("1") ) {
+                            // if post position: Circle:
+                            return 1.5;
+                        }
+                        else {
+                            // if pre position: square:
+                            return 0;
+                        }
+                    }
+                    else {
+                        return 1.5;
+                    }
+                })
+                .attr("ry", function(d) {
+                    // Make circle or square:
+                    // 1.5 == circle. 0 == Square.
+                    if (filter_type === "word_order_post_pre_pos") {
+                        if ( d["85A Order of Adposition and Noun Phrase"].startsWith("1") ) {
+                            // if post position: Circle:
+                            return 1.5;
+                        }
+                        else {
+                            // if pre position: square:
+                            return 0;
+                        }
+                    }
+                    else {
+                        return 1.5;
+                    }
+                })
+                .attr("x", function (d) {
                     //return projection([d.longitude, d.latitude])[0];
 
                     /*console.log("'" + d.Name + ":'" + d["10A Vowel Nasalization"] + "'" + "''");
@@ -235,7 +271,7 @@ function init() {
 
                     return projection([d["longitude"], d["latitude"]])[0];
                 })
-                .attr("cy", function(d) {
+                .attr("y", function(d) {
                     //return projection([d.longitude, d.latitude])[1];
                     return projection([d["longitude"], d["latitude"]])[1];
                 })
@@ -269,6 +305,19 @@ function init() {
 
                     }
 
+                    else if (filter_type === "word_order_post_pre_pos") {
+
+                        if ( d["83A Order of Object and Verb"].startsWith("1") ) {
+                            // If OV: Black:
+                            return "black";
+                        }
+                        else {
+                            // if VO: red:
+                            return "red";
+                        }
+
+                    }
+
                     else {
                         // If no filter type:
                         return "black";
@@ -281,7 +330,7 @@ function init() {
                     d3.select(".viz2")
                         .select(".tooltip")
                         .style('visibility', 'visible')
-                        .text("Language: " + d.Name)
+                        .text("Language: " + d.Name);
                     var y = d3.select(".viz2")
                         .select(".tooltip")
                         .node()
@@ -309,13 +358,13 @@ function init() {
             circles.exit().remove();
 
 
-
         });
 
 
     }
+    // Initialize map:
+    draw_typo_circles(filter_type = "nothing");
 
-    draw_typo_circles(filter_type = "n_consonants");
 
     d3.select("#p1").on("click", function (d) {
 

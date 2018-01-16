@@ -43,16 +43,13 @@ function init() {
         d.latitude = parseFloat(d.latitude);
         d.longitude = parseFloat(d.longitude);
         return d;
-    }, function(data) {
-        //console.log(data);
-        //data[0]
+        }, function(data) {
         var group = d3.nest()
             .key(function(d){
                 return d.family
             })
             .sortKeys(d3.ascending)
             .map(data);
-        console.log(group);
 
         function draw_circles(filterdata){
             var circle = svg1.selectAll("circle")
@@ -76,7 +73,7 @@ function init() {
                     d3.select(".viz1")
                         .select(".tooltip")
                         .style('visibility', 'visible')
-                        .text("Language: "+d.Name)
+                        .text("Language: "+d.Name);
                     var y = d3.select(".viz1")
                         .select(".tooltip")
                         .node()
@@ -165,6 +162,64 @@ function init() {
 
         d3.csv("data/world-atlas-of-language-structures/language.csv", function (atlas_data) {
 
+            var symbol = d3.symbol();
+
+            var points = svg2.selectAll('circle')
+                .data(atlas_data)
+                .enter()
+                .append("circle")
+                .attr("cx", function (d) {
+                    return projection([d.longitude, d.latitude])[0];
+                })
+                .attr("cy", function(d) {
+                    return projection([d.longitude, d.latitude])[1];
+                })
+                .attr("r",1.5)
+                .attr('fill','none')
+                .style('stroke', function(d) {
+                    if (d['1A Consonant Inventories'] === '1 Small') {return 'DarkOrange';}
+                    else if (d['1A Consonant Inventories'] === '2 Moderately small') {return 'Chartreuse';}
+                    else if (d['1A Consonant Inventories'] === '3 Average') {return 'Red';}
+                    else if (d['1A Consonant Inventories'] === '4 Moderately large') {return 'yellow';}
+                    else return 'black';})
+                //.attr("d", symbol.type(d3.symbolTriangle)) wont work like this, requires path instead of circle and some other shit
+                // vowels to check (and shape) for:   2A Vowel Quality Inventories
+                // categories:  1 Small (2-4)  ,  2 Average (5-6)  ,  3 Large (7-14)
+
+                .on("mouseover", function(d) {
+                    d3.select(".viz2")
+                        .select(".tooltip")
+                        .style('visibility', 'visible')
+                        .text("Language: " + d.Name);
+                    var y = d3.select(".viz2")
+                        .select(".tooltip")
+                        .node()
+                        .getBoundingClientRect()
+                        .height;
+                    var x = d3.select(".viz2")
+                        .select(".tooltip")
+                        //get a DOM object from the d3 element
+                        .node()
+                        .getBoundingClientRect()
+                        .width;
+                    d3.select(".viz2")
+                        .select(".tooltip")
+                        .style('left', projection([d.longitude, d.latitude])[0] - x / 2 + 'px')
+                        .style('top', projection([d.longitude, d.latitude])[1] - y - 8 + 'px')
+
+
+                })
+                .on("mouseout", function(){
+                    d3.select(".viz2")
+                        .select(".tooltip")
+                        .style('visibility', 'hidden')});
+
+
+
+
+
+
+/*
             var circles = svg2.selectAll("rect")
                 .data(atlas_data.filter(function (d) {
 
@@ -270,6 +325,9 @@ function init() {
                         console.log("F");
                     }*/
 
+
+/*
+
                     return projection([d["longitude"], d["latitude"]])[0];
                 })
                 .attr("y", function(d) {
@@ -357,7 +415,7 @@ function init() {
                 });
 
             circles.exit().remove();
-
+*/
 
         });
 

@@ -39,11 +39,49 @@ function init() {
 
     });
 
+    // Explaining shapes and colours
+    var offset = 15;
+    //var colours = ['Indigo','Chartreuse','Red','Yellow','Black'];
+    d3.select('#explain')
+        .selectAll('circle')
+        .data(['Indigo','Chartreuse','Red','Yellow','Black'])
+        .enter()
+        .append('circle')
+        .attr('r',10)
+        .style('fill',function(d) {return d})
+        .attr('cx',25)
+        .attr('cy', function(d) {;return offset += 25})
+
+    d3.select('#explain').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset += 40}).attr('rx',150);
+
+    d3.select('#explain').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset += 30}).attr('rx',0);
+
+    d3.select('#explain').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
+        .style('stroke-width',3).attr('x',5).attr('y', function(d) {;return offset += 37}).attr('rx',0)
+        .attr('transform',"rotate(45, " + (25) + "," + (offset+20) +")");
+
+    var offset = -5;
+    d3.select('#explain').selectAll('text')
+        .data(['Consonant Amount','Small','Moderately Small','Average','Moderately Large','Large',
+            'Distinct Vowel Amount','Small (2-4)','Average (5-6)','Large (7-14)'])
+        .enter()
+        .append('text')
+        .attr('x', function(d) {
+            if (d === 'Consonant Amount') {return 5}
+            else if (d === 'Distinct Vowel Amount') {return 5}
+            else return 45})
+        .attr('y', function(d) {
+            if (d.endsWith(')')) {console.log(d);return offset += 28}
+            else return offset += 25})
+        .text(function (d) {return d});
+
     d3.csv("data/world-atlas-of-language-structures/language.csv", function(d) {
         d.latitude = parseFloat(d.latitude);
         d.longitude = parseFloat(d.longitude);
         return d;
-        }, function(data) {
+    }, function(data) {
         var group = d3.nest()
             .key(function(d){
                 return d.family
@@ -520,57 +558,57 @@ function init() {
                         .style('visibility', 'hidden');
                 });
 
-                if (filter_type = "nothing") {
+            if (filter_type = "nothing") {
 
-                    circles.on("click", function(d) {
+                circles.on("click", function(d) {
 
-                        console.log("THIS          IS        RUN       APPARENTLY");
+                    console.log("THIS          IS        RUN       APPARENTLY");
 
-                        var clicked_fam = d["family"];
+                    var clicked_fam = d["family"];
 
-                        d3.selectAll("rect")
-                            .attr("stroke", function(this_d){
-                                // The class of a circle/square is the language's family name.
-                                var selection_fam = this_d.family;
+                    d3.selectAll("rect")
+                        .attr("stroke", function(this_d){
+                            // The class of a circle/square is the language's family name.
+                            var selection_fam = this_d.family;
 
-                                if (clicked_fam === selection_fam) {
-                                    return "green";
-                                }
-                                else {
-                                    return "black";
-                                }
+                            if (clicked_fam === selection_fam) {
+                                return "green";
+                            }
+                            else {
+                                return "black";
+                            }
 
-                            })
-                            .style("fill-opacity", function(this_d) {
-                                // The class of a circle/square is the language's family name.
-                                var selection_fam = this_d.family;
+                        })
+                        .style("fill-opacity", function(this_d) {
+                            // The class of a circle/square is the language's family name.
+                            var selection_fam = this_d.family;
 
-                                if (clicked_fam === selection_fam) {
-                                    return 1;
-                                }
-                                else {
-                                    return 0;
-                                }
-
-
-                            })
-                            .style("fill", function(this_d) {
-                                // The class of a circle/square is the language's family name.
-                                var selection_fam = this_d.family;
-
-                                if (clicked_fam === selection_fam) {
-                                    return "green";
-                                }
-                                else {
-                                    return "black";
-                                }
+                            if (clicked_fam === selection_fam) {
+                                return 1;
+                            }
+                            else {
+                                return 0;
+                            }
 
 
-                            });
+                        })
+                        .style("fill", function(this_d) {
+                            // The class of a circle/square is the language's family name.
+                            var selection_fam = this_d.family;
 
-                    });
+                            if (clicked_fam === selection_fam) {
+                                return "green";
+                            }
+                            else {
+                                return "black";
+                            }
 
-                }
+
+                        });
+
+                });
+
+            }
 
 
 

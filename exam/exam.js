@@ -39,7 +39,7 @@ function init() {
 
     });
 
-    d3.csv("data/world-atlas-of-language-structures/language.csv", function(d){
+    d3.csv("data/world-atlas-of-language-structures/language.csv", function(d) {
         d.latitude = parseFloat(d.latitude);
         d.longitude = parseFloat(d.longitude);
         return d;
@@ -158,6 +158,10 @@ function init() {
 
     });
 
+
+
+
+
     function draw_typo_circles(filter_type) {
 
         d3.csv("data/world-atlas-of-language-structures/language.csv", function (atlas_data) {
@@ -250,6 +254,11 @@ function init() {
             points.exit().remove();*/
 
 
+
+
+
+
+
             var circles = svg2.selectAll("rect")
                 .data(atlas_data.filter(function (d) {
 
@@ -316,6 +325,9 @@ function init() {
 
             circles.enter()
                 .append("rect")
+                .attr("class", function(d) {
+                    return d.family;
+                })
                 .attr("width", 1.5)
                 .attr("height", 1.5)
                 .merge(circles)
@@ -505,6 +517,41 @@ function init() {
                     d3.select(".viz2")
                         .select(".tooltip")
                         .style('visibility', 'hidden');
+                })
+                .on("click", function(d) {
+
+                    if (filter_type = "nothing") {
+                        var clicked_fam = d["family"];
+
+                        d3.selectAll("rect")
+                            .attr("stroke", function(this_d){
+                                // The class of a circle/square is the language's family name.
+                                var selection_fam = this_d.family;
+
+                                if (clicked_fam === selection_fam) {
+                                    return "green";
+                                }
+                                else {
+                                    return "black";
+                                }
+
+                            })
+                            .style("fill", function(this_d) {
+                                // The class of a circle/square is the language's family name.
+                                var selection_fam = this_d.family;
+
+                                if (clicked_fam === selection_fam) {
+                                    return "green";
+                                }
+                                else {
+                                    return "none";
+                                }
+
+
+                            });
+
+                    }
+
                 });
 
             circles.exit().remove();
@@ -516,6 +563,43 @@ function init() {
 
     // Initialize map:
     draw_typo_circles(filter_type = "nothing");
+
+    /*// Make language family selector:
+    var language_group;
+
+    d3.csv("data/world-atlas-of-language-structures/language.csv", function (atlas_data) {
+
+        language_group = d3.nest()
+            .key(function(d){
+                return d.family
+            })
+            .sortKeys(d3.ascending)
+            .map(atlas_data);
+
+        var language_selection = d3.select("#family")
+            .selectAll("option")
+            //turn the map into an array
+            .data(['All'].concat(language_group.keys().sort()))
+            .enter()
+            .append("option")
+            .text(function (d) {
+                return d;
+            });
+
+        var selected_element = d3.select("#family")
+            .on("change", function(){
+
+                var family = selected_element.property("value");
+
+                if (family === 'All') {
+                    draw_circles(data);
+                }
+                else draw_circles(group.get(family));
+            });
+
+    });
+
+    draw_circles(data);*/
 
 
     d3.select("#p1").on("click", function (d) {

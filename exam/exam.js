@@ -405,7 +405,8 @@ function init() {
                 .attr("y", function(d) {
                     return projection([d["longitude"], d["latitude"]])[1];
                 })
-                .style('fill', 'none')
+                .style('fill', 'black')
+                .style('fill-opacity', 0)
                 .attr("stroke", function(d){
                     // Color according to filter type:
 
@@ -536,6 +537,19 @@ function init() {
                                 }
 
                             })
+                            .style("fill-opacity", function(this_d) {
+                                // The class of a circle/square is the language's family name.
+                                var selection_fam = this_d.family;
+
+                                if (clicked_fam === selection_fam) {
+                                    return 1;
+                                }
+                                else {
+                                    return 0;
+                                }
+
+
+                            })
                             .style("fill", function(this_d) {
                                 // The class of a circle/square is the language's family name.
                                 var selection_fam = this_d.family;
@@ -544,7 +558,7 @@ function init() {
                                     return "green";
                                 }
                                 else {
-                                    return "none";
+                                    return "black";
                                 }
 
 

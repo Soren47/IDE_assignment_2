@@ -162,36 +162,179 @@ function init() {
 
         d3.csv("data/world-atlas-of-language-structures/language.csv", function (atlas_data) {
 
-            if (filter_type === "xxxxxxxxxxxxxxxxx") {
 
-                //var symbol = d3.symbol();
+            /*//var symbol = d3.symbol();
 
-                var featured = atlas_data.filter(function(d) {
-                    if (d['1A Consonant Inventories'] !== '') {return d}
-                });
+            var featured = atlas_data.filter(function(d) {
+                if (d['1A Consonant Inventories'] !== '') {return d}
+            });
 
-                var points = svg2.selectAll('rect')
-                    .data(featured);
+            var points = svg2.selectAll('rect')
+                .data(featured);
 
-                points.enter()
-                    .append('rect')
-                    .attr("width", 1.5)
-                    .attr("height", 1.5)
-                    .merge(points)
-                    .attr("x", function (d) {
-                        return projection([d.longitude, d.latitude])[0];
-                    })
-                    .attr("y", function(d) {
-                        return projection([d.longitude, d.latitude])[1];
-                    })
-                    .attr('fill','none')
-                    .style('stroke', function(d) {
-                        if (d['1A Consonant Inventories'] === '1 Small') {return 'Indigo';}
-                        else if (d['1A Consonant Inventories'] === '2 Moderately small') {return 'Chartreuse';}
-                        else if (d['1A Consonant Inventories'] === '3 Average') {return 'Red';}
-                        else if (d['1A Consonant Inventories'] === '4 Moderately large') {return 'Yellow';}
-                        else return 'black';})
-                    .attr("rx", function(d) {
+            points.enter()
+                .append('rect')
+                .attr("width", 1.5)
+                .attr("height", 1.5)
+                .merge(points)
+                .attr("x", function (d) {
+                    return projection([d.longitude, d.latitude])[0];
+                })
+                .attr("y", function(d) {
+                    return projection([d.longitude, d.latitude])[1];
+                })
+                .attr('fill','none')
+                .style('stroke', function(d) {
+                    if (d['1A Consonant Inventories'] === '1 Small') {return 'Indigo';}
+                    else if (d['1A Consonant Inventories'] === '2 Moderately small') {return 'Chartreuse';}
+                    else if (d['1A Consonant Inventories'] === '3 Average') {return 'Red';}
+                    else if (d['1A Consonant Inventories'] === '4 Moderately large') {return 'Yellow';}
+                    else return 'black';})
+                .attr("rx", function(d) {
+                    // Make circle or square:
+                    // 1.5 == circle. 0 == Square.
+                    if (d['2A Vowel Quality Inventories'] === '1 Small (2-4)') {
+                        // make "small vowel voc" circle.
+                        return 1.5;
+                    }
+                    else if (d['2A Vowel Quality Inventories'] === '2 Average (5-6)') {
+                        // make "average vowel voc" squares..
+                        return 0;
+                    }
+                    else return 0; //trying to rotate this instead // makes large voc square (to be diamond)
+                })
+                .attr("transform", function(d) {
+                    if (d['2A Vowel Quality Inventories'] === '3 Large (7-14)') {
+                        // make "large vowel voc" diamonds.
+
+                        x = projection([d.longitude, d.latitude])[0];
+                        y = projection([d.longitude, d.latitude])[1];
+                        width = 1.5;
+
+                        return "rotate(45, " + (x+width/2) + "," + (y+width/2) +")";
+                    }
+                    else {
+                        return "rotate(0)";
+                    }
+
+                })
+
+                .on("mouseover", function(d) {
+                    d3.select(".viz2")
+                        .select(".tooltip")
+                        .style('visibility', 'visible')
+                        .text("Language: " + d.Name);
+                    var y = d3.select(".viz2")
+                        .select(".tooltip")
+                        .node()
+                        .getBoundingClientRect()
+                        .height;
+                    var x = d3.select(".viz2")
+                        .select(".tooltip")
+                        //get a DOM object from the d3 element
+                        .node()
+                        .getBoundingClientRect()
+                        .width;
+                    d3.select(".viz2")
+                        .select(".tooltip")
+                        .style('left', projection([d.longitude, d.latitude])[0] - x / 2 + 'px')
+                        .style('top', projection([d.longitude, d.latitude])[1] - y - 8 + 'px')
+
+
+                })
+                .on("mouseout", function(){
+                    d3.select(".viz2")
+                        .select(".tooltip")
+                        .style('visibility', 'hidden')});
+
+            points.exit().remove();*/
+
+
+            var circles = svg2.selectAll("rect")
+                .data(atlas_data.filter(function (d) {
+
+                    if (filter_type === "n_consonants") {
+
+                        // Linguistic tendency: Almost all languages have nasal consonants.
+                        // Show those without in another color.
+
+                        if (d["18A Absence of Common Consonants"] !== "") {
+                            // Only return the data point if it is a part of the study
+                            // into the absense of consonants.
+                            return d;
+
+                        }
+
+                    }
+
+                    else if (filter_type === "n_vowels") {
+
+                        // Linguistic UNI-directional tendency:
+                        // If a language has nasal vowels, it also has oral vowels.
+
+                        if (d["10A Vowel Nasalization"] !== "") {
+
+                            return d;
+
+                        }
+
+                    }
+
+                    else if (filter_type === "word_order_post_pre_pos") {
+
+                        // Linguistic BI-directional tendency:
+                        // If a language is OV it has POST positionals. If Vo it has PRE-positionals.
+                        // Only a tendency - only MOST languages.
+
+                        if (d["83A Order of Object and Verb"] !== "" && d["85A Order of Adposition and Noun Phrase"] !== "") {
+
+                            if (!( d["83A Order of Object and Verb"].startsWith("3") ) ) {
+                                // Only take OV and VO:
+
+                                if ( d["85A Order of Adposition and Noun Phrase"].startsWith("1")
+                                    || d["85A Order of Adposition and Noun Phrase"].startsWith("2") ) {
+                                    // Onle take Postpositions and prepositions.
+
+                                    return d;
+                                }
+                            }
+                        }
+                    }
+
+                    else if (filter_type === "vow_cons_vocab") {
+
+                        if (d['1A Consonant Inventories'] !== '') {return d}
+
+                    }
+
+                    else {
+                        return d;
+                    }
+
+                }));
+
+
+            circles.enter()
+                .append("rect")
+                .attr("width", 1.5)
+                .attr("height", 1.5)
+                .merge(circles)
+                .attr("rx", function(d) {
+                    // Make circle or square:
+                    // 1.5 == circle. 0 == Square.
+                    if (filter_type === "word_order_post_pre_pos") {
+                        if ( d["85A Order of Adposition and Noun Phrase"].startsWith("1") ) {
+                            // if post position: Circle:
+                            return 1.5;
+                        }
+                        else {
+                            // if pre position: square:
+                            return 0;
+                        }
+                    }
+
+                    else if (filter_type === "vow_cons_vocab") {
+
                         // Make circle or square:
                         // 1.5 == circle. 0 == Square.
                         if (d['2A Vowel Quality Inventories'] === '1 Small (2-4)') {
@@ -203,8 +346,118 @@ function init() {
                             return 0;
                         }
                         else return 0; //trying to rotate this instead // makes large voc square (to be diamond)
-                    })
-                    .attr("transform", function(d) {
+
+                    }
+
+                    else {
+                        return 1.5;
+                    }
+                })
+                .attr("ry", function(d) {
+                    // Make circle or square:
+                    // 1.5 == circle. 0 == Square.
+                    if (filter_type === "word_order_post_pre_pos") {
+                        if ( d["85A Order of Adposition and Noun Phrase"].startsWith("1") ) {
+                            // if post position: Circle:
+                            return 1.5;
+                        }
+                        else {
+                            // if pre position: square:
+                            return 0;
+                        }
+                    }
+
+                    else if (filter_type === "vow_cons_vocab") {
+
+                        // Make circle or square:
+                        // 1.5 == circle. 0 == Square.
+                        if (d['2A Vowel Quality Inventories'] === '1 Small (2-4)') {
+                            // make "small vowel voc" circle.
+                            return 1.5;
+                        }
+                        else if (d['2A Vowel Quality Inventories'] === '2 Average (5-6)') {
+                            // make "average vowel voc" squares..
+                            return 0;
+                        }
+                        else return 0; //trying to rotate this instead // makes large voc square (to be diamond)
+
+                    }
+
+                    else {
+                        return 1.5;
+                    }
+                })
+                .attr("x", function (d) {
+                    return projection([d["longitude"], d["latitude"]])[0];
+                })
+                .attr("y", function(d) {
+                    return projection([d["longitude"], d["latitude"]])[1];
+                })
+                .style('fill', 'none')
+                .attr("stroke", function(d){
+                    // Color according to filter type:
+
+                    if (filter_type === "vow_cons_vocab") {
+
+                        if (d['1A Consonant Inventories'] === '1 Small') {return 'Indigo';}
+                        else if (d['1A Consonant Inventories'] === '2 Moderately small') {return 'Chartreuse';}
+                        else if (d['1A Consonant Inventories'] === '3 Average') {return 'Red';}
+                        else if (d['1A Consonant Inventories'] === '4 Moderately large') {return 'Yellow';}
+                        else {return 'black';}
+
+                    }
+
+                    else if (filter_type === "n_consonants") {
+                        // Color according to presence or absence of nasal consonants.
+
+                        if (d["18A Absence of Common Consonants"].includes("nasal")) {
+
+                            return "red";
+
+                        }
+                        else {
+                            return "black";
+                        }
+                    }
+
+                    else if (filter_type === "n_vowels") {
+
+                        if (d["10A Vowel Nasalization"].includes("present")) {
+                            // The language has nasal vowels.
+
+                            return "red";
+                        }
+                        else {
+                            return "black";
+                        }
+
+                    }
+
+                    else if (filter_type === "word_order_post_pre_pos") {
+
+                        if ( d["83A Order of Object and Verb"].startsWith("1") ) {
+                            // If OV: Black:
+                            return "black";
+                        }
+                        else {
+                            // if VO: red:
+                            return "red";
+                        }
+
+                    }
+
+                    else {
+                        // If no filter type:
+                        return "black";
+
+                    }
+
+
+                })
+                .attr("transform", function(d) {
+
+                    if (filter_type === "vow_cons_vocab") {
+
                         if (d['2A Vowel Quality Inventories'] === '3 Large (7-14)') {
                             // make "large vowel voc" diamonds.
 
@@ -218,304 +471,44 @@ function init() {
                             return "rotate(0)";
                         }
 
-                    })
+                    }
+
+                    else {
+                        return "rotate(0)";
+                    }
+
+                })
+                .on("mouseover", function(d) {
+                    d3.select(".viz2")
+                        .select(".tooltip")
+                        .style('visibility', 'visible')
+                        .text("Language: " + d.Name);
+                    var y = d3.select(".viz2")
+                        .select(".tooltip")
+                        .node()
+                        .getBoundingClientRect()
+                        .height;
+                    var x = d3.select(".viz2")
+                        .select(".tooltip")
+                        //get a DOM object from the d3 element
+                        .node()
+                        .getBoundingClientRect()
+                        .width;
+                    d3.select(".viz2")
+                        .select(".tooltip")
+                        .style('left', projection([d.longitude, d.latitude])[0] - x / 2 + 'px')
+                        .style('top', projection([d.longitude, d.latitude])[1] - y - 8 + 'px')
+
+
+                })
+                .on("mouseout", function(){
+                    d3.select(".viz2")
+                        .select(".tooltip")
+                        .style('visibility', 'hidden');
+                });
+
+            circles.exit().remove();
 
-                    .on("mouseover", function(d) {
-                        d3.select(".viz2")
-                            .select(".tooltip")
-                            .style('visibility', 'visible')
-                            .text("Language: " + d.Name);
-                        var y = d3.select(".viz2")
-                            .select(".tooltip")
-                            .node()
-                            .getBoundingClientRect()
-                            .height;
-                        var x = d3.select(".viz2")
-                            .select(".tooltip")
-                            //get a DOM object from the d3 element
-                            .node()
-                            .getBoundingClientRect()
-                            .width;
-                        d3.select(".viz2")
-                            .select(".tooltip")
-                            .style('left', projection([d.longitude, d.latitude])[0] - x / 2 + 'px')
-                            .style('top', projection([d.longitude, d.latitude])[1] - y - 8 + 'px')
-
-
-                    })
-                    .on("mouseout", function(){
-                        d3.select(".viz2")
-                            .select(".tooltip")
-                            .style('visibility', 'hidden')});
-
-                points.exit().remove();
-
-
-
-            }
-
-            else {
-
-                var circles = svg2.selectAll("rect")
-                    .data(atlas_data.filter(function (d) {
-
-                        if (filter_type === "n_consonants") {
-
-                            // Linguistic tendency: Almost all languages have nasal consonants.
-                            // Show those without in another color.
-
-                            if (d["18A Absence of Common Consonants"] !== "") {
-                                // Only return the data point if it is a part of the study
-                                // into the absense of consonants.
-                                return d;
-
-                            }
-
-                        }
-
-                        else if (filter_type === "n_vowels") {
-
-                            // Linguistic UNI-directional tendency:
-                            // If a language has nasal vowels, it also has oral vowels.
-
-                            if (d["10A Vowel Nasalization"] !== "") {
-
-                                return d;
-
-                            }
-
-                        }
-
-                        else if (filter_type === "word_order_post_pre_pos") {
-
-                            // Linguistic BI-directional tendency:
-                            // If a language is OV it has POST positionals. If Vo it has PRE-positionals.
-                            // Only a tendency - only MOST languages.
-
-                            if (d["83A Order of Object and Verb"] !== "" && d["85A Order of Adposition and Noun Phrase"] !== "") {
-
-                                if (!( d["83A Order of Object and Verb"].startsWith("3") ) ) {
-                                    // Only take OV and VO:
-
-                                    if ( d["85A Order of Adposition and Noun Phrase"].startsWith("1")
-                                        || d["85A Order of Adposition and Noun Phrase"].startsWith("2") ) {
-                                        // Onle take Postpositions and prepositions.
-
-                                        return d;
-                                    }
-                                }
-                            }
-                        }
-
-                        else if (filter_type === "vow_cons_vocab") {
-
-                            if (d['1A Consonant Inventories'] !== '') {return d}
-
-                        }
-
-                        else {
-                            return d;
-                        }
-
-                    }));
-
-
-                circles.enter()
-                    .append("rect")
-                    .attr("width", 1.5)
-                    .attr("height", 1.5)
-                    .merge(circles)
-                    .attr("rx", function(d) {
-                        // Make circle or square:
-                        // 1.5 == circle. 0 == Square.
-                        if (filter_type === "word_order_post_pre_pos") {
-                            if ( d["85A Order of Adposition and Noun Phrase"].startsWith("1") ) {
-                                // if post position: Circle:
-                                return 1.5;
-                            }
-                            else {
-                                // if pre position: square:
-                                return 0;
-                            }
-                        }
-
-                        else if (filter_type === "vow_cons_vocab") {
-
-                            // Make circle or square:
-                            // 1.5 == circle. 0 == Square.
-                            if (d['2A Vowel Quality Inventories'] === '1 Small (2-4)') {
-                                // make "small vowel voc" circle.
-                                return 1.5;
-                            }
-                            else if (d['2A Vowel Quality Inventories'] === '2 Average (5-6)') {
-                                // make "average vowel voc" squares..
-                                return 0;
-                            }
-                            else return 0; //trying to rotate this instead // makes large voc square (to be diamond)
-
-                        }
-
-                        else {
-                            return 1.5;
-                        }
-                    })
-                    .attr("ry", function(d) {
-                        // Make circle or square:
-                        // 1.5 == circle. 0 == Square.
-                        if (filter_type === "word_order_post_pre_pos") {
-                            if ( d["85A Order of Adposition and Noun Phrase"].startsWith("1") ) {
-                                // if post position: Circle:
-                                return 1.5;
-                            }
-                            else {
-                                // if pre position: square:
-                                return 0;
-                            }
-                        }
-
-                        else if (filter_type === "vow_cons_vocab") {
-
-                            // Make circle or square:
-                            // 1.5 == circle. 0 == Square.
-                            if (d['2A Vowel Quality Inventories'] === '1 Small (2-4)') {
-                                // make "small vowel voc" circle.
-                                return 1.5;
-                            }
-                            else if (d['2A Vowel Quality Inventories'] === '2 Average (5-6)') {
-                                // make "average vowel voc" squares..
-                                return 0;
-                            }
-                            else return 0; //trying to rotate this instead // makes large voc square (to be diamond)
-
-                        }
-
-                        else {
-                            return 1.5;
-                        }
-                    })
-                    .attr("x", function (d) {
-                        return projection([d["longitude"], d["latitude"]])[0];
-                    })
-                    .attr("y", function(d) {
-                        return projection([d["longitude"], d["latitude"]])[1];
-                    })
-                    .style('fill', 'none')
-                    .attr("stroke", function(d){
-                        // Color according to filter type:
-
-                        if (filter_type === "vow_cons_vocab") {
-
-                            if (d['1A Consonant Inventories'] === '1 Small') {return 'Indigo';}
-                            else if (d['1A Consonant Inventories'] === '2 Moderately small') {return 'Chartreuse';}
-                            else if (d['1A Consonant Inventories'] === '3 Average') {return 'Red';}
-                            else if (d['1A Consonant Inventories'] === '4 Moderately large') {return 'Yellow';}
-                            else {return 'black';}
-
-                        }
-
-                        else if (filter_type === "n_consonants") {
-                            // Color according to presence or absence of nasal consonants.
-
-                            if (d["18A Absence of Common Consonants"].includes("nasal")) {
-
-                                return "red";
-
-                            }
-                            else {
-                                return "black";
-                            }
-                        }
-
-                        else if (filter_type === "n_vowels") {
-
-                            if (d["10A Vowel Nasalization"].includes("present")) {
-                                // The language has nasal vowels.
-
-                                return "red";
-                            }
-                            else {
-                                return "black";
-                            }
-
-                        }
-
-                        else if (filter_type === "word_order_post_pre_pos") {
-
-                            if ( d["83A Order of Object and Verb"].startsWith("1") ) {
-                                // If OV: Black:
-                                return "black";
-                            }
-                            else {
-                                // if VO: red:
-                                return "red";
-                            }
-
-                        }
-
-                        else {
-                            // If no filter type:
-                            return "black";
-
-                        }
-
-
-                    })
-                    .attr("transform", function(d) {
-
-                        if (filter_type === "vow_cons_vocab") {
-
-                            if (d['2A Vowel Quality Inventories'] === '3 Large (7-14)') {
-                                // make "large vowel voc" diamonds.
-
-                                x = projection([d.longitude, d.latitude])[0];
-                                y = projection([d.longitude, d.latitude])[1];
-                                width = 1.5;
-
-                                return "rotate(45, " + (x+width/2) + "," + (y+width/2) +")";
-                            }
-                            else {
-                                return "rotate(0)";
-                            }
-
-                        }
-
-                        else {
-                            return "rotate(0)";
-                        }
-
-                    })
-                    .on("mouseover", function(d) {
-                        d3.select(".viz2")
-                            .select(".tooltip")
-                            .style('visibility', 'visible')
-                            .text("Language: " + d.Name);
-                        var y = d3.select(".viz2")
-                            .select(".tooltip")
-                            .node()
-                            .getBoundingClientRect()
-                            .height;
-                        var x = d3.select(".viz2")
-                            .select(".tooltip")
-                            //get a DOM object from the d3 element
-                            .node()
-                            .getBoundingClientRect()
-                            .width;
-                        d3.select(".viz2")
-                            .select(".tooltip")
-                            .style('left', projection([d.longitude, d.latitude])[0] - x / 2 + 'px')
-                            .style('top', projection([d.longitude, d.latitude])[1] - y - 8 + 'px')
-
-
-                    })
-                    .on("mouseout", function(){
-                        d3.select(".viz2")
-                            .select(".tooltip")
-                            .style('visibility', 'hidden');
-                    });
-
-                circles.exit().remove();
-
-            }
 
         });
 

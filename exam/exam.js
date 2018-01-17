@@ -1,5 +1,8 @@
 d3.select(window).on('load', init);
 
+// Field variables:
+var filter_type;
+
 function init() {
 
     var width = 800,
@@ -39,11 +42,11 @@ function init() {
 
     });
 
+
     // Explaining shapes and colours
     var offset = 15;
     //var colours = ['Indigo','Chartreuse','Red','Yellow','Black'];
     d3.select('#explain')
-        .style('visibility', 'hidden')
         .selectAll('circle')
         .data(['Indigo','Chartreuse','Red','Yellow','Black'])
         .enter()
@@ -77,6 +80,19 @@ function init() {
             if (d.endsWith(')')) {console.log(d);return offset += 28}
             else return offset += 25})
         .text(function (d) {return d});
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     d3.csv("data/world-atlas-of-language-structures/language.csv", function(d) {
         d.latitude = parseFloat(d.latitude);
@@ -201,7 +217,8 @@ function init() {
 
 
 
-    function draw_typo_circles(filter_type) {
+
+    function draw_typo_circles() {
 
         d3.csv("data/world-atlas-of-language-structures/language.csv", function (atlas_data) {
 
@@ -294,7 +311,8 @@ function init() {
 
 
 
-
+            console.log("Start: Filter type:");
+            console.log(filter_type);
 
 
 
@@ -559,11 +577,13 @@ function init() {
                         .style('visibility', 'hidden');
                 });
 
-            if (filter_type = "nothing") {
+
+            if (filter_type === "nothing") {
 
                 circles.on("click", function(d) {
 
                     console.log("THIS          IS        RUN       APPARENTLY");
+                    console.log(filter_type);
 
                     var clicked_fam = d["family"];
 
@@ -611,6 +631,13 @@ function init() {
 
             }
 
+            else {
+                console.log("THIS IS RUN IF FILTER TYPE IS NOT NOTHING");
+                console.log(filter_type);
+
+                circles.on("click", null);
+            }
+
 
 
             circles.exit().remove();
@@ -621,46 +648,60 @@ function init() {
 
     }
 
-    // Initialize map:
-    draw_typo_circles("n_consonants");
-
 
     d3.select("#p1").on("click", function (d) {
-
-        draw_typo_circles("n_consonants");
+        filter_type = "n_consonants";
+        draw_typo_circles();
         d3.select('#explain')
             .style('visibility', 'hidden');
 
     });
 
     d3.select("#p2").on("click", function (d) {
-
-        draw_typo_circles("n_vowels");
+        filter_type = "n_vowels";
+        draw_typo_circles();
         d3.select('#explain')
             .style('visibility', 'hidden');
 
     });
 
     d3.select("#p3").on("click", function (d) {
-
-        draw_typo_circles("word_order_post_pre_pos");
+        filter_type = "word_order_post_pre_pos";
+        draw_typo_circles();
         d3.select('#explain')
             .style('visibility', 'hidden');
 
     });
 
     d3.select("#p4").on("click", function (d) {
-
-        draw_typo_circles("vow_cons_vocab");
+        filter_type = "vow_cons_vocab";
+        draw_typo_circles();
 
         d3.select('#explain')
             .style('visibility', 'visible');
 
     });
 
-    /*d3.select("#p5").on("click", function (d) {
+    d3.select("#p5").on("click", function (d) {
+        filter_type = "nothing";
+        draw_typo_circles();
+        draw_typo_circles();
 
-        draw_typo_circles("nothing");
+        d3.select('#explain')
+            .style('visibility', 'hidden');
 
-    });*/
+    });
+
+    d3.select('#explain')
+        .style('visibility', 'hidden');
+
+    // Initialize map:
+    filter_type = "nothing";
+    draw_typo_circles();
+
+    // Initialize map:
+    filter_type = "nothing";
+    draw_typo_circles();
+
+
 }

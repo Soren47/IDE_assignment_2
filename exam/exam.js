@@ -518,10 +518,14 @@ function init() {
                     d3.select(".viz2")
                         .select(".tooltip")
                         .style('visibility', 'hidden');
-                })
-                .on("click", function(d) {
+                });
 
-                    if (filter_type = "nothing") {
+                if (filter_type = "nothing") {
+
+                    circles.on("click", function(d) {
+
+                        console.log("THIS          IS        RUN       APPARENTLY");
+
                         var clicked_fam = d["family"];
 
                         d3.selectAll("rect")
@@ -564,11 +568,14 @@ function init() {
 
                             });
 
-                    }
+                    });
 
-                });
+                }
+
+
 
             circles.exit().remove();
+
 
 
         });
@@ -576,73 +583,36 @@ function init() {
     }
 
     // Initialize map:
-    draw_typo_circles(filter_type = "nothing");
-
-    /*// Make language family selector:
-    var language_group;
-
-    d3.csv("data/world-atlas-of-language-structures/language.csv", function (atlas_data) {
-
-        language_group = d3.nest()
-            .key(function(d){
-                return d.family
-            })
-            .sortKeys(d3.ascending)
-            .map(atlas_data);
-
-        var language_selection = d3.select("#family")
-            .selectAll("option")
-            //turn the map into an array
-            .data(['All'].concat(language_group.keys().sort()))
-            .enter()
-            .append("option")
-            .text(function (d) {
-                return d;
-            });
-
-        var selected_element = d3.select("#family")
-            .on("change", function(){
-
-                var family = selected_element.property("value");
-
-                if (family === 'All') {
-                    draw_circles(data);
-                }
-                else draw_circles(group.get(family));
-            });
-
-    });
-
-    draw_circles(data);*/
+    draw_typo_circles("n_consonants");
 
 
     d3.select("#p1").on("click", function (d) {
 
-        draw_typo_circles(filter_type = "n_consonants");
+        draw_typo_circles("n_consonants");
 
     });
 
     d3.select("#p2").on("click", function (d) {
 
-        draw_typo_circles(filter_type = "n_vowels");
+        draw_typo_circles("n_vowels");
 
     });
 
     d3.select("#p3").on("click", function (d) {
 
-        draw_typo_circles(filter_type = "word_order_post_pre_pos");
+        draw_typo_circles("word_order_post_pre_pos");
 
     });
 
     d3.select("#p4").on("click", function (d) {
 
-        draw_typo_circles(filter_type = "vow_cons_vocab");
+        draw_typo_circles("vow_cons_vocab");
 
     });
 
-    d3.select("#p5").on("click", function (d) {
+    /*d3.select("#p5").on("click", function (d) {
 
-        draw_typo_circles(filter_type = "nothing");
+        draw_typo_circles("nothing");
 
-    });
+    });*/
 }

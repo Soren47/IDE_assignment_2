@@ -50,7 +50,7 @@ function init() {
         .attr('r',10)
         .style('fill',function(d) {return d})
         .attr('cx',25)
-        .attr('cy', function(d) {;return offset += 25})
+        .attr('cy', function(d) {;return offset += 25});
 
     d3.select('#explain').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
         .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset += 40}).attr('rx',150);
@@ -627,24 +627,33 @@ function init() {
     d3.select("#p1").on("click", function (d) {
 
         draw_typo_circles("n_consonants");
+        d3.select('#explain')
+            .style('visibility', 'hidden');
 
     });
 
     d3.select("#p2").on("click", function (d) {
 
         draw_typo_circles("n_vowels");
+        d3.select('#explain')
+            .style('visibility', 'hidden');
 
     });
 
     d3.select("#p3").on("click", function (d) {
 
         draw_typo_circles("word_order_post_pre_pos");
+        d3.select('#explain')
+            .style('visibility', 'hidden');
 
     });
 
     d3.select("#p4").on("click", function (d) {
 
         draw_typo_circles("vow_cons_vocab");
+
+        d3.select('#explain')
+            .style('visibility', 'visible');
 
     });
 

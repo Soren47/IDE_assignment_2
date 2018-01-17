@@ -43,6 +43,7 @@ function init() {
     var offset = 15;
     //var colours = ['Indigo','Chartreuse','Red','Yellow','Black'];
     d3.select('#explain')
+        .style('visibility', 'hidden')
         .selectAll('circle')
         .data(['Indigo','Chartreuse','Red','Yellow','Black'])
         .enter()

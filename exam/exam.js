@@ -80,19 +80,39 @@ function init() {
             if (d.endsWith(')')) {console.log(d);return offset += 28}
             else return offset += 25})
         .text(function (d) {return d});
+    // Explaining shapes and colours
+    var offset1 = 15;
+    //var colours = ['Indigo','Chartreuse','Red','Yellow','Black'];
+    d3.select('#explain2')
+        .selectAll('circle')
+        .data(['Red','Black'])
+        .enter()
+        .append('circle')
+        .attr('r',10)
+        .style('fill',function(d) {return d})
+        .attr('cx',25)
+        .attr('cy', function(d) {;return offset1 += 25})
 
+    d3.select('#explain2').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset1+= 40}).attr('rx',150);
 
+    d3.select('#explain2').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset1 += 30}).attr('rx',0);
 
-
-
-
-
-
-
-
-
-
-
+    var offset1 = -5;
+    d3.select('#explain2').selectAll('text')
+        .data(['Word order VO / OV','VO','OV',
+            'Order of Adposition and Noun Phrase','Postpositional (no prepositions)','Prepositional'])
+        .enter()
+        .append('text')
+        .attr('x', function(d) {
+            if (d === 'Word order VO / OV') {return 5}
+            else if (d === 'Order of Adposition and Noun Phrase') {return 5}
+            else return 45})
+        .attr('y', function(d) {
+            if (d.endsWith(')')) {console.log(d);return offset1 += 28}
+            else return offset1 += 25})
+        .text(function (d) {return d});
 
     d3.csv("data/world-atlas-of-language-structures/language.csv", function(d) {
         d.latitude = parseFloat(d.latitude);
@@ -197,6 +217,7 @@ function init() {
             .translateExtent([[-125, -160], [width + 22, height + 252]]) //limits of panning to fit edges of map
             .on("zoom", function () {
                 svg2.attr("transform", d3.event.transform)
+                console.log(d3.event.transform)
             })
         )
         .append("g");
@@ -653,7 +674,9 @@ function init() {
         filter_type = "n_consonants";
         draw_typo_circles();
         d3.select('#explain')
-            .style('visibility', 'hidden');
+            .style('display', 'none');
+        d3.select('#explain2')
+            .style('display', 'none');
 
     });
 
@@ -661,7 +684,9 @@ function init() {
         filter_type = "n_vowels";
         draw_typo_circles();
         d3.select('#explain')
-            .style('visibility', 'hidden');
+            .style('display', 'none');
+        d3.select('#explain2')
+            .style('display', 'none');
 
     });
 
@@ -669,7 +694,9 @@ function init() {
         filter_type = "word_order_post_pre_pos";
         draw_typo_circles();
         d3.select('#explain')
-            .style('visibility', 'hidden');
+            .style('display', 'none');
+        d3.select('#explain2')
+            .style('display', 'unset');
 
     });
 
@@ -678,7 +705,9 @@ function init() {
         draw_typo_circles();
 
         d3.select('#explain')
-            .style('visibility', 'visible');
+            .style('display', 'unset');
+        d3.select('#explain2')
+            .style('display', 'none');
 
     });
 
@@ -688,12 +717,16 @@ function init() {
         draw_typo_circles();
 
         d3.select('#explain')
-            .style('visibility', 'hidden');
+            .style('display', 'none');
+        d3.select('#explain2')
+            .style('display', 'none');
 
     });
 
     d3.select('#explain')
-        .style('visibility', 'hidden');
+        .style('display', 'none');
+    d3.select('#explain2')
+        .style('display', 'none');
 
     // Initialize map:
     filter_type = "nothing";

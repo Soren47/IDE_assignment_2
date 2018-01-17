@@ -174,14 +174,12 @@ function init() {
                 .append('rect')
                 .attr("width", 1.5)
                 .attr("height", 1.5)
-                //.attr("transform", "rotate(90)")
                 .attr("x", function (d) {
                     return projection([d.longitude, d.latitude])[0];
                 })
                 .attr("y", function(d) {
                     return projection([d.longitude, d.latitude])[1];
-                })
-                //.attr("r",1.5)
+                }))
                 .attr('fill','none')
                 .style('stroke', function(d) {
                     if (d['1A Consonant Inventories'] === '1 Small') {return 'Indigo';}
@@ -193,12 +191,29 @@ function init() {
                     // Make circle or square:
                     // 1.5 == circle. 0 == Square.
                     if (d['2A Vowel Quality Inventories'] === '1 Small (2-4)') {
+                        // make "small vowel voc" circle.
                         return 1.5;
                     }
                     else if (d['2A Vowel Quality Inventories'] === '2 Average (5-6)') {
-                        return 1.5;
+                        // make "average vowel voc" squares..
+                        return 0;
                     }
-                    else return 0; //trying to rotate this instead
+                    else return 0; //trying to rotate this instead // makes large voc square (to be diamond)
+                })
+                .attr("transform", function(d) {
+                    if (d['2A Vowel Quality Inventories'] === '3 Large (7-14)') {
+                        // make "large vowel voc" diamonds.
+
+                        x = projection([d.longitude, d.latitude])[0];
+                        y = projection([d.longitude, d.latitude])[1];
+                        width = 1.5;
+
+                        return "rotate(45, " + (x+width/2) + "," + (y+width/2) +")";
+                    }
+                    else {
+                        return "rotate(0)";
+                    }
+
                 })
                 
                 .on("mouseover", function(d) {

@@ -725,13 +725,13 @@ function init() {
 
 
     }*/
-    d3.selectAll('.legend')
+       d3.selectAll('.legend')
         .style('display', 'none');
-    d3.select('#explain1')
+    d3.select('#explain5')
         .style('display', 'unset');
     d3.selectAll('.text')
         .style('display', 'none');
-    d3.select('#text1')
+    d3.select('#text5')
         .style('display', 'unset');
 
     // Initialize map:

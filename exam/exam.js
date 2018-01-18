@@ -728,7 +728,8 @@ function init() {
     filter_type = "nothing";
     draw_typo_circles();
     d3.select("#filt")
-        .on("change", filterChange)
+        .on("change", filterChange);
+    draw_typo_circles();
 
     function filterChange() {
         var comboFilter = document.getElementById('filt');
@@ -798,7 +799,9 @@ function init() {
                 d3.selectAll('.text')
                     .style('display', 'none');
                 d3.select('#text5')
-                    .style('display', 'unset');}}
+                    .style('display', 'unset');
+                draw_typo_circles();}}
+
 
         }
     }

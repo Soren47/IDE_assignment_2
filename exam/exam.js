@@ -169,6 +169,8 @@ function init() {
             else return offset += 25})
         .text(function (d) {return d});
 
+
+    //Family map legend, static section
     var offset = 15;
     d3.select('#explain5')
         .selectAll('circle')
@@ -182,17 +184,25 @@ function init() {
 
     var offset = -5;
     d3.select('#explain5').selectAll('text')
-        .data(['Same language familiy','No','Yes'])
+        .data(['Same language familiy','No','Yes','Family name:', 'Select a language on map', '#Members of family:',''])
         .enter()
         .append('text')
         .attr('x', function(d) {
             if (d === 'Same language familiy') {return 5}
-            else return 45})
+            else if (d.length === 2 | d.length === 3) {return 45}
+            else return 10})
         .attr('y', function(d) {
-            if (d.endsWith(')')) {console.log(d);return offset += 28}
-            else return offset += 25})
-        .text(function (d) {return d});
-
+            if (d.length === 2 | d.length === 3 | d.endsWith('y')) {return offset += 25}
+            else return offset += 40})
+        .text(function (d) {return d})
+        .attr('id', function(d) {
+            if (d.endsWith('p')) {return 'name5'}
+            else if (d === '') {return 'count5'}
+            else return 'none'})
+        .style('font-style', function(d) {
+            if (d.endsWith('p')) {return 'italic'}
+            else return 'normal'});
+    
     /*
     d3.csv("data/world-atlas-of-language-structures/language.csv", function(d) {
         d.latitude = parseFloat(d.latitude);
@@ -596,8 +606,28 @@ function init() {
                     console.log(filter_type);
 
                     var clicked_fam = d["family"];
-                    var family_count = 0;
 
+
+                    //Legend to Family map, was thinking to log clicked fam and family count to the info
+                    var family_count = atlas_data.filter(function (d) {
+
+                        if (d["family"] === clicked_fam) {
+                            return d;
+                        }
+                    });
+
+                    d3.select('#name5')
+                        .attr('x',20)
+                        .style('font-size',26)
+                        .text(clicked_fam);
+
+                    d3.select('#count5')
+                        .attr('x',60)
+                        .style('font-size',25)
+                        .text(family_count.length);
+
+
+                    //Changing colour of selected family
                     d3.selectAll("rect")
                         .attr("stroke", function(this_d){
                             // The class of a circle/square is the language's family name.
@@ -639,19 +669,6 @@ function init() {
 
                         });
 
-                    //Legend to Family map, was thinking to log clicked fam and family count to the info
-
-                    d3.select('#explain5')
-                        .append('text')
-                        .attr('x',10)
-                        .attr('y',10)
-                        .text(clicked_fam);
-                    console.log(family_count);
-
-
-
-
-
                 });
 
             }
@@ -673,49 +690,6 @@ function init() {
 
     }
 
-
-    /*d3.select("#p1").on("click", function (d) {
-        filter_type = "n_consonants";
-        draw_typo_circles();
-        d3.select('#explain')
-            .style('display', 'none');
-        d3.select('#explain2')
-            .style('display', 'none');
-    });
-    d3.select("#p2").on("click", function (d) {
-        filter_type = "n_vowels";
-        draw_typo_circles();
-        d3.select('#explain')
-            .style('display', 'none');
-        d3.select('#explain2')
-            .style('display', 'none');
-    });
-    d3.select("#p3").on("click", function (d) {
-        filter_type = "word_order_post_pre_pos";
-        draw_typo_circles();
-        d3.select('#explain')
-            .style('display', 'none');
-        d3.select('#explain2')
-            .style('display', 'unset');
-    });
-    d3.select("#p4").on("click", function (d) {
-        filter_type = "vow_cons_vocab";
-        draw_typo_circles();
-        d3.select('#explain')
-            .style('display', 'unset');
-        d3.select('#explain2')
-            .style('display', 'none');
-    });
-    d3.select("#p5").on("click", function (d) {
-        filter_type = "nothing";
-        draw_typo_circles();
-        draw_typo_circles();
-        d3.select('#explain')
-            .style('display', 'none');
-        d3.select('#explain2')
-            .style('display', 'none');
-    });
-    }*/
     d3.selectAll('.legend')
         .style('display', 'none');
     d3.select('#explain5')

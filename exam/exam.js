@@ -137,6 +137,8 @@ function init() {
             else return offset += 25})
         .text(function (d) {return d});
 
+
+
     var offset = 15;
     d3.select('#explain4')
         .selectAll('circle')
@@ -148,13 +150,20 @@ function init() {
         .attr('cx',25)
         .attr('cy', function(d) {;return offset += 25})
 
+    d3.select('#explain4').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset+= 40}).attr('rx',150);
+
+    d3.select('#explain4').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset += 30}).attr('rx',0);
+
     var offset = -5;
     d3.select('#explain4').selectAll('text')
-        .data(['Nasal Vowels','No','Yes'])
+        .data(['Nasal Vowels','No','Yes', 'Oral Vowels', 'Yes', 'No'])
         .enter()
         .append('text')
         .attr('x', function(d) {
             if (d === 'Nasal Vowels') {return 5}
+            else if (d === 'Oral Vowels') {return 5}
             else return 45})
         .attr('y', function(d) {
             if (d.endsWith(')')) {console.log(d);return offset += 28}

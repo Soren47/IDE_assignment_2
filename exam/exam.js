@@ -17,7 +17,6 @@ function init() {
         .projection(projection);
 
     /*
-
     var svg1 = d3.select("#worldMap1")
         .attr("width", width)
         .attr("height", height)
@@ -29,10 +28,8 @@ function init() {
             })
         )
         .append("g");
-
     //path
     var g1 = svg1.append("g");
-
     // load and display the world and locations
     //d3.json("https://gist.githubusercontent.com/d3noob/5193723/raw/world-110m2.json", function(error, topology) {
     d3.json("data/world-110m2.json", function(error, topology) {
@@ -41,9 +38,7 @@ function init() {
             .enter()
             .append("path")
             .attr("d", path)
-
     });
-
     */
 
 
@@ -174,8 +169,31 @@ function init() {
             else return offset += 25})
         .text(function (d) {return d});
 
-    /*
+    var offset = 15;
+    d3.select('#explain5')
+        .selectAll('circle')
+        .data(['Black','Green'])
+        .enter()
+        .append('circle')
+        .attr('r',10)
+        .style('fill',function(d) {return d})
+        .attr('cx',25)
+        .attr('cy', function(d) {;return offset += 25})
 
+    var offset = -5;
+    d3.select('#explain5').selectAll('text')
+        .data(['Same language familiy','No','Yes'])
+        .enter()
+        .append('text')
+        .attr('x', function(d) {
+            if (d === 'Same language familiy') {return 5}
+            else return 45})
+        .attr('y', function(d) {
+            if (d.endsWith(')')) {console.log(d);return offset += 28}
+            else return offset += 25})
+        .text(function (d) {return d});
+
+    /*
     d3.csv("data/world-atlas-of-language-structures/language.csv", function(d) {
         d.latitude = parseFloat(d.latitude);
         d.longitude = parseFloat(d.longitude);
@@ -187,14 +205,12 @@ function init() {
             })
             .sortKeys(d3.ascending)
             .map(data);
-
         function draw_circles(filterdata){
             var circle = svg1.selectAll("circle")
             //each row remembers the data and the id
                 .data(filterdata,function(d){
                     return d.iso_code;
                 });
-
             circle.enter()
                 .append("circle")
                 .attr("cx", function (d) {
@@ -226,25 +242,18 @@ function init() {
                         .select(".tooltip")
                         .style('left', projection([d.longitude, d.latitude])[0] -x/2+ 'px')
                         .style('top', projection([d.longitude, d.latitude])[1]-y -8 + 'px')
-
-
                 })
                 .on("mouseout", function(){
                     d3.select(".tooltip")
                         .style('visibility', 'hidden');
                 });
-
             circle
                 .exit()
                 .remove()
-
         }
-
-
         var circles = draw_circles(data);
         //console.log(projection([data[0].longitude, data[0].latitude]))
         //console.log(data[0])
-
         var language_selection = d3.select("#family")
             .selectAll("option")
             //turn the map into an array
@@ -254,20 +263,15 @@ function init() {
             .text(function (d) {
                 return d;
             });
-
         var selected_element = d3.select("#family")
             .on("change", function(){
-
                 var family = selected_element.property("value");
-
                 if (family === 'All') {
                     draw_circles(data);
                 }
                 else draw_circles(group.get(family));
             })
-
     });
-
     */
 
 
@@ -556,7 +560,7 @@ function init() {
                     d3.select(".viz2")
                         .select(".tooltip")
                         .style('visibility', 'visible')
-                        .text("Language: " + d.Name);
+                        .text("Language: " + d.Name + "; "+ "Familiy: " + d.family);
                     /*var y = d3.select(".viz2")
                         .select(".tooltip")
                         .node()
@@ -677,9 +681,7 @@ function init() {
             .style('display', 'none');
         d3.select('#explain2')
             .style('display', 'none');
-
     });
-
     d3.select("#p2").on("click", function (d) {
         filter_type = "n_vowels";
         draw_typo_circles();
@@ -687,9 +689,7 @@ function init() {
             .style('display', 'none');
         d3.select('#explain2')
             .style('display', 'none');
-
     });
-
     d3.select("#p3").on("click", function (d) {
         filter_type = "word_order_post_pre_pos";
         draw_typo_circles();
@@ -697,35 +697,26 @@ function init() {
             .style('display', 'none');
         d3.select('#explain2')
             .style('display', 'unset');
-
     });
-
     d3.select("#p4").on("click", function (d) {
         filter_type = "vow_cons_vocab";
         draw_typo_circles();
-
         d3.select('#explain')
             .style('display', 'unset');
         d3.select('#explain2')
             .style('display', 'none');
-
     });
-
     d3.select("#p5").on("click", function (d) {
         filter_type = "nothing";
         draw_typo_circles();
         draw_typo_circles();
-
         d3.select('#explain')
             .style('display', 'none');
         d3.select('#explain2')
             .style('display', 'none');
-
     });
-
-
     }*/
-       d3.selectAll('.legend')
+    d3.selectAll('.legend')
         .style('display', 'none');
     d3.select('#explain5')
         .style('display', 'unset');

@@ -545,11 +545,19 @@ function init() {
 
                 })
                 .on("mouseover", function(d) {
+
+                    console.log( d3.event.clientX, d3.event.clientY );
+
+                    new_x = d3.event.clientX;
+                    new_y = d3.event.clientY;
+
+
+
                     d3.select(".viz2")
                         .select(".tooltip")
                         .style('visibility', 'visible')
                         .text("Language: " + d.Name);
-                    var y = d3.select(".viz2")
+                    /*var y = d3.select(".viz2")
                         .select(".tooltip")
                         .node()
                         .getBoundingClientRect()
@@ -559,11 +567,13 @@ function init() {
                         //get a DOM object from the d3 element
                         .node()
                         .getBoundingClientRect()
-                        .width;
+                        .width;*/
                     d3.select(".viz2")
                         .select(".tooltip")
-                        .style('left', projection([d.longitude, d.latitude])[0] - x / 2 + 'px')
-                        .style('top', projection([d.longitude, d.latitude])[1] - y - 8 + 'px')
+                        /*.style('left', projection([d.longitude, d.latitude])[0] - x / 2 + 'px')
+                        .style('top', projection([d.longitude, d.latitude])[1] - y - 8 + 'px')*/
+                        .style('left', ( new_x - 100 ) + 'px')
+                        .style('top', ( new_y - 160 ) + 'px')
 
 
                 })

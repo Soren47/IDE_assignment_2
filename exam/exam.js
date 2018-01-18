@@ -2,6 +2,7 @@ d3.select(window).on('load', init);
 
 // Field variables:
 var filter_type;
+var circles;
 
 function init() {
 
@@ -294,8 +295,24 @@ function init() {
             .scaleExtent([0.55, 30])
             .translateExtent([[-125, -160], [width + 22, height + 252]]) //limits of panning to fit edges of map
             .on("zoom", function () {
-                svg2.attr("transform", d3.event.transform)
-                console.log(d3.event.transform)
+                svg2.attr("transform", d3.event.transform);
+                console.log(d3.event.transform);
+
+                // Change size of shapes:
+                d3.select("#worldMap2").selectAll("rect")
+                    .attr("width", function() {
+                        // the value that it is before zoom. Not actually needed :D
+                        //var orig_val = d3.select(this).attr("width");
+                        // 1.5 is the first width and height.
+
+                        return 1.5 / ( d3.event.transform.k * 0.3);
+                    })
+                    .attr("height", function() {
+
+                        return 1.5 / ( d3.event.transform.k * 0.3);
+
+                    });
+
             })
         )
         .append("g");
@@ -326,7 +343,7 @@ function init() {
 
 
 
-            var circles = svg2.selectAll("rect")
+            circles = svg2.selectAll("rect")
                 .data(atlas_data.filter(function (d) {
 
                     if (filter_type === "n_consonants") {

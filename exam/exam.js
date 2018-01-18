@@ -603,8 +603,8 @@ function init() {
                         .select(".tooltip")
                         /*.style('left', projection([d.longitude, d.latitude])[0] - x / 2 + 'px')
                         .style('top', projection([d.longitude, d.latitude])[1] - y - 8 + 'px')*/
-                        .style('left', ( new_x - 100 ) + 'px')
-                        .style('top', ( new_y - 380 ) + 'px')
+                        .style('left', ( new_x - 220 ) + 'px')
+                        .style('top', ( new_y - 320 ) + 'px')
 
 
                 })

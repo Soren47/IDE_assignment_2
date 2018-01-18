@@ -81,8 +81,7 @@ function init() {
             else return offset += 25})
         .text(function (d) {return d});
     // Explaining shapes and colours
-    var offset1 = 15;
-    //var colours = ['Indigo','Chartreuse','Red','Yellow','Black'];
+    var offset = 15;
     d3.select('#explain2')
         .selectAll('circle')
         .data(['Red','Black'])
@@ -91,15 +90,15 @@ function init() {
         .attr('r',10)
         .style('fill',function(d) {return d})
         .attr('cx',25)
-        .attr('cy', function(d) {;return offset1 += 25})
+        .attr('cy', function(d) {;return offset += 25})
 
     d3.select('#explain2').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset1+= 40}).attr('rx',150);
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset+= 40}).attr('rx',150);
 
     d3.select('#explain2').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset1 += 30}).attr('rx',0);
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset += 30}).attr('rx',0);
 
-    var offset1 = -5;
+    var offset = -5;
     d3.select('#explain2').selectAll('text')
         .data(['Word order VO / OV','VO','OV',
             'Order of Adposition and Noun Phrase','Postpositional (no prepositions)','Prepositional'])
@@ -110,8 +109,56 @@ function init() {
             else if (d === 'Order of Adposition and Noun Phrase') {return 5}
             else return 45})
         .attr('y', function(d) {
-            if (d.endsWith(')')) {console.log(d);return offset1 += 28}
-            else return offset1 += 25})
+            if (d.endsWith(')')) {console.log(d);return offset += 28}
+            else return offset += 25})
+        .text(function (d) {return d});
+
+    var offset = 15;
+    d3.select('#explain3')
+        .selectAll('circle')
+        .data(['Red','Black'])
+        .enter()
+        .append('circle')
+        .attr('r',10)
+        .style('fill',function(d) {return d})
+        .attr('cx',25)
+        .attr('cy', function(d) {;return offset += 25})
+
+    var offset = -5;
+    d3.select('#explain3').selectAll('text')
+        .data(['Nasal Consonants','No','Yes'])
+        .enter()
+        .append('text')
+        .attr('x', function(d) {
+            if (d === 'Nasal consonants') {return 5}
+            else return 45})
+        .attr('y', function(d) {
+            if (d.endsWith(')')) {console.log(d);return offset += 28}
+            else return offset += 25})
+        .text(function (d) {return d});
+
+    var offset = 15;
+    d3.select('#explain4')
+        .selectAll('circle')
+        .data(['Red','Black'])
+        .enter()
+        .append('circle')
+        .attr('r',10)
+        .style('fill',function(d) {return d})
+        .attr('cx',25)
+        .attr('cy', function(d) {;return offset += 25})
+
+    var offset = -5;
+    d3.select('#explain4').selectAll('text')
+        .data(['Nasal Vowels','No','Yes'])
+        .enter()
+        .append('text')
+        .attr('x', function(d) {
+            if (d === 'Nasal Vowels') {return 5}
+            else return 45})
+        .attr('y', function(d) {
+            if (d.endsWith(')')) {console.log(d);return offset += 28}
+            else return offset += 25})
         .text(function (d) {return d});
 
     d3.csv("data/world-atlas-of-language-structures/language.csv", function(d) {
@@ -242,95 +289,6 @@ function init() {
     function draw_typo_circles() {
 
         d3.csv("data/world-atlas-of-language-structures/language.csv", function (atlas_data) {
-
-
-            /*//var symbol = d3.symbol();
-
-            var featured = atlas_data.filter(function(d) {
-                if (d['1A Consonant Inventories'] !== '') {return d}
-            });
-
-            var points = svg2.selectAll('rect')
-                .data(featured);
-
-            points.enter()
-                .append('rect')
-                .attr("width", 1.5)
-                .attr("height", 1.5)
-                .merge(points)
-                .attr("x", function (d) {
-                    return projection([d.longitude, d.latitude])[0];
-                })
-                .attr("y", function(d) {
-                    return projection([d.longitude, d.latitude])[1];
-                })
-                .attr('fill','none')
-                .style('stroke', function(d) {
-                    if (d['1A Consonant Inventories'] === '1 Small') {return 'Indigo';}
-                    else if (d['1A Consonant Inventories'] === '2 Moderately small') {return 'Chartreuse';}
-                    else if (d['1A Consonant Inventories'] === '3 Average') {return 'Red';}
-                    else if (d['1A Consonant Inventories'] === '4 Moderately large') {return 'Yellow';}
-                    else return 'black';})
-                .attr("rx", function(d) {
-                    // Make circle or square:
-                    // 1.5 == circle. 0 == Square.
-                    if (d['2A Vowel Quality Inventories'] === '1 Small (2-4)') {
-                        // make "small vowel voc" circle.
-                        return 1.5;
-                    }
-                    else if (d['2A Vowel Quality Inventories'] === '2 Average (5-6)') {
-                        // make "average vowel voc" squares..
-                        return 0;
-                    }
-                    else return 0; //trying to rotate this instead // makes large voc square (to be diamond)
-                })
-                .attr("transform", function(d) {
-                    if (d['2A Vowel Quality Inventories'] === '3 Large (7-14)') {
-                        // make "large vowel voc" diamonds.
-
-                        x = projection([d.longitude, d.latitude])[0];
-                        y = projection([d.longitude, d.latitude])[1];
-                        width = 1.5;
-
-                        return "rotate(45, " + (x+width/2) + "," + (y+width/2) +")";
-                    }
-                    else {
-                        return "rotate(0)";
-                    }
-
-                })
-
-                .on("mouseover", function(d) {
-                    d3.select(".viz2")
-                        .select(".tooltip")
-                        .style('visibility', 'visible')
-                        .text("Language: " + d.Name);
-                    var y = d3.select(".viz2")
-                        .select(".tooltip")
-                        .node()
-                        .getBoundingClientRect()
-                        .height;
-                    var x = d3.select(".viz2")
-                        .select(".tooltip")
-                        //get a DOM object from the d3 element
-                        .node()
-                        .getBoundingClientRect()
-                        .width;
-                    d3.select(".viz2")
-                        .select(".tooltip")
-                        .style('left', projection([d.longitude, d.latitude])[0] - x / 2 + 'px')
-                        .style('top', projection([d.longitude, d.latitude])[1] - y - 8 + 'px')
-
-
-                })
-                .on("mouseout", function(){
-                    d3.select(".viz2")
-                        .select(".tooltip")
-                        .style('visibility', 'hidden')});
-
-            points.exit().remove();*/
-
-
 
             console.log("Start: Filter type:");
             console.log(filter_type);
@@ -670,7 +628,7 @@ function init() {
     }
 
 
-    d3.select("#p1").on("click", function (d) {
+    /*d3.select("#p1").on("click", function (d) {
         filter_type = "n_consonants";
         draw_typo_circles();
         d3.select('#explain')
@@ -723,18 +681,95 @@ function init() {
 
     });
 
+
+    }*/
     d3.select('#explain')
         .style('display', 'none');
     d3.select('#explain2')
         .style('display', 'none');
+    d3.select('#explain3')
+        .style('display', 'none');
+    d3.select('#explain4')
+        .style('display', 'none');
 
     // Initialize map:
     filter_type = "nothing";
     draw_typo_circles();
+    d3.select("#filt")
+        .on("change", filterChange)
 
-    // Initialize map:
-    filter_type = "nothing";
-    draw_typo_circles();
+    function filterChange() {
+        var comboFilter = document.getElementById('filt');
+        switch(comboFilter.value)
+        {
+            case '0':   {if(filter_type = "n_consonants")
+            {draw_typo_circles();
+                d3.select('#explain')
+                    .style('display', 'none');
+                d3.select('#explain2')
+                    .style('display', 'none');
+                d3.select('#explain3')
+                    .style('display', 'unset');
+                d3.select('#explain4')
+                    .style('display', 'none');}}
+
+                break;
+
+            case '1':   {if(filter_type = "n_vowels"){
+                draw_typo_circles();
+                d3.select('#explain')
+                    .style('display', 'none');
+                d3.select('#explain2')
+                    .style('display', 'none');
+                d3.select('#explain3')
+                    .style('display', 'none');
+                d3.select('#explain4')
+                    .style('display', 'unset');}}
+
+                break;
+
+            case '2':   { if(filter_type = "word_order_post_pre_pos")
+            {
+                draw_typo_circles();
+                d3.select('#explain')
+                    .style('display', 'none');
+                d3.select('#explain2')
+                    .style('display', 'unset');
+                d3.select('#explain3')
+                    .style('display', 'none');
+                d3.select('#explain4')
+                    .style('display', 'none');}}
+
+                break;
+
+            case '3':   { if(filter_type = "vow_cons_vocab")
+            {
+                draw_typo_circles();
+                d3.select('#explain')
+                    .style('display', 'unset');
+                d3.select('#explain2')
+                    .style('display', 'none');
+                d3.select('#explain3')
+                    .style('display', 'none');
+                d3.select('#explain4')
+                    .style('display', 'none');}}
+
+                break;
+
+            case '4':   { if(filter_type = "nothing")
+            {
+                draw_typo_circles();
+                d3.select('#explain')
+                    .style('display', 'none');
+                d3.select('#explain2')
+                    .style('display', 'none');
+                d3.select('#explain3')
+                    .style('display', 'none');
+                d3.select('#explain4')
+                    .style('display', 'none');}}
+
+        }
+    }
 
 
 }

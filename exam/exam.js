@@ -203,7 +203,7 @@ function init() {
         .style('font-style', function(d) {
             if (d.endsWith('p')) {return 'italic'}
             else return 'normal'});
-    
+
     /*
     d3.csv("data/world-atlas-of-language-structures/language.csv", function(d) {
         d.latitude = parseFloat(d.latitude);
@@ -396,8 +396,23 @@ function init() {
 
                     else if (filter_type === "vow_cons_vocab") {
 
-                        if (d['1A Consonant Inventories'] !== '') {return d}
+                        if (d['1A Consonant Inventories'] !== '') {
 
+                            var feature = d3.select('#feats').property('value');
+
+                            if (feature === 'All') {return d}
+
+                            else if (feature === 'No Fricatives') {
+                                if (d['18A Absence of Common Consonants'] === '3 No fricatives') {return d}}
+
+                            else if (feature === 'No Nasal Consonants') {
+                                if (d['18A Absence of Common Consonants'] === '4 No nasals' |
+                                    d['18A Absence of Common Consonants'] === '5 No bilabials or nasals') {return d}}
+
+                            else if (feature === 'No Bilabials') {
+                                if (d['18A Absence of Common Consonants'] === '2 No bilabials' |
+                                    d['18A Absence of Common Consonants'] === '5 No bilabials or nasals') {return d}}
+                        }
                     }
 
                     else {
@@ -722,19 +737,28 @@ function init() {
     d3.select("#filt")
         .on("change", filterChange);
     draw_typo_circles();
+    d3.select("#feats")
+        .style('visibility', 'hidden')
+        .on("change", draw_typo_circles);
 
     function filterChange() {
+
+        //Hiding everything
+        d3.selectAll('.legend')
+            .style('display', 'none');
+        d3.selectAll('.text')
+            .style('display', 'none');
+        d3.select("#feats")
+            .style('visibility', 'hidden');
+
         var comboFilter = document.getElementById('filt');
         switch(comboFilter.value)
+
         {
-            case '0':   {if(filter_type = "n_consonants")
-            {draw_typo_circles();
-                d3.selectAll('.legend')
-                    .style('display', 'none');
+            case '0':   {if(filter_type = "n_consonants") {
+                draw_typo_circles();
                 d3.select('#explain1')
                     .style('display', 'unset');
-                d3.selectAll('.text')
-                    .style('display', 'none');
                 d3.select('#text1')
                     .style('display', 'unset');}}
 
@@ -742,12 +766,8 @@ function init() {
 
             case '1':   {if(filter_type = "n_vowels"){
                 draw_typo_circles();
-                d3.selectAll('.legend')
-                    .style('display', 'none');
                 d3.select('#explain2')
                     .style('display', 'unset');
-                d3.selectAll('.text')
-                    .style('display', 'none');
                 d3.select('#text2')
                     .style('display', 'unset');}}
 
@@ -756,12 +776,8 @@ function init() {
             case '2':   { if(filter_type = "word_order_post_pre_pos")
             {
                 draw_typo_circles();
-                d3.selectAll('.legend')
-                    .style('display', 'none');
                 d3.select('#explain3')
                     .style('display', 'unset');
-                d3.selectAll('.text')
-                    .style('display', 'none');
                 d3.select('#text3')
                     .style('display', 'unset');}}
 
@@ -777,26 +793,21 @@ function init() {
                 d3.selectAll('.text')
                     .style('display', 'none');
                 d3.select('#text4')
-                    .style('display', 'unset');}}
+                    .style('display', 'unset');
+                d3.select("#feats")
+                    .style('visibility', 'visible')}}
 
                 break;
 
             case '4':   { if(filter_type = "nothing")
             {
                 draw_typo_circles();
-                d3.selectAll('.legend')
-                    .style('display', 'none');
                 d3.select('#explain5')
                     .style('display', 'unset');
-                d3.selectAll('.text')
-                    .style('display', 'none');
                 d3.select('#text5')
                     .style('display', 'unset');
                 draw_typo_circles();}}
 
-
         }
     }
-
-
 }

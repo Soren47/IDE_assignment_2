@@ -16,6 +16,8 @@ function init() {
     var path = d3.geoPath()
         .projection(projection);
 
+    /*
+
     var svg1 = d3.select("#worldMap1")
         .attr("width", width)
         .attr("height", height)
@@ -42,11 +44,13 @@ function init() {
 
     });
 
+    */
+
 
     // Explaining shapes and colours
     var offset = 15;
     //var colours = ['Indigo','Chartreuse','Red','Yellow','Black'];
-    d3.select('#explain')
+    d3.select('#explain4')
         .selectAll('circle')
         .data(['Indigo','Chartreuse','Red','Yellow','Black'])
         .enter()
@@ -56,18 +60,18 @@ function init() {
         .attr('cx',25)
         .attr('cy', function(d) {;return offset += 25});
 
-    d3.select('#explain').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
+    d3.select('#explain4').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
         .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset += 40}).attr('rx',150);
 
-    d3.select('#explain').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
+    d3.select('#explain4').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
         .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset += 30}).attr('rx',0);
 
-    d3.select('#explain').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
+    d3.select('#explain4').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
         .style('stroke-width',3).attr('x',5).attr('y', function(d) {;return offset += 37}).attr('rx',0)
         .attr('transform',"rotate(45, " + (25) + "," + (offset+20) +")");
 
     var offset = -5;
-    d3.select('#explain').selectAll('text')
+    d3.select('#explain4').selectAll('text')
         .data(['Consonant Amount','Small','Moderately Small','Average','Moderately Large','Large',
             'Distinct Vowel Amount','Small (2-4)','Average (5-6)','Large (7-14)'])
         .enter()
@@ -81,6 +85,64 @@ function init() {
             else return offset += 25})
         .text(function (d) {return d});
     // Explaining shapes and colours
+    var offset = 15;
+    d3.select('#explain3')
+        .selectAll('circle')
+        .data(['Red','Black'])
+        .enter()
+        .append('circle')
+        .attr('r',10)
+        .style('fill',function(d) {return d})
+        .attr('cx',25)
+        .attr('cy', function(d) {;return offset += 25})
+
+    d3.select('#explain3').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset+= 40}).attr('rx',150);
+
+    d3.select('#explain3').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset += 30}).attr('rx',0);
+
+    var offset = -5;
+    d3.select('#explain3').selectAll('text')
+        .data(['Word order VO / OV','VO','OV',
+            'Order of Adposition and Noun Phrase','Postpositional (no prepositions)','Prepositional'])
+        .enter()
+        .append('text')
+        .attr('x', function(d) {
+            if (d === 'Word order VO / OV') {return 5}
+            else if (d === 'Order of Adposition and Noun Phrase') {return 5}
+            else return 45})
+        .attr('y', function(d) {
+            if (d.endsWith(')')) {console.log(d);return offset += 28}
+            else return offset += 25})
+        .text(function (d) {return d});
+
+    var offset = 15;
+    d3.select('#explain1')
+        .selectAll('circle')
+        .data(['Red','Black'])
+        .enter()
+        .append('circle')
+        .attr('r',10)
+        .style('fill',function(d) {return d})
+        .attr('cx',25)
+        .attr('cy', function(d) {;return offset += 25})
+
+    var offset = -5;
+    d3.select('#explain1').selectAll('text')
+        .data(['Nasal Consonants','No','Yes'])
+        .enter()
+        .append('text')
+        .attr('x', function(d) {
+            if (d === 'Nasal consonants') {return 5}
+            else return 45})
+        .attr('y', function(d) {
+            if (d.endsWith(')')) {console.log(d);return offset += 28}
+            else return offset += 25})
+        .text(function (d) {return d});
+
+
+
     var offset = 15;
     d3.select('#explain2')
         .selectAll('circle')
@@ -100,64 +162,6 @@ function init() {
 
     var offset = -5;
     d3.select('#explain2').selectAll('text')
-        .data(['Word order VO / OV','VO','OV',
-            'Order of Adposition and Noun Phrase','Postpositional (no prepositions)','Prepositional'])
-        .enter()
-        .append('text')
-        .attr('x', function(d) {
-            if (d === 'Word order VO / OV') {return 5}
-            else if (d === 'Order of Adposition and Noun Phrase') {return 5}
-            else return 45})
-        .attr('y', function(d) {
-            if (d.endsWith(')')) {console.log(d);return offset += 28}
-            else return offset += 25})
-        .text(function (d) {return d});
-
-    var offset = 15;
-    d3.select('#explain3')
-        .selectAll('circle')
-        .data(['Red','Black'])
-        .enter()
-        .append('circle')
-        .attr('r',10)
-        .style('fill',function(d) {return d})
-        .attr('cx',25)
-        .attr('cy', function(d) {;return offset += 25})
-
-    var offset = -5;
-    d3.select('#explain3').selectAll('text')
-        .data(['Nasal Consonants','No','Yes'])
-        .enter()
-        .append('text')
-        .attr('x', function(d) {
-            if (d === 'Nasal consonants') {return 5}
-            else return 45})
-        .attr('y', function(d) {
-            if (d.endsWith(')')) {console.log(d);return offset += 28}
-            else return offset += 25})
-        .text(function (d) {return d});
-
-
-
-    var offset = 15;
-    d3.select('#explain4')
-        .selectAll('circle')
-        .data(['Red','Black'])
-        .enter()
-        .append('circle')
-        .attr('r',10)
-        .style('fill',function(d) {return d})
-        .attr('cx',25)
-        .attr('cy', function(d) {;return offset += 25})
-
-    d3.select('#explain4').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset+= 40}).attr('rx',150);
-
-    d3.select('#explain4').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset += 30}).attr('rx',0);
-
-    var offset = -5;
-    d3.select('#explain4').selectAll('text')
         .data(['Nasal Vowels','No','Yes', 'Oral Vowels', 'Yes', 'No'])
         .enter()
         .append('text')
@@ -169,6 +173,8 @@ function init() {
             if (d.endsWith(')')) {console.log(d);return offset += 28}
             else return offset += 25})
         .text(function (d) {return d});
+
+    /*
 
     d3.csv("data/world-atlas-of-language-structures/language.csv", function(d) {
         d.latitude = parseFloat(d.latitude);
@@ -261,6 +267,8 @@ function init() {
             })
 
     });
+
+    */
 
 
     // Making the second map of typology:
@@ -574,6 +582,7 @@ function init() {
                     console.log(filter_type);
 
                     var clicked_fam = d["family"];
+                    var family_count = 0;
 
                     d3.selectAll("rect")
                         .attr("stroke", function(this_d){
@@ -581,6 +590,7 @@ function init() {
                             var selection_fam = this_d.family;
 
                             if (clicked_fam === selection_fam) {
+                                family_count += 1;
                                 return "green";
                             }
                             else {
@@ -614,6 +624,19 @@ function init() {
 
 
                         });
+
+                    //Legend to Family map, was thinking to log clicked fam and family count to the info
+
+                    d3.select('#explain5')
+                        .append('text')
+                        .attr('x',10)
+                        .attr('y',10)
+                        .text(clicked_fam);
+                    console.log(family_count);
+
+
+
+
 
                 });
 
@@ -692,22 +715,14 @@ function init() {
 
 
     }*/
-    d3.select('#explain')
+    d3.selectAll('.legend')
         .style('display', 'none');
-    d3.select('#explain2')
-        .style('display', 'none');
-    d3.select('#explain3')
-        .style('display', 'none');
-    d3.select('#explain4')
+    d3.select('#explain1')
+        .style('display', 'unset');
+    d3.selectAll('.text')
         .style('display', 'none');
     d3.select('#text1')
-        .style('display', 'none');
-    d3.select('#text2')
-        .style('display', 'none');
-    d3.select('#text3')
-        .style('display', 'none');
-    d3.select('#text4')
-        .style('display', 'none');
+        .style('display', 'unset');
 
     // Initialize map:
     filter_type = "nothing";
@@ -721,84 +736,52 @@ function init() {
         {
             case '0':   {if(filter_type = "n_consonants")
             {draw_typo_circles();
-                d3.select('#explain')
+                d3.selectAll('.legend')
                     .style('display', 'none');
-                d3.select('#explain2')
-                    .style('display', 'none');
-                d3.select('#explain3')
+                d3.select('#explain1')
                     .style('display', 'unset');
-                d3.select('#explain4')
+                d3.selectAll('.text')
                     .style('display', 'none');
                 d3.select('#text1')
-                    .style('display', 'unset');
-                d3.select('#text2')
-                    .style('display', 'none');
-                d3.select('#text3')
-                    .style('display', 'none');
-                d3.select('#text4')
-                    .style('display', 'none');}}
+                    .style('display', 'unset');}}
 
                 break;
 
             case '1':   {if(filter_type = "n_vowels"){
                 draw_typo_circles();
-                d3.select('#explain')
+                d3.selectAll('.legend')
                     .style('display', 'none');
                 d3.select('#explain2')
-                    .style('display', 'none');
-                d3.select('#explain3')
-                    .style('display', 'none');
-                d3.select('#explain4')
                     .style('display', 'unset');
-                d3.select('#text1')
+                d3.selectAll('.text')
                     .style('display', 'none');
                 d3.select('#text2')
-                    .style('display', 'unset');
-                d3.select('#text3')
-                    .style('display', 'none');
-                d3.select('#text4')
-                    .style('display', 'none');}}
+                    .style('display', 'unset');}}
 
                 break;
 
             case '2':   { if(filter_type = "word_order_post_pre_pos")
             {
                 draw_typo_circles();
-                d3.select('#explain')
+                d3.selectAll('.legend')
                     .style('display', 'none');
-                d3.select('#explain2')
-                    .style('display', 'unset');
                 d3.select('#explain3')
-                    .style('display', 'none');
-                d3.select('#explain4')
-                    .style('display', 'none');
-                d3.select('#text1')
-                    .style('display', 'none');
-                d3.select('#text2')
+                    .style('display', 'unset');
+                d3.selectAll('.text')
                     .style('display', 'none');
                 d3.select('#text3')
-                    .style('display', 'unset');
-                d3.select('#text4')
-                    .style('display', 'none');}}
+                    .style('display', 'unset');}}
 
                 break;
 
             case '3':   { if(filter_type = "vow_cons_vocab")
             {
                 draw_typo_circles();
-                d3.select('#explain')
-                    .style('display', 'unset');
-                d3.select('#explain2')
-                    .style('display', 'none');
-                d3.select('#explain3')
+                d3.selectAll('.legend')
                     .style('display', 'none');
                 d3.select('#explain4')
-                    .style('display', 'none');
-                d3.select('#text1')
-                    .style('display', 'none');
-                d3.select('#text2')
-                    .style('display', 'none');
-                d3.select('#text3')
+                    .style('display', 'unset');
+                d3.selectAll('.text')
                     .style('display', 'none');
                 d3.select('#text4')
                     .style('display', 'unset');}}
@@ -808,22 +791,14 @@ function init() {
             case '4':   { if(filter_type = "nothing")
             {
                 draw_typo_circles();
-                d3.select('#explain')
+                d3.selectAll('.legend')
                     .style('display', 'none');
-                d3.select('#explain2')
+                d3.select('#explain5')
+                    .style('display', 'unset');
+                d3.selectAll('.text')
                     .style('display', 'none');
-                d3.select('#explain3')
-                    .style('display', 'none');
-                d3.select('#explain4')
-                    .style('display', 'none');
-                d3.select('#text1')
-                    .style('display', 'none');
-                d3.select('#text2')
-                    .style('display', 'none');
-                d3.select('#text3')
-                    .style('display', 'none');
-                d3.select('#text4')
-                    .style('display', 'none');}}
+                d3.select('#text5')
+                    .style('display', 'unset');}}
 
         }
     }

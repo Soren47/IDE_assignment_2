@@ -47,7 +47,6 @@
             /* Position the tooltip text */
             position: absolute;
             z-index: 1;
-
         }
         /* Tooltip arrow */
         .tooltip::after {
@@ -62,11 +61,18 @@
             width: 5px;
             color: #555;
         }
-
         #explain {
             border: none;
         }
-
+        #explain2 {
+            border: none;
+        }
+        #explain3 {
+            border: none;
+        }
+        #explain4 {
+            border: none;
+        }
     </style>
 </head>
 
@@ -94,13 +100,25 @@
 </div>
 <svg id="explain" height=500></svg>
 <svg id="explain2" height=500></svg>
+<svg id="explain3" height=500></svg>
+<svg id="explain4" height=500></svg>
 <div class="viz2">
-    <div id="p1">Nasal consonants</div>
-    <div id="p2">Nasal vowels</div>
-    <div id="p3">OV or VO and Post- or Prepositions</div>
-    <div id="p4">Consonants and Vowels</div>
-    <div id="p5">No filter</div>
-</div>
+    <!-- <div id="p1">Nasal consonants</div>
+     <div id="p2">Nasal vowels</div>
+     <div id="p3">OV or VO and Post- or Prepositions</div>
+     <div id="p4">Consonants and Vowels</div>
+     <div id="p5">No filter</div> -->
+ </div>
+ <div id = "SelectFilter">
+     Filter type
+     <select id = "filt">
+         <option value="0" title = "Nasal consonants">Nasal consonants</option>
+         <option value="1" title ="Nasal vowels">Nasal vowels</option>
+         <option value="2" title ="V or VO and Post- or Prepositions">OV or VO and Post- or Prepositions</option>
+         <option value="3" title ="Consonants and Vowels">Consonants and Vowels</option>
+         <option value="4" title ="No filter" selected>No filter</option>
+     </select>
+ </div>
 
-</body>
-</html>
+ </body>
+ </html>

@@ -700,6 +700,14 @@ function init() {
         .style('display', 'none');
     d3.select('#explain4')
         .style('display', 'none');
+    d3.select('#text1')
+        .style('display', 'none');
+    d3.select('#text2')
+        .style('display', 'none');
+    d3.select('#text3')
+        .style('display', 'none');
+    d3.select('#text4')
+        .style('display', 'none');
 
     // Initialize map:
     filter_type = "nothing";
@@ -720,6 +728,14 @@ function init() {
                 d3.select('#explain3')
                     .style('display', 'unset');
                 d3.select('#explain4')
+                    .style('display', 'none');
+                d3.select('#text1')
+                    .style('display', 'unset');
+                d3.select('#text2')
+                    .style('display', 'none');
+                d3.select('#text3')
+                    .style('display', 'none');
+                d3.select('#text4')
                     .style('display', 'none');}}
 
                 break;
@@ -733,7 +749,15 @@ function init() {
                 d3.select('#explain3')
                     .style('display', 'none');
                 d3.select('#explain4')
-                    .style('display', 'unset');}}
+                    .style('display', 'unset');
+                d3.select('#text1')
+                    .style('display', 'none');
+                d3.select('#text2')
+                    .style('display', 'unset');
+                d3.select('#text3')
+                    .style('display', 'none');
+                d3.select('#text4')
+                    .style('display', 'none');}}
 
                 break;
 
@@ -747,6 +771,14 @@ function init() {
                 d3.select('#explain3')
                     .style('display', 'none');
                 d3.select('#explain4')
+                    .style('display', 'none');
+                d3.select('#text1')
+                    .style('display', 'none');
+                d3.select('#text2')
+                    .style('display', 'none');
+                d3.select('#text3')
+                    .style('display', 'unset');
+                d3.select('#text4')
                     .style('display', 'none');}}
 
                 break;
@@ -761,7 +793,15 @@ function init() {
                 d3.select('#explain3')
                     .style('display', 'none');
                 d3.select('#explain4')
-                    .style('display', 'none');}}
+                    .style('display', 'none');
+                d3.select('#text1')
+                    .style('display', 'none');
+                d3.select('#text2')
+                    .style('display', 'none');
+                d3.select('#text3')
+                    .style('display', 'none');
+                d3.select('#text4')
+                    .style('display', 'unset');}}
 
                 break;
 
@@ -775,6 +815,14 @@ function init() {
                 d3.select('#explain3')
                     .style('display', 'none');
                 d3.select('#explain4')
+                    .style('display', 'none');
+                d3.select('#text1')
+                    .style('display', 'none');
+                d3.select('#text2')
+                    .style('display', 'none');
+                d3.select('#text3')
+                    .style('display', 'none');
+                d3.select('#text4')
                     .style('display', 'none');}}
 
         }

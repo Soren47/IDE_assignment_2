@@ -74,6 +74,7 @@
             font-size: 18;
         }
         #all {
+            padding-top: 0.5cm;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -82,13 +83,18 @@
             display: inline-flex;
             justify-content: center;
         }
-        #SelectFilter {
-            padding-bottom: 0.5cm;
-            display: flex;
-            font-family: "Times New Roman", Times, sans-serif;
-            flex-direction: column;
-            align-items: center
+
+        select {
+            margin-left: 0.2cm;
+            margin-bottom: 1px;
         }
+
+        #mapInfo {
+            display:block;
+            flex-direction: column;
+            width: 300px;
+        }
+
         .text {
             padding-left: 0;
             font-size: 18px;
@@ -113,22 +119,6 @@
 <body>
 
 <h1>Language Typology  of the World</h1>
-
-<!--
-<h2>Language Families</h2>
-<div class="viz1 tooltipContainer" >
-    <svg id ="worldMap1"></svg>
-    <div class="tooltip"></div>
-</div>
-<div class="viz1" id='select' >
-    <div id = "SelectFamily">
-        Family
-        <select id = "family">
-        </select>
-    </div>
-</div>
-<h2>Linguistic Universals</h2>
--->
 <h2>Introduction</h2>
 <p>
     Languages can be classified according to their structural and functional features. This results in many differences between languages.
@@ -161,32 +151,31 @@
     the differences between languages by visualizing them on the map.
     Everytime a feature is selected, the user has the option to zoom the map and move it horizontally or vertically.
 </p>
-<div id = "SelectFilter">
-    Filter type
-    <select id = "filt">
-        <option value="0" title = "Nasal consonants">Nasal consonants</option>
-        <option value="1" title = "Nasal vowels">Nasal vowels</option>
-        <option value="2" title = "V or VO and Post- or Prepositions">OV or VO and Post- or Prepositions</option>
-        <option value="3" title = "Consonants and Vowels">Consonants and Vowels</option>
-        <!--                                             Sets the first shown option      :-->
-        <option value="4" title = "Language Families" selected="selected">Language Families</option>
-    </select>
-</div>
-<select id="feats">
-    <option>All</option>
-    <option>No Fricatives</option>
-    <option>No Nasal Consonants</option>
-    <option>No Bilabials</option>
-</select>
 <div id="all">
     <div id = map class="viz2 tooltipContainer" >
         <svg id ="worldMap2"></svg>
         <div class="tooltip"></div>
-        <svg id="explain1" class="legend" height=500></svg>
-        <svg id="explain2" class="legend" height=500></svg>
-        <svg id="explain3" class="legend" height=500></svg>
-        <svg id="explain4" class="legend" height=500></svg>
-        <svg id="explain5" class="legend" height=500></svg>
+        <div id="mapInfo">
+            <select id = "filt">
+                <option value="0" title = "Nasal consonants">Nasal consonants</option>
+                <option value="1" title = "Nasal vowels">Nasal vowels</option>
+                <option value="2" title = "V or VO and Post- or Prepositions">OV or VO and Post- or Prepositions</option>
+                <option value="3" title = "Consonants and Vowels">Consonants and Vowels</option>
+                <!--                                             Sets the first shown option      :-->
+                <option value="4" title = "Language Families" selected="selected">Language Families</option>
+            </select>
+            <select id="feats">
+                <option>All</option>
+                <option>No Fricatives</option>
+                <option>No Nasal Consonants</option>
+                <option>No Bilabials</option>
+            </select>
+            <svg id="explain1" class="legend" height=460></svg>
+            <svg id="explain2" class="legend" height=460></svg>
+            <svg id="explain3" class="legend" height=460></svg>
+            <svg id="explain4" class="legend" height=460></svg>
+            <svg id="explain5" class="legend" height=460></svg>
+        </div>
     </div>
     <p></p>
     <div id="textContainer">

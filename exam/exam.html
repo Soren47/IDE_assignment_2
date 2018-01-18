@@ -141,10 +141,12 @@
 <h2>Map navigation</h2>
 <p>
     The default map displays all the languages from the dataset, represented by circles. When clicking on a circle, all the languages that belong to the same family will
-    become a different color (green). When hovering over a circle, a tooltip is displayed showing the name of the language acccessed and its family.
+    become a different color (green) and the number of the languages belonging to the same family will be displayed in the legend. When hovering over a circle, a tooltip is
+    displayed showing the name of the language accessed and its family.
     A filter allows the user to choose on option from a list in order to visualize some important information about a specific language feature.
     When deciding for an option, specificities of languages regarding feature will be displayed on the map through different colors and shapes, along with a legend
-    and a text that will describe in detail the feature.
+    and a text that will describe in details the feature.
+    Everytime a feature is selected, the the user has the option to zoom the map and move it horizontally or vertically.
 </p>
 <div id = "SelectFilter">
     Filter type
@@ -167,6 +169,7 @@
         <svg id="explain4" class="legend" height=500></svg>
         <svg id="explain5" class="legend" height=500></svg>
     </div>
+    <p></p>
     <div id="textContainer">
         <p id="text1" class="text">
             Nearly all nasal consonants are nasal occlusives, in which air escapes through the nose but not through the mouth,
@@ -205,13 +208,20 @@
             have a preferred word order,[1] and other word orders, if used, are considered "marked".
         </p>
         <p id="text4" class="text">
-            Depending on your dialect, you might also have vowels in some of BOUGHT, BAUD, BUTTE, BOUY (like BOOEY but as a single syllable), BART, BORE, BEAR, or BALM that are different
-            from any of the first fourteen vowels. And depending on how well you pronounce your borrowed French or German words, you may even have two more vowels, as in BU (French
-            "drank" or German  "over") and BOEUF (French beef or German schön "beautiful"). No wonder dictionary pronunciation guides are complicated!
+            Languages have different amount of vowels and consonants in their alphabet. The size of the set of consonants used in the language, usually referred to as the consonant inventory.
+            This is one element of what is called the phonology of the language. The range of resulting inventories extends from a low of 6 consonants to a high of 122. Consonant inventories
+            close to size 22 ± 3 have been categorized as average, and the remainder divided into the categories small (from 6 to 14 consonants), moderately small (15-18), moderately large
+            (26-33), and large (34 or more consonants). Languages with average size consonant inventories are found in most areas of the world, suggesting that this size truly is a
+            representative of something typical for spoken human languages. The languages with larger or smaller inventories on the other hand display quite regional disproportions
+            in their distribution. As with consonants, for many languages it is quite straightforward to decide how many vowels there are, but in other cases there are some difficult
+            questions to resolve, particularly where there is a question of whether a given syllable center should be recognized as consisting of one or of two (or even more) parts.
+            The average number of vowels in a language is just fractionally below 6. The smallest vowel quality inventory recorded is 2 and the largest 14.
         </p>
         <p id="text5" class="text">
-            Text for fifth map, family map more and more and more and then some more again hey is is almost new line yet amg moooooore give me a new
-            line already please!
+            Language families are groups of languages that are related to each other because they come from a common ancestral language. The languages in a family
+            are similar in their vocabulary or structure. For example, Spanish, Italian, Breton all come from the same family: Indo-European.
+            Clicking on a language from the map will display in green circles all the members and their number belonging to the family to which the chosen language belongs.
+            Most languages belong to a language family, but some languages do not. These languages are called language isolates.
         </p>
     </div>
 </div>

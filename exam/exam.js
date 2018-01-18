@@ -45,7 +45,7 @@ function init() {
 
     // Explaining shapes and colours
     var offset = 15;
-    //var colours = ['Indigo','Chartreuse','Red','Yellow','Black'];
+
     d3.select('#explain4')
         .selectAll('circle')
         .data(['Indigo','Chartreuse','Red','Yellow','Black'])
@@ -57,13 +57,13 @@ function init() {
         .attr('cy', function(d) {;return offset += 25});
 
     d3.select('#explain4').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset += 40}).attr('rx',150);
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {return offset += 40}).attr('rx',150);
 
     d3.select('#explain4').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset += 30}).attr('rx',0);
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {return offset += 30}).attr('rx',0);
 
     d3.select('#explain4').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',5).attr('y', function(d) {;return offset += 37}).attr('rx',0)
+        .style('stroke-width',3).attr('x',5).attr('y', function(d) {return offset += 37}).attr('rx',0)
         .attr('transform',"rotate(45, " + (25) + "," + (offset+20) +")");
 
     var offset = -5;
@@ -77,9 +77,11 @@ function init() {
             else if (d === 'Distinct Vowel Amount') {return 5}
             else return 45})
         .attr('y', function(d) {
-            if (d.endsWith(')')) {console.log(d);return offset += 28}
+            if (d.endsWith(')')) {return offset += 28}
             else return offset += 25})
         .text(function (d) {return d});
+
+
     // Explaining shapes and colours
     var offset = 15;
     d3.select('#explain3')
@@ -93,23 +95,24 @@ function init() {
         .attr('cy', function(d) {;return offset += 25})
 
     d3.select('#explain3').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset+= 40}).attr('rx',150);
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {return offset+= 50}).attr('rx',150);
 
     d3.select('#explain3').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset += 30}).attr('rx',0);
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {return offset += 27}).attr('rx',0);
 
     var offset = -5;
     d3.select('#explain3').selectAll('text')
-        .data(['Word order VO / OV','VO','OV',
+        .data(['Word order Verb-Object / Object-Verb','VO','OV',
             'Order of Adposition and Noun Phrase','Postpositional (no prepositions)','Prepositional'])
         .enter()
         .append('text')
         .attr('x', function(d) {
-            if (d === 'Word order VO / OV') {return 5}
+            if (d === 'Word order Verb-Object / Object-Verb') {return 5}
             else if (d === 'Order of Adposition and Noun Phrase') {return 5}
             else return 45})
         .attr('y', function(d) {
-            if (d.endsWith(')')) {console.log(d);return offset += 28}
+            if (d.endsWith(')')) {return offset += 28}
+            else if (d.endsWith('e')) {return offset += 35}
             else return offset += 25})
         .text(function (d) {return d});
 
@@ -122,7 +125,7 @@ function init() {
         .attr('r',10)
         .style('fill',function(d) {return d})
         .attr('cx',25)
-        .attr('cy', function(d) {;return offset += 25})
+        .attr('cy', function(d) {return offset += 25})
 
     var offset = -5;
     d3.select('#explain1').selectAll('text')
@@ -130,14 +133,10 @@ function init() {
         .enter()
         .append('text')
         .attr('x', function(d) {
-            if (d === 'Nasal consonants') {return 5}
+            if (d === 'Nasal Consonants') {return 5}
             else return 45})
-        .attr('y', function(d) {
-            if (d.endsWith(')')) {console.log(d);return offset += 28}
-            else return offset += 25})
+        .attr('y', function(d) {return offset += 25})
         .text(function (d) {return d});
-
-
 
     var offset = 15;
     d3.select('#explain2')
@@ -151,10 +150,10 @@ function init() {
         .attr('cy', function(d) {;return offset += 25})
 
     d3.select('#explain2').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset+= 40}).attr('rx',150);
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {return offset+= 40}).attr('rx',150);
 
     d3.select('#explain2').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {;return offset += 30}).attr('rx',0);
+        .style('stroke-width',3).attr('x',15).attr('y', function(d) {return offset += 30}).attr('rx',0);
 
     var offset = -5;
     d3.select('#explain2').selectAll('text')
@@ -166,7 +165,7 @@ function init() {
             else if (d === 'Oral Vowels') {return 5}
             else return 45})
         .attr('y', function(d) {
-            if (d.endsWith(')')) {console.log(d);return offset += 28}
+            if (d.endsWith(')')) {return offset += 28}
             else return offset += 25})
         .text(function (d) {return d});
 
@@ -764,7 +763,7 @@ function init() {
 
                 break;
 
-            case '1':   {if(filter_type = "n_vowels"){
+            case '1':   {if(filter_type = "n_vowels") {
                 draw_typo_circles();
                 d3.select('#explain2')
                     .style('display', 'unset');
@@ -773,8 +772,7 @@ function init() {
 
                 break;
 
-            case '2':   { if(filter_type = "word_order_post_pre_pos")
-            {
+            case '2':   { if(filter_type = "word_order_post_pre_pos") {
                 draw_typo_circles();
                 d3.select('#explain3')
                     .style('display', 'unset');
@@ -783,8 +781,7 @@ function init() {
 
                 break;
 
-            case '3':   { if(filter_type = "vow_cons_vocab")
-            {
+            case '3':   { if(filter_type = "vow_cons_vocab") {
                 draw_typo_circles();
                 d3.selectAll('.legend')
                     .style('display', 'none');
@@ -799,15 +796,13 @@ function init() {
 
                 break;
 
-            case '4':   { if(filter_type = "nothing")
-            {
+            case '4':   { if(filter_type = "nothing") {
                 draw_typo_circles();
                 d3.select('#explain5')
                     .style('display', 'unset');
                 d3.select('#text5')
                     .style('display', 'unset');
                 draw_typo_circles();}}
-
         }
     }
 }

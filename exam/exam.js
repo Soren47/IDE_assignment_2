@@ -292,7 +292,8 @@ function init() {
         .attr("width", width)
         .attr("height", height)
         .call(d3.zoom()
-            .scaleExtent([0.55, 30])
+            // .scaleExtent([0.55, 30])
+            .scaleExtent([0.55, 60])
             .translateExtent([[-125, -160], [width + 22, height + 252]]) //limits of panning to fit edges of map
             .on("zoom", function () {
                 svg2.attr("transform", d3.event.transform);

@@ -292,7 +292,6 @@ function init() {
         .attr("width", width)
         .attr("height", height)
         .call(d3.zoom()
-            // .scaleExtent([0.55, 30])
             .scaleExtent([0.55, 60])
             .translateExtent([[-125, -160], [width + 22, height + 252]]) //limits of panning to fit edges of map
             .on("zoom", function () {
@@ -605,7 +604,7 @@ function init() {
                         /*.style('left', projection([d.longitude, d.latitude])[0] - x / 2 + 'px')
                         .style('top', projection([d.longitude, d.latitude])[1] - y - 8 + 'px')*/
                         .style('left', ( new_x - 100 ) + 'px')
-                        .style('top', ( new_y - 160 ) + 'px')
+                        .style('top', ( new_y - 380 ) + 'px')
 
 
                 })

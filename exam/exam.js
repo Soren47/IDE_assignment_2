@@ -423,24 +423,10 @@ function init() {
                         .select(".tooltip")
                         .style('visibility', 'visible')
                         .text("Language: " + d.Name + "; "+ "Familiy: " + d.family);
-                    /*var y = d3.select(".viz2")
-                        .select(".tooltip")
-                        .node()
-                        .getBoundingClientRect()
-                        .height;
-                    var x = d3.select(".viz2")
-                        .select(".tooltip")
-                        //get a DOM object from the d3 element
-                        .node()
-                        .getBoundingClientRect()
-                        .width;*/
                     d3.select(".viz2")
                         .select(".tooltip")
-                        /*.style('left', projection([d.longitude, d.latitude])[0] - x / 2 + 'px')
-                        .style('top', projection([d.longitude, d.latitude])[1] - y - 8 + 'px')*/
-                        .style('left', ( new_x - 220 ) + 'px')
-                        .style('top', ( new_y - 270 ) + 'px')
-
+                        .style('left', ( d3.event.pageX - 350) + 'px')
+                        .style('top', ( d3.event.pageY - 630) + 'px')
 
                 })
                 .on("mouseout", function(){

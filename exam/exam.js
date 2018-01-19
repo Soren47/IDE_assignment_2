@@ -122,6 +122,33 @@ function init() {
             if (d.endsWith('p')) {return 'italic'}
             else return 'normal'});
 
+    function zoom_map_points() {
+        // Change size of shapes:
+        d3.select("#worldMap").selectAll("rect")
+            .attr("width", function() {
+                // the value that it is before zoom. Not actually needed :D
+                //var orig_val = d3.select(this).attr("width");
+                // 1.5 is the first width and height.
+
+                if (current_zoom_mult !== 1) {
+                    return 1.5 / ( current_zoom_mult * 0.3);
+                }
+                else {
+                    return 1.5;
+                }
+
+            })
+            .attr("height", function() {
+
+                if (current_zoom_mult !== 1) {
+                    return 1.5 / ( current_zoom_mult * 0.3);
+                }
+                else {
+                    return 1.5;
+                }
+            });
+    }
+
     // Making the maps
     var svg2 = d3.select("#worldMap")
         .attr("width", width)
@@ -131,20 +158,8 @@ function init() {
             .translateExtent([[-125, -160], [width + 22, height + 252]]) //limits of panning to fit edges of map
             .on("zoom", function () {
                 svg2.attr("transform", d3.event.transform);
-
-                // Change size of shapes:
-                d3.select("#worldMap").selectAll("rect")
-                    .attr("width", function() {
-                        // the value that it is before zoom. Not actually needed :D
-                        //var orig_val = d3.select(this).attr("width");
-                        // 1.5 is the first width and height.
-
-                        return 1.5 / ( d3.event.transform.k * 0.3);
-                    })
-                    .attr("height", function() {
-
-                        return 1.5 / ( d3.event.transform.k * 0.3);
-                    });
+                current_zoom_mult = d3.event.transform.k;
+                zoom_map_points();
             })
         )
         .append("g");
@@ -507,6 +522,8 @@ function init() {
                 circles.on("click", null);
             }
             circles.exit().remove();
+
+            zoom_map_points();
         });
     }
 

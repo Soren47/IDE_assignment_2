@@ -26,17 +26,12 @@
             stroke-width: 0.5;
         }
         p {
-            padding-left: 0.2cm;
             margin: 0;
-            max-width: 30cm;
+            max-width: 1100px;
             font-size: 18px;
             font-family: "Times New Roman", Times, sans-serif;
             text-align: justify;
             text-justify: inter-word;
-        }
-        h2 {
-            margin-bottom: 0;
-            margin-top: 0.2cm;
         }
         .tooltipContainer{
             display: inline-block;
@@ -71,15 +66,22 @@
         }
         .legend {
             border: none;
-            font-size: 18;
+            font-size: 18px;
         }
         #all {
-            padding-top: 0.5cm;
             display: flex;
             flex-direction: column;
             align-items: center;
         }
+        .pair {
+            align-items: baseline;
+        }
+        h1, h2 {
+            margin-bottom: 0;
+            margin-top: 0.2cm;
+        }
         #map {
+            padding-top: 0.5cm;
             display: inline-flex;
             justify-content: center;
         }
@@ -93,14 +95,6 @@
             display:block;
             flex-direction: column;
             width: 300px;
-        }
-
-        .text {
-            padding-left: 0;
-            font-size: 18px;
-            font-family: "Times New Roman", Times, sans-serif;
-            text-align: justify;
-            text-justify: inter-word;
         }
         #textContainer {
             max-width: 1100px;
@@ -117,41 +111,44 @@
 </head>
 
 <body>
-
-<h1>Language Typology  of the World</h1>
-<h2>Introduction</h2>
-<p>
-    Languages can be classified according to their structural and functional features. This results in many differences between languages.
-    The language typology of the world map describes the common properties and the structural diversity of the world's languages,
-    given some specific feature chosen for this purpose. We can distinguish, for example, between languages with a relatively rich phonemic inventory
-    languages with a relatively poor phonemic inventory, languages with a high percentage of consonants to vowels from languages with a low percentage of
-    consonants to vowels, languages with a fixed word order from languages with a free word order, prefixing languages from suffixing languages,
-    and these are just to give a few examples.
-
-    <br/>&emsp;This project gives important significance to particular typological characteristics through an interactive world map.
-</p>
-
-<h2>Dataset</h2>
-<p>
-    The chosen dataset is the World Atlas of Language Structures <a href="https://www.kaggle.com/rtatman/world-atlas-of-language-structures">(WALS)</a>.
-    This dataset contains information on the structure of 2,679 different languages and it provides information regarding the locations,
-    families, dialects and basic typological features of the languages of the world. Along with the information related to family languages, 4
-    features were considered to be analyzed in this project. A feature is a structural property of language that describes one aspect of cross-linguistic diversity.
-</p>
-
-<h2>Map navigation</h2>
-<p>
-    The default map displays all the languages from the dataset, represented by circles. The map allows the user to click on a circle so that all the languages that belong
-    to the same family will be <span style="color:green">colored green </span>and the number of languages belonging to the same family will be displayed in the legend.
-    When hovering over a circle, a tooltip is displayed showing the name of the language accessed and its family.
-    A filter allows the user to choose on option from a list in order to visualize some important information about a specific language feature.
-    When deciding for an option, specificities of languages regarding a feature will be displayed on the map through different colors and shapes, along with a legend
-    and a text that will describe in details the feature. Subjects like the absence of nasal consonant, the spreading of nasal vowals, the order between object and verb/
-    preposition and noun in a language or the number of consonants or vowels of a language will be analyzed through the interactive map, allowing us to conclude about
-    the differences between languages by visualizing them on the map.
-    <br/>&emsp;Every version of the map can be dragged and zoomed in on, and all language points can be hovered for additional infomation.
-</p>
 <div id="all">
+<h1>Language Typology  of the World</h1>
+    <div class="pair">
+        <h2>Introduction</h2>
+        <p>
+            Languages can be classified according to their structural and functional features. This results in many differences between languages.
+            The language typology of the world map describes the common properties and the structural diversity of the world's languages,
+            given some specific feature chosen for this purpose. We can distinguish, for example, between languages with a relatively rich phonemic inventory
+            languages with a relatively poor phonemic inventory, languages with a high percentage of consonants to vowels from languages with a low percentage of
+            consonants to vowels, languages with a fixed word order from languages with a free word order, prefixing languages from suffixing languages,
+            and these are just to give a few examples.
+
+            <br/>&emsp;This project gives important significance to particular typological characteristics through an interactive world map.
+        </p>
+    </div>
+    <div class="pair">
+        <h2>Dataset</h2>
+        <p>
+            The chosen dataset is the World Atlas of Language Structures <a href="https://www.kaggle.com/rtatman/world-atlas-of-language-structures">(WALS)</a>.
+            This dataset contains information on the structure of 2,679 different languages and it provides information regarding the locations,
+            families, dialects and basic typological features of the languages of the world. Along with the information related to family languages, 4
+            features were considered to be analyzed in this project. A feature is a structural property of language that describes one aspect of cross-linguistic diversity.
+        </p>
+    </div>
+    <div class="pair">
+        <h2>Map navigation</h2>
+        <p>
+            The default map displays all the languages from the dataset, represented by circles. The map allows the user to click on a circle so that all the languages that belong
+            to the same family will be <span style="color:green">colored green </span>and the number of languages belonging to the same family will be displayed in the legend.
+            When hovering over a circle, a tooltip is displayed showing the name of the language accessed and its family.
+            A filter allows the user to choose on option from a list in order to visualize some important information about a specific language feature.
+            When deciding for an option, specificities of languages regarding a feature will be displayed on the map through different colors and shapes, along with a legend
+            and a text that will describe in details the feature. Subjects like the absence of nasal consonant, the spreading of nasal vowals, the order between object and verb/
+            preposition and noun in a language or the number of consonants or vowels of a language will be analyzed through the interactive map, allowing us to conclude about
+            the differences between languages by visualizing them on the map.
+            <br/>&emsp;Every version of the map can be dragged and zoomed in on, and all language points can be hovered for additional infomation.
+        </p>
+    </div>
     <div id = map class="viz2 tooltipContainer" >
         <svg id ="worldMap"></svg>
         <div class="tooltip"></div>
@@ -178,7 +175,6 @@
             <svg id="explain5" class="legend" height=460></svg>
         </div>
     </div>
-    <p></p>
     <div id="textContainer">
         <p id="text1" class="text">
             Nasals are consonants in which there is a closure in the mouth cavity and the entire flow of air is directed through the nose.
@@ -248,9 +244,9 @@
             Fricatives are the sounds that are created when air from the lungs passes through a sufficiently narrow constriction on its way out of the mouth to set the air
             into a noisy turbulent flow pattern. The sounds at the beginning of the English words fan, thin, that, sign, zone are fricatives [wals.info/chapter/18]. The languages without
             fricatives are spread in Australia, New Guinea and South America.
-            Nasal consonants and nasal vowels have been described earlier in the project. There are 13 languages in the dataset that don't have nasals in their consonant inventories. They are 
+            Nasal consonants and nasal vowels have been described earlier in the project. There are 13 languages in the dataset that don't have nasals in their consonant inventories. They are
             common in South America and Africa. Languages without nasal vowels are much more spread all over the map.
-            
+
             <br/>&emsp;The map displays each category of consonant inventory size in a language with a color and each category of vowel inventory size with a shape.
             Languages with small inventories are frequent in the Americas. The indigenous languages of the Americas quite often have four vowels in a set
             similar to that of Spanish except for missing an /u/-like vowel. Small vowel inventories are also spread in Australia while the larger ones dominate Africa and Southest Asia.

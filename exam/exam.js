@@ -17,171 +17,90 @@ function init() {
     var path = d3.geoPath()
         .projection(projection);
 
-    /*
-    var svg1 = d3.select("#worldMap1")
-        .attr("width", width)
-        .attr("height", height)
-        .call(d3.zoom()
-            .scaleExtent([0.55, 30])
-            .translateExtent([[-125, -160], [width + 22, height + 252]]) //limits of panning to fit edges of map
-            .on("zoom", function () {
-                svg1.attr("transform", d3.event.transform)
-            })
-        )
-        .append("g");
-    //path
-    var g1 = svg1.append("g");
-    // load and display the world and locations
-    //d3.json("https://gist.githubusercontent.com/d3noob/5193723/raw/world-110m2.json", function(error, topology) {
-    d3.json("data/world-110m2.json", function(error, topology) {
-        var world = g1.selectAll("path")
-            .data(topojson.object(topology, topology.objects.countries).geometries)
-            .enter()
-            .append("path")
-            .attr("d", path)
-    });
-    */
 
+    //Function to aid creation of map legends
+    function legendary(legend, type, nestedData) {
 
-    // Explaining shapes and colours
+        //expects [x,y,colour] for each element of data list
+        if (type === 'circle') {
+            d3.select(legend)
+                .selectAll('circle')
+                .data(nestedData)
+                .enter()
+                .append('circle')
+                .attr('r',10)
+                .attr('cx', function(d) {return d[0]})
+                .attr('cy', function(d) {return d[1]})
+                .style('fill',function(d) {return d[2]});}
+
+        //expects [x,y,rx,rotate] for each element of data list
+        else if (type === 'rect') {
+            d3.select(legend)
+                .selectAll('rect')
+                .data(nestedData)
+                .enter()
+                .append('rect')
+                .attr('width',20)
+                .attr('height',20)
+                .attr('fill','none')
+                .style('stroke','black')
+                .style('stroke-width',3)
+                .attr('x', function(d) {return d[0]})
+                .attr('y', function(d) {return d[1]})
+                .attr('rx', function(d) {return d[2]})
+                .attr('transform', function(d) {
+                    if (d[3] === 'rotate') {
+                       return "rotate(45, " + (d[0]+10) + "," + (d[1]+10) +")"}});}
+
+        //expects [x,y,text] for each element of data list
+        else if (type === 'text') {
+            d3.select(legend)
+                .selectAll('text')
+                .data(nestedData)
+                .enter()
+                .append('text')
+                .attr('x',  function(d) {return d[0]})
+                .attr('y',  function(d) {return d[1]})
+                .text(function (d) {return d[2]});}
+        }
+
+    //Legend for 1st map, Nasal Consonants
     var offset = 15;
-
-    d3.select('#explain4')
-        .selectAll('circle')
-        .data(['Indigo','Chartreuse','Red','Yellow','Black'])
-        .enter()
-        .append('circle')
-        .attr('r',10)
-        .style('fill',function(d) {return d})
-        .attr('cx',25)
-        .attr('cy', function(d) {;return offset += 25});
-
-    d3.select('#explain4').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {return offset += 40}).attr('rx',150);
-
-    d3.select('#explain4').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {return offset += 30}).attr('rx',0);
-
-    d3.select('#explain4').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',5).attr('y', function(d) {return offset += 37}).attr('rx',0)
-        .attr('transform',"rotate(45, " + (25) + "," + (offset+20) +")");
-
+    legendary('#explain1','circle', [[25,offset+=25,'Red'],[25,offset+=25,'Black']]);
     var offset = -5;
-    d3.select('#explain4').selectAll('text')
-        .data(['Consonant Amount','Small','Moderately Small','Average','Moderately Large','Large',
-            'Distinct Vowel Amount','Small (2-4)','Average (5-6)','Large (7-14)'])
-        .enter()
-        .append('text')
-        .attr('x', function(d) {
-            if (d === 'Consonant Amount') {return 5}
-            else if (d === 'Distinct Vowel Amount') {return 5}
-            else return 45})
-        .attr('y', function(d) {
-            if (d.endsWith(')')) {return offset += 28}
-            else return offset += 25})
-        .text(function (d) {return d});
+    legendary('#explain1','text',[[5,offset+=25,'Nasal Consonants'],[45,offset+=26,'Absent'],[45,offset+=25,'Present']]);
 
-
-    // Explaining shapes and colours
+    //Legend for 2nd map, Nasal Vowels
     var offset = 15;
-    d3.select('#explain3')
-        .selectAll('circle')
-        .data(['Red','Black'])
-        .enter()
-        .append('circle')
-        .attr('r',10)
-        .style('fill',function(d) {return d})
-        .attr('cx',25)
-        .attr('cy', function(d) {;return offset += 25})
-
-    d3.select('#explain3').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {return offset+= 50}).attr('rx',150);
-
-    d3.select('#explain3').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {return offset += 27}).attr('rx',0);
-
+    legendary('#explain2','circle', [[25,offset+=25,'Red'],[25,offset+=25,'Black']]);
+    legendary('#explain2','rect',[[15, offset+=45,150,''],[15,offset+=27,0,'']]);
     var offset = -5;
-    d3.select('#explain3').selectAll('text')
-        .data(['Word order Verb-Object / Object-Verb','VO','OV',
-            'Order of Adposition and Noun Phrase','Postpositional (no prepositions)','Prepositional'])
-        .enter()
-        .append('text')
-        .attr('x', function(d) {
-            if (d === 'Word order Verb-Object / Object-Verb') {return 5}
-            else if (d === 'Order of Adposition and Noun Phrase') {return 5}
-            else return 45})
-        .attr('y', function(d) {
-            if (d.endsWith(')')) {return offset += 28}
-            else if (d.endsWith('e')) {return offset += 35}
-            else return offset += 25})
-        .text(function (d) {return d});
-
+    legendary('#explain2','text',[[5,offset+=25,'Nasal Vowels'],[45,offset+=26,'Absent'],[45,offset+=25,'Present'],
+        [5,offset+=30,'Oral Vowels'],[45,offset+=25,'Absent'],[45,offset+=25,'Present']]);
+    //Legend for 3rd map, OV or VO and Post- or Prepositions
     var offset = 15;
-    d3.select('#explain1')
-        .selectAll('circle')
-        .data(['Red','Black'])
-        .enter()
-        .append('circle')
-        .attr('r',10)
-        .style('fill',function(d) {return d})
-        .attr('cx',25)
-        .attr('cy', function(d) {return offset += 25})
-
+    legendary('#explain3','circle', [[25,offset+=25,'Red'],[25,offset+=25,'Black']]);
+    legendary('#explain3','rect',[[15, offset+=50,150,''],[15,offset+=27,0,'']]);
     var offset = -5;
-    d3.select('#explain1').selectAll('text')
-        .data(['Nasal Consonants','No','Yes'])
-        .enter()
-        .append('text')
-        .attr('x', function(d) {
-            if (d === 'Nasal Consonants') {return 5}
-            else return 45})
-        .attr('y', function(d) {return offset += 25})
-        .text(function (d) {return d});
+    legendary('#explain3','text',[[5,offset+=25,'Word order Verb-Object / Object-Verb'],[45,offset+=25,'VO'],
+        [45,offset+=25,'OV'], [5,offset+=35,'Order of Adposition and Noun Phrase'],
+        [45,offset+=25,'Postpositional (no prepositions)'],[45,offset+=25,'Prepositional']]);
 
+    //Legend for 4th map, Consonants and Vowels
     var offset = 15;
-    d3.select('#explain2')
-        .selectAll('circle')
-        .data(['Red','Black'])
-        .enter()
-        .append('circle')
-        .attr('r',10)
-        .style('fill',function(d) {return d})
-        .attr('cx',25)
-        .attr('cy', function(d) {;return offset += 25})
+    legendary('#explain4','circle', [[25,offset+=25,'Indigo'],[25,offset+=25,'Chartreuse'],[25,offset+=25,'Red'],
+        [25,offset+=25,'Yellow'],[25,offset+=25,'Black']]);
+    legendary('#explain4','rect',[[15, offset+=50,150,''],[15,offset+=30,0,''],[15,offset+=33,0,'rotate']]);
+    var offset = -4;
+    legendary('#explain4','text',[[5,offset+=25,'Consonant Amount'],[45,offset+=25,'Small'],[45,offset+= 25,'Moderately Small'],
+        [45,offset+=25,'Average'], [45,offset+=25,'Moderately Large'],[45,offset+=25,'Large'], [5,offset+=35,'Distinct Vowel Amount'],
+        [45,offset+=25,'Small (2-4)'],[45,offset+=30,'Average (5-6)'],[45,offset+=33,'Large (7-14)']]);
 
-    d3.select('#explain2').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {return offset+= 40}).attr('rx',150);
-
-    d3.select('#explain2').append('rect').attr('width',20).attr('height',20).attr('fill','none').style('stroke','black')
-        .style('stroke-width',3).attr('x',15).attr('y', function(d) {return offset += 30}).attr('rx',0);
-
-    var offset = -5;
-    d3.select('#explain2').selectAll('text')
-        .data(['Nasal Vowels','No','Yes', 'Oral Vowels', 'Yes', 'No'])
-        .enter()
-        .append('text')
-        .attr('x', function(d) {
-            if (d === 'Nasal Vowels') {return 5}
-            else if (d === 'Oral Vowels') {return 5}
-            else return 45})
-        .attr('y', function(d) {
-            if (d.endsWith(')')) {return offset += 28}
-            else return offset += 25})
-        .text(function (d) {return d});
-
-
-    //Family map legend, static section
+    //Legend for 5th map, Language Families
     var offset = 15;
-    d3.select('#explain5')
-        .selectAll('circle')
-        .data(['Black','Green'])
-        .enter()
-        .append('circle')
-        .attr('r',10)
-        .style('fill',function(d) {return d})
-        .attr('cx',25)
-        .attr('cy', function(d) {;return offset += 25})
+    legendary('#explain5','circle', [[25,offset+=25,'Black'],[25,offset+=25,'Green']]);
 
+    // The interactivity of this legend prevents the use of the 'legendary' function
     var offset = -5;
     d3.select('#explain5').selectAll('text')
         .data(['Same language familiy','No','Yes','Family name:', 'Select a language on map', '#Members of family:',''])
@@ -203,91 +122,8 @@ function init() {
             if (d.endsWith('p')) {return 'italic'}
             else return 'normal'});
 
-    /*
-    d3.csv("data/world-atlas-of-language-structures/language.csv", function(d) {
-        d.latitude = parseFloat(d.latitude);
-        d.longitude = parseFloat(d.longitude);
-        return d;
-    }, function(data) {
-        var group = d3.nest()
-            .key(function(d){
-                return d.family
-            })
-            .sortKeys(d3.ascending)
-            .map(data);
-        function draw_circles(filterdata){
-            var circle = svg1.selectAll("circle")
-            //each row remembers the data and the id
-                .data(filterdata,function(d){
-                    return d.iso_code;
-                });
-            circle.enter()
-                .append("circle")
-                .attr("cx", function (d) {
-                    return projection([d.longitude, d.latitude])[0];
-                })
-                .attr("cy", function(d) {
-                    return projection([d.longitude, d.latitude])[1];
-                })
-                .attr("r",1.5)
-                .style('fill','none')
-                .attr('stroke','black')
-                .on("mouseover", function(d){
-                    d3.select(".viz1")
-                        .select(".tooltip")
-                        .style('visibility', 'visible')
-                        .text("Language: "+d.Name);
-                    var y = d3.select(".viz1")
-                        .select(".tooltip")
-                        .node()
-                        .getBoundingClientRect()
-                        .height;
-                    var x = d3.select(".viz1")
-                        .select(".tooltip")
-                        //get a DOM object from the d3 element
-                        .node()
-                        .getBoundingClientRect()
-                        .width;
-                    d3.select(".viz1")
-                        .select(".tooltip")
-                        .style('left', projection([d.longitude, d.latitude])[0] -x/2+ 'px')
-                        .style('top', projection([d.longitude, d.latitude])[1]-y -8 + 'px')
-                })
-                .on("mouseout", function(){
-                    d3.select(".tooltip")
-                        .style('visibility', 'hidden');
-                });
-            circle
-                .exit()
-                .remove()
-        }
-        var circles = draw_circles(data);
-        //console.log(projection([data[0].longitude, data[0].latitude]))
-        //console.log(data[0])
-        var language_selection = d3.select("#family")
-            .selectAll("option")
-            //turn the map into an array
-            .data(['All'].concat(group.keys().sort()))
-            .enter()
-            .append("option")
-            .text(function (d) {
-                return d;
-            });
-        var selected_element = d3.select("#family")
-            .on("change", function(){
-                var family = selected_element.property("value");
-                if (family === 'All') {
-                    draw_circles(data);
-                }
-                else draw_circles(group.get(family));
-            })
-    });
-    */
-
-
-    // Making the second map of typology:
-
-    var svg2 = d3.select("#worldMap2")
+    // Making the maps
+    var svg2 = d3.select("#worldMap")
         .attr("width", width)
         .attr("height", height)
         .call(d3.zoom()
@@ -298,7 +134,7 @@ function init() {
                 console.log(d3.event.transform);
 
                 // Change size of shapes:
-                d3.select("#worldMap2").selectAll("rect")
+                d3.select("#worldMap").selectAll("rect")
                     .attr("width", function() {
                         // the value that it is before zoom. Not actually needed :D
                         //var orig_val = d3.select(this).attr("width");
@@ -309,9 +145,7 @@ function init() {
                     .attr("height", function() {
 
                         return 1.5 / ( d3.event.transform.k * 0.3);
-
                     });
-
             })
         )
         .append("g");
@@ -325,12 +159,7 @@ function init() {
             .enter()
             .append("path")
             .attr("d", path)
-
     });
-
-
-
-
 
 
     function draw_typo_circles() {
@@ -413,11 +242,9 @@ function init() {
                                     d['18A Absence of Common Consonants'] === '5 No bilabials or nasals') {return d}}
                         }
                     }
-
                     else {
                         return d;
                     }
-
                 }));
 
 
@@ -489,8 +316,7 @@ function init() {
                             // make "average vowel voc" squares..
                             return 0;
                         }
-                        else return 0; //trying to rotate this instead // makes large voc square (to be diamond)
-
+                        else return 0;// makes large voc square (to be diamond)
                     }
 
                     else {
@@ -522,9 +348,7 @@ function init() {
                         // Color according to presence or absence of nasal consonants.
 
                         if (d["18A Absence of Common Consonants"].includes("nasal")) {
-
                             return "red";
-
                         }
                         else {
                             return "black";
@@ -581,13 +405,11 @@ function init() {
                         else {
                             return "rotate(0)";
                         }
-
                     }
 
                     else {
                         return "rotate(0)";
                     }
-
                 })
                 .on("mouseover", function(d) {
 
@@ -639,7 +461,7 @@ function init() {
                     var clicked_fam = d["family"];
 
 
-                    //Legend to Family map, was thinking to log clicked fam and family count to the info
+                    //Legend to Family map, interactive part
                     var family_count = atlas_data.filter(function (d) {
 
                         if (d["family"] === clicked_fam) {
@@ -696,12 +518,8 @@ function init() {
                             else {
                                 return "black";
                             }
-
-
                         });
-
                 });
-
             }
 
             else {
@@ -710,15 +528,8 @@ function init() {
 
                 circles.on("click", null);
             }
-
-
-
             circles.exit().remove();
-
-
-
         });
-
     }
 
     d3.selectAll('.legend')

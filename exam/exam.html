@@ -107,6 +107,11 @@
             padding-top: 30px;
 
         }
+        #references {
+            padding-top: 30px;
+            font-size: 12px;
+            max-width: 600px;
+        }
     </style>
 </head>
 
@@ -131,22 +136,28 @@
         <p>
             The chosen dataset is the World Atlas of Language Structures <a href="https://www.kaggle.com/rtatman/world-atlas-of-language-structures">(WALS)</a>.
             This dataset contains information on the structure of 2,679 different languages and it provides information regarding the locations,
-            families, dialects and basic typological features of the languages of the world. Along with the information related to family languages, 4
-            features were considered to be analyzed in this project. A feature is a structural property of language that describes one aspect of cross-linguistic diversity.
+            families and basic typological features of the languages of the world. Along with the information related to family languages,
+            4 categories of features were considered to be analyzed in this project.
+            A feature is a structural property of language that describes one aspect of cross-linguistic diversity.
+
         </p>
     </div>
     <div class="pair">
         <h2>Map navigation</h2>
         <p>
-            The default map displays all the languages from the dataset, represented by circles. The map allows the user to click on a circle so that all the languages that belong
-            to the same family will be <span style="color:green">colored green </span>and the number of languages belonging to the same family will be displayed in the legend.
-            When hovering over a circle, a tooltip is displayed showing the name of the language accessed and its family.
-            A filter allows the user to choose on option from a list in order to visualize some important information about a specific language feature.
-            When deciding for an option, specificities of languages regarding a feature will be displayed on the map through different colors and shapes, along with a legend
-            and a text that will describe in details the feature. Subjects like the absence of nasal consonant, the spreading of nasal vowals, the order between object and verb/
-            preposition and noun in a language or the number of consonants or vowels of a language will be analyzed through the interactive map, allowing us to conclude about
-            the differences between languages by visualizing them on the map.
-            <br/>&emsp;Every version of the map can be dragged and zoomed in on, and all language points can be hovered for additional infomation.
+            The default map displays all the languages from the dataset, represented by circles. The map allows the user to click on a circle
+            making all the languages that belong to the same family <span style="color:green">colored green </span> and the number
+            of languages belonging to the same family displayed in the legend. When hovering over a circle, a tooltip is displayed
+            showing the name of the language accessed and its family.
+            <br/>&emsp;A filter allows the user to choose an option from a list in order to visualize some important information about a
+            specific language feature. When deciding for an option, specificities of languages regarding a feature will be displayed
+            on the map through different colors and shapes, along with a legend and a text that will describe in details the feature.
+            Subjects like the absence of nasal consonant, the spreading of nasal vowels, the order between object and verb/ preposition
+            and noun in a language or the number of consonants or vowels of a language will be analyzed through the interactive map,
+            allowing us to conclude about the differences between languages by visualizing them on the map.
+            <br/>&emsp;Each filter, except “Language Families” only shows a subset of the 2679 languages, as each language feature is not specified for every language.
+            <br/>&emsp;Every version of the map can be dragged and zoomed in on, and all language points can be hovered for additional information.
+
         </p>
     </div>
     <div id = map class="viz2 tooltipContainer" >
@@ -180,54 +191,69 @@
             Nasals are consonants in which there is a closure in the mouth cavity and the entire flow of air is directed through the nose.
             The oral cavity still acts as a resonance chamber for the sound.
 
-            <br/>&emsp; The sounds associated with the letters m, n in English words like man as well as the sound at the end of words like sing are nasals.
-            A total of 13 languages in the sample are listed as having no nasals in their consonant inventories. The majority of these languages, however, do make use of nasality,
-            but it patterns in such a way that simple nasal consonants do not need to be considered contrastive segments.he case of Eyak has been mentioned above. Although both [m] and [n] sounds
-            are heard in this language, [m] is a variant of /w/ before a nasalized vowel and [n] is the variant of /l/ in the same position. although there are a number of languages which can be
-            analyzed as having no nasal consonants, extremely few of the world’s languages fail to make use of nasality either as a part of their consonant system or as part of
-            their vowel system. The ability to direct the flow of air through the nose is used in one way or another in virtually all human languages. [http://wals.info/chapter/18]
+            <br/>&emsp;The sounds associated with the letters <span style="font-style: italic">m, n</span> in English words like <span style="font-style: italic">man</span> as well as the sound at the end of
+            words like <span style="font-style: italic"><span style="font-style: italic"></span></span> are nasals. Nasal consonants are what is called a <span style="font-style: italic">linguistic tendency</span>. As such, it is a feature that
+            almost all languages have. A total of 13 languages in the sample are listed as having no nasals in their consonant inventories.
+            The majority of these languages, however, do make use of nasality, but in such a way that simple nasal consonants do not need to
+            be considered contrastive segments, e.g  speakers of the Eyak language use both the  [m] and [n] sounds, but [m] is a variant of /w/ before
+            a nasalized vowel and [n] is the variant of /l/ in the same position.
 
-            <br/>&emsp; The map shows the languages without nasal consonants colored in red. Almost all languages have nasal consonants. There are few languages that do not contain
-            nasal consonats: in central South America, Niger and Canada.
+            <br/>&emsp;Although there are a number of languages which can be analyzed as having no nasal consonants, extremely few of the world’s
+            languages fail to make use of nasality either as a part of their consonant system or as part of their vowel system, even though
+            this might not be in any contrastive sense. The ability to direct the flow of air through the nose is used in one way or another
+            in virtually all human languages <a href="http://wals.info/chapter/18">(WALS, Chapter 18)</a>.
+
+            <br/>&emsp;The map shows the languages without nasal consonants colored in <span style="color:red">red</span>. Almost all languages have nasal consonants.
+            There are few languages that do not contain nasal consonants: in central South America, Niger and Canada.
 
         </p>
         <p id="text2" class="text">
-            A nasal vowel is a vowel that is produced with a lowering of the velum so that air escapes both
-            through the nose as well as the mouth, such as the French vowels. By contrast, oral vowels are vowels without the nasalization.
-            As explained below, nasal vowels that are obligatory are of far more linguistic importance than whether or not speakers of a language tend to nasalize
-            vowels in some instances. Relatively similar languages in the same branch of a language family differ on this point quite frequently throughout the world,
-            such as in Spanish and Portuguese.[Wikipedia]
+            A nasal vowel is a vowel that is produced with a lowering of the velum so that air escapes both through the nose as well
+            as the mouth, such as some French vowels. By contrast, oral vowels are vowels without the nasalization. All languages that have
+            nasal vowels also have oral vowels, but not all languages that have oral vowels have nasal vowels.
+            This is an instance of a <span style="font-style: italic">uni-directional linguistic universal</span>, as it is universal for all languages, but the rule only applies one way.
 
-            <br/>&emsp;The existence of contrastive nasal vowels is well known in some languages, e.g. French pain ‘bread’ vs. paix ‘peace’.
-            About a quarter of the languages in the data have a nasal–oral vowel contrast. The number of contrastive nasal vowels in a language is often less than that
-            of oral vowels.
+            <br/>&emsp;As explained below, nasal vowels that are obligatory are of far more linguistic importance than whether or not
+            speakers of a language tend to nasalize vowels in some instances. Relatively similar languages in the same branch of a
+            language family differ on this point quite frequently throughout the world, such as in Spanish and Portuguese.
 
-            <br/>&emsp;The map shows the nasal vowels colored in red and the oral vowels represented by circles. There is no language on the map that does not have oral vowels.
-            Nasal vowels are concentrated in the following areas: the equatorial regions of South America and Africa, the northern part of the South Asian
-            subcontinent, and throughout large parts of North America. They are, with few exceptions, otherwise absent from most of Eurasia, the northern and southern
-            extremes of the Americas and Africa, as well as Australia.
+            <br/>&emsp;The existence of contrastive nasal vowels is well known in some languages, e.g. French <span style="font-style: italic">pain</span> ‘bread’ vs. <span style="font-style: italic">paix</span> ‘peace’.
+            About a quarter of the languages in the data have a nasal–oral vowel contrast. The number of contrastive nasal vowels in a
+            language is often less than that of oral vowels.
+
+            <br/>&emsp;The map shows the nasal vowels colored in <span style="color:red">red</span> and the oral vowels represented by circles &#3664;.
+            There is no language on the map that does not have oral vowels. Nasal vowels are concentrated in
+            the following areas: the equatorial regions of South America and Africa, the northern part of the South Asian subcontinent,
+            and throughout large parts of North America. They are, with few exceptions, otherwise absent from most of Eurasia, the northern
+            and southern extremes of the Americas and Africa, as well as Australia.
+
 
 
         </p>
         <p id="text3" class="text">
-            In linguistics, word order typology is the study of the order of the syntactic constituents of a language,
-            and how different languages can use different orders. The feature consisting in Word order OV/VO is explained as following: OV means that an object precedes the verb
-            (e.g. Turkish) while VO means that the verbs precedes the object (e.g. Gulf Arabic).
+            In linguistics, word order typology is the study of the order of the syntactic constituents of a language, and how different
+            languages can use different orders. The feature consisting in Word order OV/VO is explained as following: OV means
+            that an object precedes the verb (e.g. Turkish) while VO means that the verbs precedes the object (e.g. Gulf Arabic).
+            This is only the case in declarative sentences (like the English John loves Mary, compared to an interrogative sentence like Does John love Mary?).
 
-            <br/>&emsp;This feature has been analyzed together with the Order of Adposition and Noun Phrase.
-            There are two types of adpositions: prepositions precede the noun phrase they occur with, as in English, while postpositions follow the noun phrase they occur with,
-            as in the Lezgian (Russia).
-            Adposition type correlates strongly with the order of object and verb. A tendency is that a laguage is an OV-language, then also have postpositionals
-            (and not prepositions).
+            <br/>&emsp;This feature has been analyzed together with the Order of Adposition and Noun Phrase. There are two types of adpositions:
+            prepositions precede the noun phrase they occur with, as in English, while postpositions follow the noun phrase they occur with,
+            as in the Lezgian (Russia). Adposition type correlates strongly with the order of object and verb. A tendency is that if a language is an
+            OV-language, then it also has postpositionals (and not prepositions). This is a linguistic bi-directional tendency.
+            The tendency that an OV-language has postpositionals, is also a tendency the other way around: VO-languages tend to have prepositions.
 
-            <br/>&emsp; The map shows the VO/OV languages in different colors: red and black and the postpositional/prepositional in different shapes (circle, square).
-            OV predominates over much of Asia, except in the southeast and it also predominates in New Guinea. VO order is found in Europe and North Africa.
-            Prepositions predominate in Europe, North Africa and the Middle East, central and southern Africa, Southeast Asia, the Pacific Northwest in Canada and the United
-            States. Postpositions predominate in most of Asia, except in Southeast Asia, in New Guinea, and North America.
+            <br/>&emsp;The map shows the VO/OV languages in different colors: <span style="color:red">red</span> and
+            <span style="font-weight: bold">black</span> and the postpositional/prepositional in
+            different shapes (circle &#3664;, square &#9633;).
+            <br/>&emsp;OV predominates over much of Asia, except in the southeast and it also predominates
+            in New Guinea. VO order is found in Europe and North Africa. Prepositions predominate in Europe, North Africa and the
+            Middle East, central and southern Africa, Southeast Asia, the Pacific Northwest in Canada and the United States.
+            Postpositions predominate in most of Asia, except in Southeast Asia, in New Guinea, and North America.
+
 
         </p>
         <p id="text4" class="text">
-            Languages have different amount of vowels and consonants in their alphabet. The size of the set of consonants used in the language, usually is called the consonant inventory.
+            Languages have different amount of vowels and consonants in their alphabet. The size of the set of consonants used in the language, is called the consonant inventory.
             This is part of the phonology of the language, along with the vowel inventory. The range of resulting inventories extends from a low of 6 consonants to a high of 122.
             Consonant inventories close to size 22 ± 3 have been categorized as average. The other inventories are divided into the categories like small (from 6 to 14 consonants),
             moderately small (15-18), moderately large (26-33), and large (34 or more consonants). Languages with average size consonant inventories are found in most areas of the world,
@@ -239,33 +265,47 @@
             The average number of vowels in a language is just fractionally below 6. The smallest vowel quality inventory recorded is 2 and the largest 14.
 
             <br/>&emsp;Absences of three classes of consonant sounds - bilabials, fricatives, and nasals and nasal vowels are displayed on the map. Bilabials are the class of sounds made by
-            bringing the two lips towards each other, especially as in the sounds commonly represented by the letters p, b, m (for example in the English words pub and mob ).
+            bringing the two lips towards each other, especially as in the sounds commonly represented by the letters <span style="font-style: italic">p, b, m</span> (for example in
+            the English words <span style="font-style: italic">pub</span> and <span style="font-style: italic">mob</span> ).
             There just 5 languages in the dataset lacking bilabial consonants. All of these languages concerned are from North America.
             Fricatives are the sounds that are created when air from the lungs passes through a sufficiently narrow constriction on its way out of the mouth to set the air
-            into a noisy turbulent flow pattern. The sounds at the beginning of the English words fan, thin, that, sign, zone are fricatives [wals.info/chapter/18]. The languages without
+            into a noisy turbulent flow pattern. The sounds at the beginning of the English words <span style="font-style: italic">fan, thin, that, sign, zone</span> are
+            fricatives <a href="http://wals.info/chapter/18">(WALS, Chapter 18)</a>. The languages without
             fricatives are spread in Australia, New Guinea and South America.
             Nasal consonants and nasal vowels have been described earlier in the project. There are 13 languages in the dataset that don't have nasals in their consonant inventories. They are
             common in South America and Africa. Languages without nasal vowels are much more spread all over the map.
 
             <br/>&emsp;The map displays each category of consonant inventory size in a language with a color and each category of vowel inventory size with a shape.
             Languages with small inventories are frequent in the Americas. The indigenous languages of the Americas quite often have four vowels in a set
-            similar to that of Spanish except for missing an /u/-like vowel. Small vowel inventories are also spread in Australia while the larger ones dominate Africa and Southest Asia.
+            similar to that of Spanish except for missing an /u/-like vowel. Small vowel inventories are also spread in Australia while the larger ones dominate Africa and Southeast Asia.
 
         </p>
         <p id="text5" class="text">
-            Language families are groups of languages that are related to each other because they come from a common ancestral language. The languages in a family
-            are similar in their vocabulary or structure. For example, Spanish, Italian and Breton all come from the same family: Indo-European.
-            Language families can be subdivided into smaller units called branches. For instance, the Indo-European family has several branches, among them, Germanic, Romance, and Slavic,
-            but these are not the subject of our analysis.
-            Most languages belong to a language family, but some languages do not. These languages are called language isolates.
-
-            <br/>&emsp;Clicking on a language from the map will display in green circles all the members and their number belonging to the family to which the chosen language belongs.
-            Niger-Congo is the family that contains 327 languages represented on the map, while Tacanan (Brasil) has only 4 languages contained in the family.
+            Language families are groups of languages that are related to each other because they come from a common ancestral language.
+            The languages in a family are similar in their vocabulary or structure. For example, Spanish, Italian and Breton all come from
+            the same family: Indo-European. Language families can be subdivided into smaller units called branches. For instance, the
+            Indo-European family has several branches, among them, Germanic, Romance, and Slavic, but these are not the subject of our
+            analysis. Most languages belong to a language family, but some languages do not. These languages are called language isolates.
+            <br/>&emsp;Clicking on a language from the map will display in <span style="color:green">green</span> circles &#3664; all the members and their number belonging to the family
+            to which the chosen language belongs. Niger-Congo is the largest family with 327 languages represented on the map, while
+            Tacanan (Brasil) has only 4 languages contained in the family.
         </p>
     </div>
 </div>
 <div id="signature">
     Mihaela-Beatrice Neagu, Søren Søbæk Petersen &amp; Veronica Bojsen-Møller
+</div>
+<div id="references">
+    <br>
+    <span style="font-weight: bold">References:</span>
+    <br>
+    <span style="font-style: italic">
+        WALS: Dryer, Matthew S. & Haspelmath, Martin (eds.) 2013. (WALS) The World Atlas of Language Structures Online.
+        Leipzig: Max Planck Institute for Evolutionary Anthropology.
+        (Available online at http://wals.info, Accessed on September 7, 2017.)
+        (The formatted dataset has been downloaded from Kaggle:
+        (Available online at "https://www.kaggle.com/rtatman/world-atlas-of-language-structures", Accessed on January 19, 2018.))
+    </span>
 </div>
 </body>
 </html>

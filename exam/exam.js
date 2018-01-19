@@ -50,7 +50,7 @@ function init() {
                 .attr('rx', function(d) {return d[2]})
                 .attr('transform', function(d) {
                     if (d[3] === 'rotate') {
-                       return "rotate(45, " + (d[0]+10) + "," + (d[1]+10) +")"}});}
+                        return "rotate(45, " + (d[0]+10) + "," + (d[1]+10) +")"}});}
 
         //expects [x,y,text] for each element of data list
         else if (type === 'text') {
@@ -62,7 +62,7 @@ function init() {
                 .attr('x',  function(d) {return d[0]})
                 .attr('y',  function(d) {return d[1]})
                 .text(function (d) {return d[2]});}
-        }
+    }
 
     //Legend for 1st map, Nasal Consonants
     var offset = 15;
@@ -126,8 +126,6 @@ function init() {
         // Change size of shapes:
         d3.select("#worldMap").selectAll("rect")
             .attr("width", function() {
-                // the value that it is before zoom. Not actually needed :D
-                //var orig_val = d3.select(this).attr("width");
                 // 1.5 is the first width and height.
 
                 if (current_zoom_mult !== 1) {
@@ -247,8 +245,8 @@ function init() {
 
                             else if (feature === 'No Nasal Vowels') {
                                 if (d["10A Vowel Nasalization"] === '2 Contrast absent')  {return d}}
-                            }
                         }
+                    }
                     else {
                         return d;
                     }
@@ -288,7 +286,7 @@ function init() {
                             // make "average vowel voc" squares..
                             return 0;
                         }
-                        else return 0; //trying to rotate this instead // makes large voc square (to be diamond)
+                        else return 0; // makes large voc square (to be diamond)
                     }
                     else {
                         return 1.5;
@@ -368,7 +366,6 @@ function init() {
                         else {
                             return "black";
                         }
-
                     }
 
                     else if (filter_type === "word_order_post_pre_pos") {
@@ -389,8 +386,6 @@ function init() {
                         return "black";
 
                     }
-
-
                 })
                 .attr("transform", function(d) {
 
@@ -435,7 +430,6 @@ function init() {
                         .style('visibility', 'hidden');
                 });
 
-
             if (filter_type === "nothing") {
 
                 circles.on("click", function(d) {
@@ -460,7 +454,6 @@ function init() {
                         .attr('x',60)
                         .style('font-size',25)
                         .text(family_count.length);
-
 
                     //Changing colour of selected family
                     d3.selectAll("rect")
@@ -487,8 +480,6 @@ function init() {
                             else {
                                 return 0;
                             }
-
-
                         })
                         .style("fill", function(this_d) {
                             // The class of a circle/square is the language's family name.
@@ -521,7 +512,7 @@ function init() {
         .style('display', 'none');
     d3.select('#text5')
         .style('display', 'block');
-    
+
     var current_zoom_mult = 1;
 
     // Initialize map:

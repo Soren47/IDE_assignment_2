@@ -411,9 +411,6 @@ function init() {
                 })
                 .on("mouseover", function(d) {
 
-                    new_x = d3.event.clientX;
-                    new_y = d3.event.clientY;
-
                     d3.select(".viz2")
                         .select(".tooltip")
                         .style('visibility', 'visible')

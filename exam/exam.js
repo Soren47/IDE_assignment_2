@@ -75,8 +75,8 @@ function init() {
     legendary('#explain2','circle', [[25,offset+=25,'Red'],[25,offset+=25,'Black']]);
     legendary('#explain2','rect',[[15, offset+=45,150,''],[15,offset+=27,0,'']]);
     var offset = -5;
-    legendary('#explain2','text',[[5,offset+=25,'Nasal Vowels'],[45,offset+=26,'Absent'],[45,offset+=25,'Present'],
-        [5,offset+=30,'Oral Vowels'],[45,offset+=25,'Absent'],[45,offset+=25,'Present']]);
+    legendary('#explain2','text',[[5,offset+=25,'Nasal Vowels'],[45,offset+=26,'Present'],[45,offset+=25,'Absent'],
+        [5,offset+=30,'Oral Vowels'],[45,offset+=25,'Present'],[45,offset+=25,'Absent']]);
     //Legend for 3rd map, OV or VO and Post- or Prepositions
     var offset = 15;
     legendary('#explain3','circle', [[25,offset+=25,'Red'],[25,offset+=25,'Black']]);
@@ -131,7 +131,6 @@ function init() {
             .translateExtent([[-125, -160], [width + 22, height + 252]]) //limits of panning to fit edges of map
             .on("zoom", function () {
                 svg2.attr("transform", d3.event.transform);
-                console.log(d3.event.transform);
 
                 // Change size of shapes:
                 d3.select("#worldMap").selectAll("rect")
@@ -161,15 +160,9 @@ function init() {
             .attr("d", path)
     });
 
-
     function draw_typo_circles() {
 
         d3.csv("data/world-atlas-of-language-structures/language.csv", function (atlas_data) {
-
-            console.log("Start: Filter type:");
-            console.log(filter_type);
-
-
 
             circles = svg2.selectAll("rect")
                 .data(atlas_data.filter(function (d) {
@@ -183,9 +176,7 @@ function init() {
                             // Only return the data point if it is a part of the study
                             // into the absense of consonants.
                             return d;
-
                         }
-
                     }
 
                     else if (filter_type === "n_vowels") {
@@ -196,9 +187,7 @@ function init() {
                         if (d["10A Vowel Nasalization"] !== "") {
 
                             return d;
-
                         }
-
                     }
 
                     else if (filter_type === "word_order_post_pre_pos") {
@@ -240,13 +229,15 @@ function init() {
                             else if (feature === 'No Bilabials') {
                                 if (d['18A Absence of Common Consonants'] === '2 No bilabials' |
                                     d['18A Absence of Common Consonants'] === '5 No bilabials or nasals') {return d}}
+
+                            else if (feature === 'No Nasal Vowels') {
+                                if (d["10A Vowel Nasalization"] === '2 Contrast absent')  {return d}}
+                            }
                         }
-                    }
                     else {
                         return d;
                     }
                 }));
-
 
             circles.enter()
                 .append("rect")
@@ -283,9 +274,7 @@ function init() {
                             return 0;
                         }
                         else return 0; //trying to rotate this instead // makes large voc square (to be diamond)
-
                     }
-
                     else {
                         return 1.5;
                     }
@@ -318,7 +307,6 @@ function init() {
                         }
                         else return 0;// makes large voc square (to be diamond)
                     }
-
                     else {
                         return 1.5;
                     }
@@ -413,12 +401,8 @@ function init() {
                 })
                 .on("mouseover", function(d) {
 
-                    console.log( d3.event.clientX, d3.event.clientY );
-
                     new_x = d3.event.clientX;
                     new_y = d3.event.clientY;
-
-
 
                     d3.select(".viz2")
                         .select(".tooltip")
@@ -454,9 +438,6 @@ function init() {
             if (filter_type === "nothing") {
 
                 circles.on("click", function(d) {
-
-                    console.log("THIS          IS        RUN       APPARENTLY");
-                    console.log(filter_type);
 
                     var clicked_fam = d["family"];
 
@@ -523,9 +504,6 @@ function init() {
             }
 
             else {
-                console.log("THIS IS RUN IF FILTER TYPE IS NOT NOTHING");
-                console.log(filter_type);
-
                 circles.on("click", null);
             }
             circles.exit().remove();

@@ -426,7 +426,7 @@ function init() {
                     d3.select(".viz2")
                         .select(".tooltip")
                         .style('left', ( d3.event.pageX - 350) + 'px')
-                        .style('top', ( d3.event.pageY - 630) + 'px')
+                        .style('top', ( d3.event.pageY - 675) + 'px')
 
                 })
                 .on("mouseout", function(){

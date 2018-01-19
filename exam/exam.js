@@ -521,6 +521,8 @@ function init() {
         .style('display', 'none');
     d3.select('#text5')
         .style('display', 'block');
+    
+    var current_zoom_mult = 1;
 
     // Initialize map:
     filter_type = "nothing";

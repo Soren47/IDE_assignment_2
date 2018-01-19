@@ -517,7 +517,7 @@ function init() {
     d3.selectAll('.text')
         .style('display', 'none');
     d3.select('#text5')
-        .style('display', 'unset');
+        .style('display', 'block');
 
     // Initialize map:
     filter_type = "nothing";
@@ -548,7 +548,7 @@ function init() {
                 d3.select('#explain1')
                     .style('display', 'unset');
                 d3.select('#text1')
-                    .style('display', 'unset');}}
+                    .style('display', 'block');}}
 
                 break;
 
@@ -557,7 +557,7 @@ function init() {
                 d3.select('#explain2')
                     .style('display', 'unset');
                 d3.select('#text2')
-                    .style('display', 'unset');}}
+                    .style('display', 'block');}}
 
                 break;
 
@@ -566,7 +566,7 @@ function init() {
                 d3.select('#explain3')
                     .style('display', 'unset');
                 d3.select('#text3')
-                    .style('display', 'unset');}}
+                    .style('display', 'block');}}
 
                 break;
 
@@ -579,7 +579,7 @@ function init() {
                 d3.selectAll('.text')
                     .style('display', 'none');
                 d3.select('#text4')
-                    .style('display', 'unset');
+                    .style('display', 'block');
                 d3.select("#feats")
                     .style('visibility', 'visible')}}
 
@@ -590,7 +590,7 @@ function init() {
                 d3.select('#explain5')
                     .style('display', 'unset');
                 d3.select('#text5')
-                    .style('display', 'unset');
+                    .style('display', 'block');
                 draw_typo_circles();}}
         }
     }
